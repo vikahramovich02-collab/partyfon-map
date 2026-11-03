@@ -124,10 +124,10 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
 .links{font-size:10.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 .pain{font-size:10px;font-weight:600;color:var(--pain);background:var(--pain-bg);padding:1px 6px;border-radius:4px;white-space:nowrap}
 .k-said{}
-.k-site{--hd:color-mix(in srgb,var(--h) 62%,var(--surface))}
-.k-wish{--hd:color-mix(in srgb,var(--h) 16%,var(--surface));--hdfg:color-mix(in srgb,var(--h) 78%,var(--fg))}
-.k-hyp{--hd:var(--surface);--hdfg:color-mix(in srgb,var(--h) 80%,var(--fg));border-style:dashed}
-.k-hyp .hd{border-bottom:1.5px dashed color-mix(in srgb,var(--h) 45%,var(--border))}
+.card.k-site{--hd:color-mix(in srgb,var(--h) 62%,var(--surface))}
+.card.k-wish{--hd:color-mix(in srgb,var(--h) 16%,var(--surface));--hdfg:color-mix(in srgb,var(--h) 78%,var(--fg))}
+.card.k-hyp{--hd:var(--surface);--hdfg:color-mix(in srgb,var(--h) 80%,var(--fg));border-style:dashed}
+.card.k-hyp .hd{border-bottom:1.5px dashed color-mix(in srgb,var(--h) 45%,var(--border))}
 .fork .hd .tg::before{content:"";display:inline-block;width:7px;height:7px;transform:rotate(45deg);border:1.5px solid currentColor;margin-right:7px;vertical-align:1px}
 .fork .tt{font-size:14.5px}
 .dim .card:not(.hl){opacity:.22}
@@ -146,8 +146,8 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
 .drawer{position:absolute;top:12px;right:12px;bottom:12px;width:min(380px,calc(100% - 24px));z-index:10;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--pop);display:flex;flex-direction:column;overflow:hidden}
 .drawer .dh{padding:14px 16px 12px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:8px;border-top:4px solid var(--h)}
 .drawer .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.drawer .dept{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.drawer .dept i{width:10px;height:10px;border-radius:3px;background:var(--h)}
+.drawer .ddept{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.drawer .ddept i{width:10px;height:10px;border-radius:3px;background:var(--h)}
 .drawer .x{border:0;background:var(--sunk);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:16px;line-height:1}
 .drawer h2{margin:0;font-size:19px;font-weight:600;line-height:1.25;text-wrap:balance}
 .drawer .stp{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
@@ -225,6 +225,55 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
 .mini.min{width:auto}
 .mini.min .mini-h{margin:0;gap:10px}
 @media (max-width:900px){.mini{display:none}}
+
+.fullboard{flex:1;overflow:auto;padding:20px 20px 40px;background:#FAFBFC;min-height:520px;display:flex;flex-direction:column;gap:28px;transition:padding .2s}
+.board.drawer-open .fullboard{padding-right:410px}
+.dir{display:flex;flex-direction:column;gap:12px}
+.dir-h{margin:0;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:baseline}
+.dir-h span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--faint)}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px;align-items:start}
+.dept{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;border-top:4px solid var(--h);transition:opacity .15s}
+.fullboard.dim .dept:not(.hl){opacity:.45}
+.dept-h{padding:14px 16px 12px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--border)}
+.dept-t{display:flex;align-items:center;gap:8px}
+.dept-t i{width:12px;height:12px;border-radius:3px;background:var(--h);flex:none}
+.dept-t h3{margin:0;font-size:16px;font-weight:600;flex:1;line-height:1.25}
+.dept-t .ct{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.dept-o{font-size:12.5px;color:var(--muted)}
+.sbar{display:flex;gap:2px;height:6px;border-radius:3px;overflow:hidden;margin-top:4px}
+.seg{background:var(--h)}
+.seg.k-site{background:color-mix(in srgb,var(--h) 62%,#fff)}
+.seg.k-wish{background:color-mix(in srgb,var(--h) 25%,#fff)}
+.seg.k-hyp{background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--h) 45%,#fff) 0 4px,#fff 4px 6px)}
+.sleg{font-size:11.5px;color:var(--faint)}
+.chain{list-style:none;margin:0;padding:8px 8px 10px}
+.chain li{position:relative}
+.chain li.cont::before{content:"";position:absolute;left:23px;top:30px;bottom:-8px;width:2px;background:color-mix(in srgb,var(--h) 30%,#fff)}
+.srow{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:start;padding:8px 8px;border-radius:10px;cursor:pointer;position:relative;transition:background .12s,opacity .15s}
+.srow:hover{background:color-mix(in srgb,var(--h) 7%,#fff)}
+.srow:focus-visible{outline:2px solid var(--focus)}
+.sn{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;background:var(--h);color:#fff;position:relative;z-index:1;border:1.5px solid var(--h)}
+.srow.k-site .sn{background:color-mix(in srgb,var(--h) 62%,#fff)}
+.srow.k-wish .sn{background:color-mix(in srgb,var(--h) 16%,#fff);color:color-mix(in srgb,var(--h) 80%,#000)}
+.srow.k-hyp .sn{background:#fff;color:color-mix(in srgb,var(--h) 80%,#000);border-style:dashed}
+.srow.fork .sn{border-radius:6px;transform:rotate(45deg) scale(.86)}
+.srow.fork .sn{font-size:0}
+.srow.fork .sn::after{content:"?";font-size:13px;transform:rotate(-45deg)}
+.sb{display:flex;flex-direction:column;gap:2px;min-width:0;padding-top:2px}
+.stt{font-size:14px;font-weight:600;line-height:1.3}
+.sdt{font-size:12.5px;color:var(--muted);line-height:1.4}
+.slinks{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.lk{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);background:#fff;border-radius:6px;padding:2px 7px;font-size:11.5px;color:var(--fg);cursor:pointer;max-width:100%;text-align:left}
+.lk::before{content:"→";color:var(--faint)}
+.lk i{width:7px;height:7px;border-radius:2px;background:var(--h);flex:none}
+.lk:hover{border-color:var(--h);background:color-mix(in srgb,var(--h) 8%,#fff)}
+.inc{font-size:11.5px;color:var(--faint);padding:2px 2px}
+.stag{font-size:11px;color:color-mix(in srgb,var(--h) 80%,#000);background:color-mix(in srgb,var(--h) 11%,#fff);border-radius:5px;padding:2px 7px;white-space:nowrap;margin-top:3px}
+.via{font-size:11.5px;color:var(--muted);padding:0 0 2px 48px;font-style:normal}
+.fullboard.dim .srow:not(.hl){opacity:.32}
+.srow.sel{background:color-mix(in srgb,var(--h) 12%,#fff);box-shadow:inset 0 0 0 1.5px var(--h)}
+.srow.flash{animation:flash 1.2s ease-out}
+@media (max-width:900px){.board.drawer-open .fullboard{padding-right:20px}.fullboard{padding:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media (max-width:900px){
   .main{grid-template-columns:1fr}
@@ -259,7 +308,7 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
   <div class="bar">
     <div class="tabs" role="tablist" aria-label="Вид">
       <button type="button" role="tab" id="tab-path" aria-selected="true">Путь клиента<span class="n">30</span></button>
-      <button type="button" role="tab" id="tab-full" aria-selected="false">Весь бизнес<span class="n">122</span></button>
+      <button type="button" role="tab" id="tab-full" aria-selected="false">Все отделы<span class="n">122</span></button>
     </div>
     <button type="button" class="search-trigger" id="openAll" aria-haspopup="dialog">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -274,10 +323,10 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
       <div class="viewport" id="vp">
         <div class="stage" id="stage">
           <div class="canvas" id="cv-path"></div>
-          <div class="canvas" id="cv-full" hidden></div>
         </div>
       </div>
-      <div class="zoom">
+      <div class="fullboard" id="fullb" hidden></div>
+      <div class="zoom" id="zoomBox">
         <button type="button" id="zout" aria-label="Уменьшить">−</button>
         <button type="button" class="zv" id="zval" tabindex="-1">100%</button>
         <button type="button" id="zin" aria-label="Увеличить">+</button>
@@ -478,74 +527,43 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
       center:id => { const n=by[id]; return [X(n.c)+W/2, Y(n.r)+H/2]; }};
   })();
 
-  // ================= VIEW 2: full business map =================
+  // ================= VIEW 2: department board =================
   const F = (() => {
-    const W=226, H=120, SX=296, LW=236, RH=208, TOP=40, PADX=LW+24;
-    const lanes = D.lanes;
-    const maxN = Math.max(...lanes.map(l => D.nodes.filter(n => n.lane===l.id).length));
-    const CW = PADX + maxN*SX + 40, CH = TOP + lanes.length*RH + 20;
-    const pos = id => { const n=NODE[id]; return [PADX + n.order*SX, TOP + LANE[n.lane].i*RH + (RH-H)/2]; };
-    const cv = document.getElementById('cv-full');
-    cv.style.width=CW+'px'; cv.style.height=CH+'px'; cv.style.setProperty('--cw',W+'px'); cv.style.setProperty('--ch',H+'px');
-    const laneEls = {};
-    const laneWrap = document.createElement('div'); cv.appendChild(laneWrap);
-    lanes.forEach((l,i) => {
-      const band = document.createElement('div'); band.className='lane';
-      band.style.top=(TOP+i*RH)+'px'; band.style.height=RH+'px'; band.style.width=CW+'px';
-      laneWrap.appendChild(band);
-      const lab = document.createElement('div'); lab.className='lane-l'; lab.style.setProperty('--h',hue(l.id));
-      lab.style.top = (TOP+i*RH+(RH-H)/2+8)+'px';
-      const cnt = D.nodes.filter(n=>n.lane===l.id).length;
-      lab.innerHTML = `<div class="nm"><i></i>${esc(l.label)}</div><div class="ow">${esc(l.owner)} · ${cnt}</div>`;
-      cv.appendChild(lab); laneEls[l.id] = lab;
-    });
-    const svg = mkSvg(cv, CW, CH);
-    const cards = {}, base = [];
-    D.nodes.forEach(n => {
-      const [x,y] = pos(n.id);
-      const b = document.createElement('button'); b.type='button';
-      b.className = `card k-${n.kind} ${isFork(n.title)?'fork':''}`; b.dataset.id=n.id; b.style.setProperty('--h',hue(n.lane));
-      b.style.left=x+'px'; b.style.top=y+'px';
-      const cross = (outE[n.id]||[]).concat(inE[n.id]||[]).filter(e => !(NODE[e.f].lane===NODE[e.t].lane && NODE[e.t].order===NODE[e.f].order+1)).length;
-      b.setAttribute('aria-label', `${n.title}. ${LANE[n.lane].label}. ${STATUS[n.kind].n}`);
-      b.innerHTML = cardHTML({tag:(isFork(n.title)?'Развилка · ':'Шаг ')+n.id.toUpperCase(), title:n.title, text:n.detail, kind:n.kind, links: cross?`↔ ${cross}`:''});
-      cv.appendChild(b); cards[n.id]=b;
-    });
+    const el = document.getElementById('fullb');
+    const cards = {}, laneEls = {};
+    const KORDER = ['said','site','wish','hyp'];
     const isSeq = e => NODE[e.f].lane===NODE[e.t].lane && NODE[e.t].order===NODE[e.f].order+1;
-    D.edges.filter(isSeq).forEach(e => {
-      const [x1,y1]=pos(e.f), [x2]=pos(e.t);
-      const x = addPath(svg, cv, [[x1+W,y1+H/2],[x2,y1+H/2]], {label:e.l, wrap:true}); x.e=e; x.cvid=cv.id; base.push(x);
-    });
-    const G = (RH-H)/2; // gutter half
-    function route(e){
-      const [sx,sy]=pos(e.f), [tx,ty]=pos(e.t);
-      const sl=LANE[NODE[e.f].lane].i, tl=LANE[NODE[e.t].lane].i;
-      if (sl===tl){
-        const gy = sy - G + 10;
-        return [[sx+W/2+14,sy],[sx+W/2+14,gy],[tx+W/2-14,gy],[tx+W/2-14,ty]];
-      }
-      const gapX = tx - (SX-W)/2;
-      if (tl > sl){
-        const y1 = sy+H+G, y2 = ty-G;
-        if (tl===sl+1) return [[sx+W/2,sy+H],[sx+W/2,y1],[tx+W/2,y1],[tx+W/2,ty]];
-        return [[sx+W/2,sy+H],[sx+W/2,y1],[gapX,y1],[gapX,y2],[tx+W/2,y2],[tx+W/2,ty]];
-      } else {
-        const y1 = sy-G, y2 = ty+H+G;
-        if (tl===sl-1) return [[sx+W/2,sy],[sx+W/2,y1],[tx+W/2,y1],[tx+W/2,ty+H]];
-        return [[sx+W/2,sy],[sx+W/2,y1],[gapX,y1],[gapX,y2],[tx+W/2,y2],[tx+W/2,ty+H]];
-      }
-    }
-    let extras = [];
-    function showLinks(id){
-      extras.forEach(x => { x.p.remove(); x.lab && x.lab.remove(); }); extras = [];
-      if (!id) return;
-      (outE[id]||[]).concat(inE[id]||[]).filter(e => !isSeq(e)).forEach(e => {
-        extras.push(addPath(svg, cv, route(e), {cls:'extra', label:e.l}));
-      });
-    }
-    return {cv, W:CW, H:CH, cards, base, laneEls, showLinks, isSeq,
-      center:id => { const [x,y]=pos(id); return [x+W/2, y+H/2]; },
-      laneY: lane => TOP + LANE[lane].i*RH};
+    el.innerHTML = DIRS.map(d => {
+      const nodes = D.nodes.filter(n => d.lanes.includes(n.lane));
+      return `<section class="dir"><h2 class="dir-h">${esc(d.n)}<span>${d.lanes.length===1?'1 отдел':d.lanes.length+' отдела'} · ${nodes.length} шагов</span></h2><div class="dgrid">` +
+      d.lanes.map(lid => {
+        const l = LANE[lid], ns = D.nodes.filter(n => n.lane===lid).sort((a,b)=>a.order-b.order);
+        const cnt = {}; ns.forEach(n => cnt[n.kind]=(cnt[n.kind]||0)+1);
+        const bar = KORDER.filter(k=>cnt[k]).map(k => `<span class="seg k-${k}" style="flex:${cnt[k]}" title="${STATUS[k].n}: ${cnt[k]}"></span>`).join('');
+        const leg = KORDER.filter(k=>cnt[k]).map(k => `${STATUS[k].s} ${cnt[k]}`).join(' · ');
+        const rows = ns.map(n => {
+          const outs = (outE[n.id]||[]).filter(e => !isSeq(e));
+          const links = outs.map(e => { const o = NODE[e.t], same = o.lane===n.lane;
+            return `<button type="button" class="lk" data-go="${o.id}" style="--h:${hue(o.lane)}"><i></i>${same?`к шагу ${o.order+1}`:esc(LANE[o.lane].label)}${e.l?` · ${esc(e.l)}`:''}</button>`; }).join('');
+          const inc = (inE[n.id]||[]).filter(e => !isSeq(e) && NODE[e.f].lane!==n.lane).length;
+          const seqOut = (outE[n.id]||[]).find(e => isSeq(e) && e.l);
+          return `<li class="${(outE[n.id]||[]).some(isSeq)?'cont':''}"><div class="srow k-${n.kind} ${isFork(n.title)?'fork':''}" role="button" tabindex="0" data-id="${n.id}">
+              <span class="sn">${n.order+1}</span>
+              <span class="sb"><span class="stt">${esc(n.title)}</span><span class="sdt">${esc(n.detail)}</span>
+                ${links||inc?`<span class="slinks">${links}${inc?`<span class="inc">← ${inc} ${inc===1?'входящая связь':inc<5?'входящие связи':'входящих связей'}</span>`:''}</span>`:''}</span>
+              <span class="stag">${STATUS[n.kind].s}</span>
+            </div>${seqOut?`<div class="via">↓ ${esc(seqOut.l)}</div>`:''}</li>`;
+        }).join('');
+        return `<article class="dept" id="dept-${lid}" style="--h:${hue(lid)}">
+          <header class="dept-h"><div class="dept-t"><i></i><h3>${esc(l.label)}</h3><span class="ct">${ns.length}</span></div>
+            <div class="dept-o">${esc(l.owner)}</div>
+            <div class="sbar" aria-hidden="true">${bar}</div><div class="sleg">${leg}</div></header>
+          <ol class="chain">${rows}</ol></article>`;
+      }).join('') + `</div></section>`;
+    }).join('');
+    el.querySelectorAll('.srow').forEach(r => cards[r.dataset.id] = r);
+    D.lanes.forEach(l => laneEls[l.id] = el.querySelector('#dept-'+l.id));
+    return {el, cards, laneEls, isSeq};
   })();
 
   // ================= state, selection, filters =================
@@ -559,7 +577,7 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
   function textOf(n){ return (n.title+' '+n.detail+' '+LANE[n.lane].label+' '+n.owner).toLowerCase(); }
 
   function applyHighlight(){
-    const v = V(), cv = v.cv;
+    const v = V(), cv = view==='path' ? v.cv : F.el;
     const ids = Object.keys(v.cards);
     let set = null;
     const edgesHl = new Set();
@@ -569,7 +587,6 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
         v.edges.forEach(x => { if (x.e.f===sel||x.e.t===sel){ set.add(x.e.f); set.add(x.e.t); edgesHl.add(x); } });
       } else {
         (outE[sel]||[]).concat(inE[sel]||[]).forEach(e => { set.add(e.f); set.add(e.t); });
-        v.base.forEach(x => { if (x.e.f===sel||x.e.t===sel) edgesHl.add(x); });
       }
     } else if (laneSel || statusSel || query){
       set = new Set(ids.filter(id =>
@@ -577,15 +594,11 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
         (!statusSel || kindOf(id)===statusSel) &&
         (!query || (view==='path' ? (P.by[id].t+' '+P.by[id].x+' '+textOf(nodeOf(id))).toLowerCase() : textOf(NODE[id])).includes(query))));
       if (view==='path') v.edges.forEach(x => { if (set.has(x.e.f)&&set.has(x.e.t)) edgesHl.add(x); });
-      else v.base.forEach(x => { if (set.has(x.e.f)&&set.has(x.e.t)) edgesHl.add(x); });
     }
     cv.classList.toggle('dim', !!set);
     ids.forEach(id => { v.cards[id].classList.toggle('hl', !!set && set.has(id)); v.cards[id].classList.toggle('sel', id===sel); });
-    (view==='path'?v.edges:v.base).forEach(x => setHl(x, edgesHl.has(x)));
-    if (view==='full'){
-      F.showLinks(sel);
-      Object.entries(F.laneEls).forEach(([l,el]) => el.classList.toggle('hl', !set || laneSel===l || ids.some(id => set.has(id) && NODE[id].lane===l)));
-    }
+    if (view==='path') v.edges.forEach(x => setHl(x, edgesHl.has(x)));
+    else Object.entries(F.laneEls).forEach(([l,el]) => el.classList.toggle('hl', !set || laneSel===l || ids.some(id => set.has(id) && NODE[id].lane===l)));
   }
 
   function openDrawer(cardId){
@@ -599,7 +612,7 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     const webs = (n.web||[]).map(w => D.sources[w]).filter(Boolean).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join('<br>');
     drawer.innerHTML = `
       <div class="dh">
-        <div class="row"><span class="dept"><i></i>${esc(LANE[n.lane].label)} · ${esc(n.owner)}</span><button type="button" class="x" id="dx" aria-label="Закрыть">×</button></div>
+        <div class="row"><span class="ddept"><i></i>${esc(LANE[n.lane].label)} · ${esc(n.owner)}</span><button type="button" class="x" id="dx" aria-label="Закрыть">×</button></div>
         <h2>${esc(pn ? pn.t : n.title)}</h2>
         <span class="stp"><i class="sv ${kind}" style="border-color:var(--h);${kind==='said'?'background:var(--h)':kind==='site'?'background:color-mix(in srgb,var(--h) 62%,var(--surface))':kind==='wish'?'background:color-mix(in srgb,var(--h) 16%,var(--surface))':''}"></i>${STATUS[kind].n}</span>
       </div>
@@ -622,13 +635,14 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     sel = id;
     if (id){ laneSel = null; markRail(); openDrawer(id); } else drawer.hidden = true;
     applyHighlight();
-    mini.hidden = !drawer.hidden;
+    mini.hidden = !drawer.hidden || view!=='path';
+    document.querySelector('.board').classList.toggle('drawer-open', !drawer.hidden);
   }
 
   // ================= zoom & pan =================
   const vp = document.getElementById('vp'), stage = document.getElementById('stage'), zval = document.getElementById('zval');
   const zs = {path:1, full:1};
-  function applyZoom(){ const v=V(), z=zs[view]; v.cv.style.transform=`scale(${z})`; stage.style.width=v.W*z+'px'; stage.style.height=v.H*z+'px'; zval.textContent=Math.round(z*100)+'%'; window.__mini && window.__mini(); }
+  function applyZoom(){ if (view!=='path') return; const v=V(), z=zs[view]; v.cv.style.transform=`scale(${z})`; stage.style.width=v.W*z+'px'; stage.style.height=v.H*z+'px'; zval.textContent=Math.round(z*100)+'%'; window.__mini && window.__mini(); }
   function setZoom(nz, cx, cy){
     const r = vp.getBoundingClientRect(), z0 = zs[view];
     nz = Math.max(.2, Math.min(1.6, nz)); cx ??= r.width/2; cy ??= r.height/2;
@@ -636,6 +650,7 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     zs[view]=nz; applyZoom(); vp.scrollLeft=wx*nz-cx; vp.scrollTop=wy*nz-cy;
   }
   function fit(){
+    if (view!=='path') return;
     const r = vp.getBoundingClientRect(), v=V();
     let s = Math.min(r.width/v.W, r.height/v.H);
     if (view==='path') s = Math.max(s, r.width<700?.5:.35); else s = Math.max(s, r.width<700?.3:.22);
@@ -649,6 +664,12 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
   }
   function focus(id){
     const v = V(); if (!v.cards[id]) return;
+    if (view==='full'){
+      select(id);
+      const c = F.cards[id], er = F.el.getBoundingClientRect(), cr = c.getBoundingClientRect();
+      F.el.scrollTo({top: F.el.scrollTop + cr.top - er.top - er.height/2 + cr.height/2, behavior:'smooth'});
+      c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); return;
+    }
     const [x,y] = v.center(id);
     centerOn(x, y, Math.max(zs[view], .75));
     select(id);
@@ -678,7 +699,7 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
   const mini = document.getElementById('mini'), miniC = document.getElementById('miniC'), miniT = document.getElementById('miniT');
   const mctx = miniC.getContext('2d');
   function drawMini(){
-    if (mini.classList.contains('min') || mini.offsetParent===null) return;
+    if (view!=='path' || mini.classList.contains('min') || mini.offsetParent===null) return;
     const v = V(), Wc = miniC.width, s = Wc / v.W, Hc = Math.round(v.H*s);
     if (miniC.height !== Hc) miniC.height = Hc;
     mctx.clearRect(0,0,Wc,Hc); mctx.fillStyle='#F5F6F8'; mctx.fillRect(0,0,Wc,Hc);
@@ -703,18 +724,28 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
   document.getElementById('miniBtn').onclick = () => { const m = mini.classList.toggle('min'); document.getElementById('miniBtn').textContent = m?'+':'−'; drawMini(); };
   let mraf; const schedMini = () => { cancelAnimationFrame(mraf); mraf = requestAnimationFrame(drawMini); };
   vp.addEventListener('scroll', schedMini);
+  // ================= board interactions =================
+  F.el.addEventListener('click', ev => {
+    const lk = ev.target.closest('.lk'); if (lk){ ev.stopPropagation(); focus(lk.dataset.go); return; }
+    const r = ev.target.closest('.srow');
+    if (r) select(sel===r.dataset.id ? null : r.dataset.id); else if (sel && !ev.target.closest('.dept')) select(null);
+  });
+  F.el.addEventListener('keydown', ev => { const r = ev.target.closest('.srow'); if (r && (ev.key==='Enter'||ev.key===' ')){ ev.preventDefault(); select(sel===r.dataset.id?null:r.dataset.id); } });
+
   // ================= views =================
   const tabP = document.getElementById('tab-path'), tabF = document.getElementById('tab-full');
   const scrollMem = {path:null, full:null};
   function setView(v){
     if (v===view) return;
-    scrollMem[view] = [vp.scrollLeft, vp.scrollTop];
-    sel = null; drawer.hidden = true; if (view==='full') F.showLinks(null); mini.hidden = false;
+    if (view==='path') scrollMem.path = [vp.scrollLeft, vp.scrollTop];
+    sel = null; drawer.hidden = true; document.querySelector('.board').classList.remove('drawer-open');
     view = v;
-    P.cv.hidden = v!=='path'; F.cv.hidden = v!=='full';
+    const isP = v==='path';
+    vp.hidden = !isP; F.el.hidden = isP; mini.hidden = !isP;
+    document.getElementById('zoomBox').hidden = !isP; document.getElementById('hint').hidden = !isP;
     tabP.setAttribute('aria-selected', v==='path'); tabF.setAttribute('aria-selected', v==='full');
     applyZoom();
-    if (scrollMem[v]){ vp.scrollLeft=scrollMem[v][0]; vp.scrollTop=scrollMem[v][1]; } else fit();
+    if (isP){ if (scrollMem.path){ vp.scrollLeft=scrollMem.path[0]; vp.scrollTop=scrollMem.path[1]; } else fit(); }
     applyHighlight();
   }
   tabP.onclick = () => setView('path'); tabF.onclick = () => setView('full');
@@ -732,8 +763,8 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     if (laneSel===id){ laneSel=null; markRail(); applyHighlight(); return; }
     if (view==='path' && !P.N.some(n => n.lane===id)) setView('full');
     sel=null; drawer.hidden=true; laneSel=id; markRail(); applyHighlight();
-    if (view==='full'){ const r=vp.getBoundingClientRect(); const z=Math.max(zs.full,.55); zs.full=z; applyZoom();
-      vp.scrollTo({left:0, top:F.laneY(id)*z - 40, behavior:'smooth'}); }
+    if (view==='full'){ const d = F.laneEls[id], er = F.el.getBoundingClientRect();
+      F.el.scrollTo({top: F.el.scrollTop + d.getBoundingClientRect().top - er.top - 12, behavior:'smooth'}); }
     else { const first = P.N.find(n=>n.lane===id); const [x,y]=P.center(first.id); centerOn(x,y); }
   });
 
