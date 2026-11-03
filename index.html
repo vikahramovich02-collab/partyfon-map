@@ -23,24 +23,8 @@
   --d-people:#119E8D; --d-warehouse:#46788C; --d-logistics:#7A8A2C; --d-suppliers:#A57A43; --d-service:#C24E3B;
   --d-finance:#2C9A58;
   --d-management:#2A2E37; --d-data:#6C7790;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#101216; --surface:#191C22; --sunk:#14171C; --fg:#ECEEF2; --muted:#9AA1AD; --faint:#6B727E;
-  --line:#3E4450; --line-hl:#ECEEF2; --border:#2A2E37; --chip:rgba(25,28,34,.94);
-  --pain:#F07A66; --pain-bg:#3A1F1B; --focus:#6E9BFF;
-  --shadow:none; --pop:0 12px 32px rgba(0,0,0,.5); color-scheme:dark;
-  --d-sales:#F0913C; --d-marketing:#E86B8E; --d-pm:#7C79EE; --d-design:#A56BDD; --d-production:#5B8CF5; --d-event:#2AB1DA;
-  --d-people:#2DB8A6; --d-warehouse:#6496AA; --d-logistics:#9AAA45; --d-suppliers:#C2955A; --d-service:#E26A55;
-  --d-finance:#43B472; --d-management:#B9C0CC; --d-data:#8C97B0;
-}}
-:root[data-theme="dark"]{
-  --bg:#101216; --surface:#191C22; --sunk:#14171C; --fg:#ECEEF2; --muted:#9AA1AD; --faint:#6B727E;
-  --line:#3E4450; --line-hl:#ECEEF2; --border:#2A2E37; --chip:rgba(25,28,34,.94);
-  --pain:#F07A66; --pain-bg:#3A1F1B; --focus:#6E9BFF;
-  --shadow:none; --pop:0 12px 32px rgba(0,0,0,.5); color-scheme:dark;
-  --d-sales:#F0913C; --d-marketing:#E86B8E; --d-pm:#7C79EE; --d-design:#A56BDD; --d-production:#5B8CF5; --d-event:#2AB1DA;
-  --d-people:#2DB8A6; --d-warehouse:#6496AA; --d-logistics:#9AAA45; --d-suppliers:#C2955A; --d-service:#E26A55;
-  --d-finance:#43B472; --d-management:#B9C0CC; --d-data:#8C97B0;
+  --dot:#D3D8E0; --main:#3B5BDB;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -94,7 +78,7 @@ mark{background:color-mix(in srgb,var(--d-sales) 28%,transparent);color:inherit;
 .rail .ow{grid-column:2/4;font-size:11.5px;color:var(--muted);line-height:1.25}
 
 .board{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;min-height:0;display:flex}
-.viewport{flex:1;overflow:auto;cursor:grab;overscroll-behavior:contain;min-height:520px}
+.viewport{flex:1;overflow:auto;background-color:#FAFBFC;background-image:radial-gradient(var(--dot) 1.1px,transparent 1.4px);background-size:22px 22px;cursor:grab;overscroll-behavior:contain;min-height:520px}
 .viewport.dragging{cursor:grabbing;user-select:none}
 .stage{position:relative}
 .canvas{position:absolute;left:0;top:0;transform-origin:0 0}
@@ -118,7 +102,7 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
 
 /* lanes (full map) */
 .lane{position:absolute;left:0;border-top:1px solid var(--border)}
-.lane:nth-child(even){background:color-mix(in srgb,var(--sunk) 55%,transparent)}
+.lane:nth-child(even){background:rgba(238,240,243,.45)}
 .lane-l{position:absolute;left:24px;width:186px;display:flex;flex-direction:column;gap:3px}
 .lane-l .nm{font-size:15px;font-weight:600;line-height:1.2;display:flex;gap:8px;align-items:center}
 .lane-l .nm i{width:12px;height:12px;border-radius:3px;background:var(--h);flex:none}
@@ -224,6 +208,23 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
 .st-tag{font-size:11px;color:color-mix(in srgb,var(--h) 80%,var(--fg));background:color-mix(in srgb,var(--h) 12%,var(--surface));border-radius:5px;padding:2px 7px;align-self:start;white-space:nowrap}
 .steps .empty{color:var(--muted);padding:20px 0}
 @media (max-width:560px){.sheet-bg{padding-top:12px}.sheet-head{padding:16px}.sheet-head h2{font-size:22px}.steps{padding:10px 16px 20px}.sheet-top{padding-left:16px}}
+
+.num{flex:none;display:inline-grid;place-items:center;min-width:18px;height:16px;padding:0 4px;border-radius:4px;background:var(--main);color:#fff;font-size:10.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.card.onmain{border-color:color-mix(in srgb,var(--main) 55%,var(--border))}
+.e.main{stroke:var(--main);stroke-width:2.5}
+.mk-main{fill:var(--main)}
+.start-label{position:absolute;font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--main);text-transform:uppercase;white-space:nowrap}
+.card[data-id="start"]{box-shadow:0 0 0 3px #fff,0 0 0 5.5px var(--main)}
+.mini{position:absolute;right:12px;bottom:12px;z-index:7;width:230px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--pop);padding:10px 12px 10px}
+.mini-h{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.mini-h button{border:0;background:none;cursor:pointer;color:var(--muted);font-size:16px;line-height:1;width:24px;height:22px;border-radius:6px}
+.mini-h button:hover{background:var(--sunk)}
+.mini canvas{display:block;width:100%;cursor:pointer;border-radius:6px}
+.mini-f{font-size:11.5px;color:var(--faint);text-align:center;margin-top:6px}
+.mini.min canvas,.mini.min .mini-f{display:none}
+.mini.min{width:auto}
+.mini.min .mini-h{margin:0;gap:10px}
+@media (max-width:900px){.mini{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media (max-width:900px){
   .main{grid-template-columns:1fr}
@@ -282,7 +283,8 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
         <button type="button" id="zin" aria-label="Увеличить">+</button>
         <button type="button" id="zfit">Целиком</button>
       </div>
-      <div class="hint" id="hint">Тяни мышкой · ⌘ + колесо — масштаб</div>
+      <div class="mini" id="mini"><div class="mini-h"><span id="miniT">Обзор</span><button type="button" id="miniBtn" aria-label="Свернуть обзор">−</button></div><canvas id="miniC" width="412" height="300"></canvas><div class="mini-f">Нажми на нужное место</div></div>
+      <div class="hint" id="hint" style="right:auto;left:250px">Тяни мышкой · ⌘ + колесо — масштаб</div>
       <aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
     </section>
   </div>
@@ -342,13 +344,14 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     svg.setAttribute('class','edges'); svg.setAttribute('width',w); svg.setAttribute('height',h); svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
     svg.innerHTML = `<defs>
       <marker id="ah-${cv.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0 1 L9 5 L0 9 z"/></marker>
-      <marker id="ahh-${cv.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkh" d="M0 1 L9 5 L0 9 z"/></marker></defs>`;
+      <marker id="ahh-${cv.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkh" d="M0 1 L9 5 L0 9 z"/></marker>
+      <marker id="ahm-${cv.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="mk-main" d="M0 1 L9 5 L0 9 z"/></marker></defs>`;
     cv.appendChild(svg); return svg;
   }
   function addPath(svg, cv, pts, {dash, cls='', label, wrap}={}){
     const p = document.createElementNS(SVGNS,'path');
     p.setAttribute('d', pathD(pts)); p.setAttribute('class', `e ${dash?'dash':''} ${cls}`);
-    p.setAttribute('marker-end', `url(#${cls.includes('extra')?'ahh':'ah'}-${cv.id})`);
+    p.setAttribute('marker-end', `url(#${cls.includes('extra')?'ahh':cls.includes('main')?'ahm':'ah'}-${cv.id})`);
     svg.appendChild(p);
     let lab = null;
     if (label){
@@ -365,11 +368,11 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
   }
   function setHl(x, on){
     x.p.classList.toggle('hl', on);
-    x.p.setAttribute('marker-end', `url(#${on?'ahh':'ah'}-${x.cvid})`);
+    x.p.setAttribute('marker-end', `url(#${on?'ahh':x.main?'ahm':'ah'}-${x.cvid})`);
     x.lab && x.lab.classList.toggle('hl', on);
   }
-  function cardHTML({tag, title, text, kind, fork, pain, links}){
-    return `<div class="hd"><span class="tg">${esc(tag)}</span><span>${STATUS[kind].s}</span></div>
+  function cardHTML({tag, title, text, kind, fork, pain, links, num}){
+    return `<div class="hd">${num?`<span class="num">${num}</span>`:''}<span class="tg">${esc(tag)}</span><span>${STATUS[kind].s}</span></div>
       <div class="bd"><div class="tt">${esc(title)}</div><div class="tx">${esc(text)}</div></div>
       ${(pain||links) ? `<div class="ft">${links?`<span class="links">${links}</span>`:''}${pain?`<span class="pain">${esc(pain)}</span>`:''}</div>` : ''}`;
   }
@@ -410,6 +413,8 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
       {id:'dates',c:5,r:5,lane:'marketing',ref:'m03',tag:'Маркетинг',t:'Важные даты и подарки',x:'VIP-поводы, подарки готовят заранее',k:'wish'},
       {id:'again',c:6,r:5,lane:'marketing',ref:'m02',tag:'Маркетинг',t:'Повод вернуться',x:'Сезон или 2+ недели без контакта → напоминание',k:'wish'},
     ];
+    const MAIN = ['start','brief','what','rider','stock','kp','tg','answer','contract','pack','plan','kit','deliv','mount','event','dism','back','close','stays','dates','again'];
+    const isMainEdge = e => { const i = MAIN.indexOf(e.f); return i>=0 && MAIN[i+1]===e.t; };
     const by = Object.fromEntries(N.map(n => [n.id,n]));
     const A = (id, side, o=0) => { const n=by[id], x=X(n.c), y=Y(n.r);
       return side==='r'?[x+W,y+H/2+o]:side==='l'?[x,y+H/2+o]:side==='t'?[x+W/2+o,y]:[x+W/2+o,y+H]; };
@@ -462,10 +467,13 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
       b.className = `card k-${n.k} ${n.fork?'fork':''}`; b.dataset.id = n.id; b.style.setProperty('--h', hue(n.lane));
       b.style.left = X(n.c)+'px'; b.style.top = Y(n.r)+'px';
       b.setAttribute('aria-label', `${n.t}. ${LANE[n.lane].label}. ${STATUS[n.k].n}`);
-      b.innerHTML = cardHTML({tag:n.tag,title:n.t,text:n.x,kind:n.k,pain:n.pain});
+      const num = MAIN.indexOf(n.id)+1;
+      if (num) b.classList.add('onmain');
+      b.innerHTML = cardHTML({tag:n.tag,title:n.t,text:n.x,kind:n.k,pain:n.pain,num:num||0});
       cv.appendChild(b); cards[n.id] = b;
     });
-    E.forEach(e => { const x = addPath(svg, cv, route(e), {dash:e.dash, label:e.l}); x.e=e; x.cvid=cv.id; edges.push(x); });
+    E.forEach(e => { const m = isMainEdge(e); const x = addPath(svg, cv, route(e), {dash:e.dash, label:e.l, cls:m?'main':''}); x.e=e; x.cvid=cv.id; x.main=m; edges.push(x); });
+    const sl = document.createElement('div'); sl.className='start-label'; sl.textContent='Начало основного пути'; sl.style.left=X(0)+'px'; sl.style.top=(Y(1)-30)+'px'; cv.appendChild(sl);
     return {cv, W:CW, H:CH, N, by, cards, edges,
       center:id => { const n=by[id]; return [X(n.c)+W/2, Y(n.r)+H/2]; }};
   })();
@@ -614,12 +622,13 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     sel = id;
     if (id){ laneSel = null; markRail(); openDrawer(id); } else drawer.hidden = true;
     applyHighlight();
+    mini.hidden = !drawer.hidden;
   }
 
   // ================= zoom & pan =================
   const vp = document.getElementById('vp'), stage = document.getElementById('stage'), zval = document.getElementById('zval');
   const zs = {path:1, full:1};
-  function applyZoom(){ const v=V(), z=zs[view]; v.cv.style.transform=`scale(${z})`; stage.style.width=v.W*z+'px'; stage.style.height=v.H*z+'px'; zval.textContent=Math.round(z*100)+'%'; }
+  function applyZoom(){ const v=V(), z=zs[view]; v.cv.style.transform=`scale(${z})`; stage.style.width=v.W*z+'px'; stage.style.height=v.H*z+'px'; zval.textContent=Math.round(z*100)+'%'; window.__mini && window.__mini(); }
   function setZoom(nz, cx, cy){
     const r = vp.getBoundingClientRect(), z0 = zs[view];
     nz = Math.max(.2, Math.min(1.6, nz)); cx ??= r.width/2; cy ??= r.height/2;
@@ -664,13 +673,43 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     else if (sel) select(null);
   });
 
+
+  // ================= minimap =================
+  const mini = document.getElementById('mini'), miniC = document.getElementById('miniC'), miniT = document.getElementById('miniT');
+  const mctx = miniC.getContext('2d');
+  function drawMini(){
+    if (mini.classList.contains('min') || mini.offsetParent===null) return;
+    const v = V(), Wc = miniC.width, s = Wc / v.W, Hc = Math.round(v.H*s);
+    if (miniC.height !== Hc) miniC.height = Hc;
+    mctx.clearRect(0,0,Wc,Hc); mctx.fillStyle='#F5F6F8'; mctx.fillRect(0,0,Wc,Hc);
+    const cs = getComputedStyle(document.documentElement);
+    Object.entries(v.cards).forEach(([id,el]) => {
+      const lane = view==='path' ? P.by[id].lane : NODE[id].lane;
+      mctx.globalAlpha = v.cv.classList.contains('dim') && !el.classList.contains('hl') ? .25 : 1;
+      mctx.fillStyle = cs.getPropertyValue('--d-'+lane).trim();
+      mctx.fillRect(parseFloat(el.style.left)*s, parseFloat(el.style.top)*s, Math.max(3,el.offsetWidth*s), Math.max(2,el.offsetHeight*s));
+    });
+    mctx.globalAlpha = 1;
+    const z = zs[view];
+    mctx.strokeStyle = cs.getPropertyValue('--main').trim(); mctx.lineWidth = 3;
+    mctx.strokeRect(vp.scrollLeft/z*s, vp.scrollTop/z*s, vp.clientWidth/z*s, vp.clientHeight/z*s);
+    miniT.textContent = view==='path' ? 'Обзор · 30 шагов' : 'Обзор · 122 шага';
+  }
+  miniC.addEventListener('click', ev => {
+    const r = miniC.getBoundingClientRect(), v = V(), s = r.width / v.W;
+    const x = (ev.clientX-r.left)/s, y = (ev.clientY-r.top)/s, z = zs[view];
+    vp.scrollTo({left:x*z - vp.clientWidth/2, top:y*z - vp.clientHeight/2, behavior:'smooth'});
+  });
+  document.getElementById('miniBtn').onclick = () => { const m = mini.classList.toggle('min'); document.getElementById('miniBtn').textContent = m?'+':'−'; drawMini(); };
+  let mraf; const schedMini = () => { cancelAnimationFrame(mraf); mraf = requestAnimationFrame(drawMini); };
+  vp.addEventListener('scroll', schedMini);
   // ================= views =================
   const tabP = document.getElementById('tab-path'), tabF = document.getElementById('tab-full');
   const scrollMem = {path:null, full:null};
   function setView(v){
     if (v===view) return;
     scrollMem[view] = [vp.scrollLeft, vp.scrollTop];
-    sel = null; drawer.hidden = true; if (view==='full') F.showLinks(null);
+    sel = null; drawer.hidden = true; if (view==='full') F.showLinks(null); mini.hidden = false;
     view = v;
     P.cv.hidden = v!=='path'; F.cv.hidden = v!=='full';
     tabP.setAttribute('aria-selected', v==='path'); tabF.setAttribute('aria-selected', v==='full');
@@ -753,6 +792,8 @@ svg.edges{position:absolute;inset:0;overflow:visible;pointer-events:none}
     else if (ev.key==='Escape' && sel) select(null);
   });
 
+  window.__mini = () => schedMini();
+  const _ah = applyHighlight; applyHighlight = function(){ _ah(); schedMini(); };
   fit();
   let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 150); });
 })();
