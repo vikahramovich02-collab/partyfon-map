@@ -245,6 +245,25 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
   .bar-f{padding:10px 16px 8px} .kan{padding:0 16px 16px} .col{width:248px}
   .dh .acts{width:100%;margin-left:0} .dh{flex-wrap:wrap}
 }
+
+/* ---------- спокойная палитра (04.11): один графитовый цвет на графиках, нейтральные аватары,
+   красный только для просрочки; цвета отделов остаются на карте бизнеса, в кабинете не используются ---------- */
+.bar{background:var(--sunk)}
+.bar i{background:rgba(38,38,51,.78)!important}
+.bar i+i{box-shadow:inset 2px 0 0 #fff}
+.hbar .dot{display:none!important}
+.hbar .n{display:flex;align-items:center;gap:8px}
+.leg i,.ch>i,.st>i,.stp .lane{background:rgba(73,79,92,.28)!important}
+.av{background:#ECECEF!important;color:var(--text)!important;font-weight:500}
+.side .me .av{background:var(--fg)!important;color:#fff!important}
+.att .row .ic,.att .row .ic.warn,.att .row .ic.wait{background:var(--sunk);color:var(--icon)}
+.att .row .ic.bad{background:var(--sunk);color:var(--danger)}
+.chip.warn{background:var(--sunk);color:var(--text)}
+.stp .brn{background:var(--sunk);color:var(--text)}
+/* прокрутка: колонка контента не растёт выше окна */
+.shell{grid-template-rows:minmax(0,1fr)}
+.mainc{min-height:0;overflow:hidden}
+@media (max-width:760px){ .shell{grid-template-rows:auto minmax(0,1fr)} }
 </style>
 </head>
 <body>
