@@ -67,27 +67,36 @@ kbd.k{font:11px var(--font);color:var(--faint);border:1px solid var(--border);bo
 .chip[aria-pressed="true"]{border-color:var(--fg);color:var(--fg);background:var(--sunk)}
 .chip .n{font-variant-numeric:tabular-nums;color:var(--faint)}
 .bar .clr{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:12.5px;padding:0 4px}
-.railbtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface);cursor:pointer;font-size:12px;color:var(--muted)}
-.railbtn[aria-pressed="true"]{color:var(--fg)}
-.main.norail{grid-template-columns:minmax(0,1fr)}
-.main.norail .rail{display:none}
-
-/* main */
-.main{display:grid;grid-template-columns:236px minmax(0,1fr);gap:12px;flex:1;min-height:0}
-.rail{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:10px 8px;overflow:auto;min-height:0}
-.rail h3{margin:12px 10px 4px;font-size:11px;font-weight:500;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
-.rail h3:first-child{margin-top:2px}
-.rail button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr auto;gap:1px 9px;align-items:center;width:100%;padding:6px 10px;border-radius:8px;cursor:pointer}
-.rail button:hover{background:var(--sunk)}
-.rail button[aria-pressed="true"],.rail button.cur{background:color-mix(in srgb,var(--h,var(--main)) 11%,var(--surface))}
-.rail button:focus-visible{outline:2px solid var(--focus)}
-.rail .nm{font-weight:500;font-size:13px;line-height:1.25}
-.rail .ct{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
-.rail .ow{grid-column:2/4;font-size:11.5px;color:var(--muted);line-height:1.25}
-.rail .num{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:11px;font-weight:500;background:var(--sunk);color:var(--muted);font-variant-numeric:tabular-nums}
-.rail button.cur .num{background:var(--main);color:#fff}
-.rail .sub{font-size:11px;color:var(--faint);grid-column:2/4}
-
+.main{display:grid;grid-template-columns:236px minmax(0,1fr);gap:12px;flex:1;min-height:0;transition:grid-template-columns .2s}
+.main.norail{grid-template-columns:52px minmax(0,1fr)}
+.rail{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:8px;overflow:auto;min-height:0;display:flex;flex-direction:column;gap:2px;scrollbar-width:thin}
+.rail-h{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:2px 2px 6px 8px;position:sticky;top:-8px;background:var(--surface);z-index:1;margin:-8px -8px 4px;padding:10px 8px 8px 16px;border-bottom:1px solid var(--border)}
+.rail-t{font-size:13px;font-weight:500;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail-x{all:unset;box-sizing:border-box;width:28px;height:28px;border-radius:999px;display:grid;place-items:center;color:var(--faint);cursor:pointer;flex:none}
+.rail-x:hover{background:var(--sunk);color:var(--fg)}
+.rail-x:focus-visible{outline:2px solid var(--focus)}
+.rail-x svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.rail h3{margin:10px 8px 4px;font-size:11px;font-weight:500;color:var(--faint);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.rail .it{all:unset;box-sizing:border-box;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:0 10px;align-items:center;width:100%;min-height:36px;padding:5px 8px;border-radius:10px;cursor:pointer;position:relative}
+.rail .it:hover{background:var(--sunk)}
+.rail .it[aria-pressed="true"],.rail .it.cur{background:color-mix(in srgb,var(--h,var(--main)) 10%,var(--surface))}
+.rail .it:focus-visible{outline:2px solid var(--focus)}
+.rail .ri{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:color-mix(in srgb,var(--h) 12%,#fff);color:var(--h);grid-row:span 2;align-self:center}
+.rail .ri svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.rail .ri.num{font-size:11px;font-weight:500;background:var(--sunk);color:var(--muted);font-variant-numeric:tabular-nums;border-radius:999px}
+.rail .it.cur .ri.num{background:var(--main);color:#fff}
+.rail .nm{font-size:13px;font-weight:500;line-height:1.25;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail .ct{font-size:11px;color:var(--faint);background:rgba(73,79,92,.06);border-radius:999px;padding:1px 7px;font-variant-numeric:tabular-nums;grid-row:span 2}
+.rail .ow{font-size:11px;color:var(--faint);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;grid-column:2}
+.rail .it.one{grid-template-columns:24px minmax(0,1fr)}
+.rail .it.one .ri{grid-row:auto}
+/* collapsed strip */
+.rail.min{padding:8px 6px;align-items:center;overflow-x:hidden}
+.rail.min .rail-h{margin:-8px -6px 4px;padding:8px 0 6px;justify-content:center;width:calc(100% + 12px)}
+.rail.min .rail-t,.rail.min h3,.rail.min .nm,.rail.min .ct,.rail.min .ow{display:none}
+.rail.min .rail-x svg{transform:rotate(180deg)}
+.rail.min .it{grid-template-columns:24px;width:36px;min-height:36px;padding:6px;justify-items:center;gap:0}
+.rail.min .ri{grid-row:auto}
 .board{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;min-height:0;display:flex}
 .scroll{flex:1;min-width:0;overflow:auto;background:var(--bg);scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){.scroll{scroll-behavior:auto}}
@@ -277,10 +286,11 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
 @media (max-width:1180px){.drawer{width:340px}}
 @media (max-width:980px){
   .main{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
-  .rail{display:flex;gap:6px;overflow-x:auto;padding:8px;border-radius:12px}
-  .rail h3{display:none}
-  .rail button{display:inline-flex;width:auto;white-space:nowrap;gap:8px;border:1px solid var(--border);border-radius:999px;padding:5px 10px;flex:none}
-  .rail .ow,.rail .ct,.rail .sub{display:none}
+  .main.norail{grid-template-columns:1fr}
+  .rail,.rail.min{flex-direction:row;gap:6px;overflow-x:auto;padding:8px;border-radius:12px;align-items:center}
+  .rail h3,.rail .rail-h,.rail .ow,.rail .ct{display:none!important}
+  .rail .it,.rail.min .it{display:inline-flex;width:auto;min-height:32px;white-space:nowrap;gap:8px;border:1px solid var(--border);border-radius:999px;padding:3px 10px 3px 4px;flex:none}
+  .rail.min .nm{display:block}
   .board{position:relative}
   .drawer{position:absolute;left:8px;right:8px;bottom:8px;width:auto;max-height:62%;border:1px solid var(--border);border-radius:14px;box-shadow:var(--pop)}
 }
@@ -331,7 +341,7 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
     </div>
   </header>
 
-  <div class="bar" id="bar"><span class="lbl">Статус:</span><div class="filters" id="filters" style="display:contents"></div><button type="button" class="clr" id="clrF" hidden>сбросить</button><button type="button" class="railbtn" id="railBtn" aria-pressed="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="2" width="11" height="10" rx="2"/><path d="M5 2v10"/></svg><span>Панель</span></button></div>
+  <div class="bar" id="bar"><span class="lbl">Статус:</span><div class="filters" id="filters" style="display:contents"></div><button type="button" class="clr" id="clrF" hidden>сбросить</button></div>
 
   <div class="main">
     <nav class="rail" id="rail" aria-label="Навигация"></nav>
@@ -527,7 +537,7 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
     const ll = document.createElement('div'); ll.className='olabel'; ll.textContent='новый запрос'; ll.style.left=lx+'px'; ll.style.top=((a.b+st.cy)/2)+'px'; ll.style.transform='translate(-50%,-50%) rotate(-90deg)'; ll.dataset.f='again'; ll.dataset.t='start'; pathWrap.appendChild(ll); olabels.push(ll);
     applyOverHl();
   }
-  let roT; new ResizeObserver(() => { clearTimeout(roT); roT = setTimeout(drawOver, 60); }).observe(pathEl);
+  let roT; const ro = new ResizeObserver(() => { clearTimeout(roT); roT = setTimeout(drawOver, 60); }); ro.observe(pathEl); ro.observe(pathWrap);
   document.fonts?.ready.then(drawOver);
 
   // ================= whole-business graph =================
@@ -798,27 +808,30 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
   }
   tabP.onclick = () => setView('path'); tabF.onclick = () => setView('full');
   // rail panel: user choice wins; otherwise shown on the path, hidden on the map
-  const railBtn = document.getElementById('railBtn'); let railPref = null;
+  let railPref = null;
   try { railPref = localStorage.getItem('pf.rail'); } catch(e){}
-  function applyRail(){ const show = railPref!==null ? railPref==='1' : view==='path'; document.querySelector('.main').classList.toggle('norail', !show); railBtn.setAttribute('aria-pressed', show); if (view==='full') requestAnimationFrame(F.refresh); else requestAnimationFrame(drawOver); }
-  railBtn.onclick = () => { const show = railBtn.getAttribute('aria-pressed')!=='true'; railPref = show?'1':'0'; try { localStorage.setItem('pf.rail', railPref); } catch(e){} applyRail(); };
+  function applyRail(){ const show = railPref!==null ? railPref==='1' : view==='path'; document.querySelector('.main').classList.toggle('norail', !show); rail.classList.toggle('min', !show); const x = rail.querySelector('.rail-x'); if (x) x.setAttribute('aria-label', show?'Свернуть панель':'Развернуть панель'); if (view==='full') requestAnimationFrame(F.refresh); else { requestAnimationFrame(drawOver); setTimeout(drawOver, 280); } }
+  function toggleRail(){ const show = rail.classList.contains('min'); railPref = show?'1':'0'; try { localStorage.setItem('pf.rail', railPref); } catch(e){} applyRail(); }
 
   // ================= rail =================
   function renderRail(){
+    const head = title => `<div class="rail-h"><span class="rail-t">${title}</span><button type="button" class="rail-x" aria-label="Свернуть панель"><svg viewBox="0 0 14 14"><path d="M8.5 3 4.5 7l4 4"/></svg></button></div>`;
     if (view==='path'){
-      rail.innerHTML = PHASES.map((ph, pi) => {
+      rail.innerHTML = head('Путь клиента') + PHASES.map((ph, pi) => {
         const from = MIDX[ph.at], to = pi<PHASES.length-1 ? MIDX[PHASES[pi+1].at] : MAIN.length;
         return `<h3>${esc(ph.n)}</h3>` + MAIN.slice(from, to).map(id => { const n = PB[id];
-          return `<button type="button" data-step="${id}" style="--h:${hue(n.lane)}"><span class="num">${MIDX[id]+1}</span><span class="nm">${esc(n.t)}</span><span></span></button>`; }).join('');
+          return `<button type="button" class="it one" data-step="${id}" title="${esc(n.t)}" style="--h:${hue(n.lane)}"><span class="ri num">${MIDX[id]+1}</span><span class="nm">${esc(n.t)}</span></button>`; }).join('');
       }).join('');
     } else {
-      rail.innerHTML = DIRS.map(d => `<h3>${esc(d.n)}</h3>` + d.lanes.map(id => { const l = LANE[id], c = D.nodes.filter(n=>n.lane===id).length;
-        return `<button type="button" data-lane="${id}" aria-pressed="false" style="--h:${hue(id)}"><i class="sw"></i><span class="nm">${esc(l.label)}</span><span class="ct">${c}</span><span class="ow">${esc(l.owner)}</span></button>`; }).join('')).join('');
+      rail.innerHTML = head('Отделы') + DIRS.map(d => `<h3>${esc(d.n)}</h3>` + d.lanes.map(id => { const l = LANE[id], c = D.nodes.filter(n=>n.lane===id).length;
+        return `<button type="button" class="it" data-lane="${id}" aria-pressed="false" title="${esc(l.label)} · ${esc(l.owner)}" style="--h:${hue(id)}"><span class="ri">${ico(id)}</span><span class="nm">${esc(l.label)}</span><span class="ct">${c}</span><span class="ow">${esc(l.owner)}</span></button>`; }).join('')).join('');
       markRail();
     }
+    rail.classList.toggle('min', document.querySelector('.main').classList.contains('norail'));
   }
   function markRail(){ rail.querySelectorAll('[data-lane]').forEach(b => b.setAttribute('aria-pressed', b.dataset.lane===laneSel)); }
   rail.addEventListener('click', ev => {
+    if (ev.target.closest('.rail-x')){ toggleRail(); return; }
     const s = ev.target.closest('[data-step]'); if (s){ const c = pcards[s.dataset.step]; scrollTo(c, 24); flash(c); return; }
     const b = ev.target.closest('[data-lane]'); if (!b) return;
     const id = b.dataset.lane;
