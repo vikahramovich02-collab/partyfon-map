@@ -888,7 +888,7 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
       </button></li>`; }).join('') : `<li class="empty">Ничего не нашлось. Попробуй: «КП», «склад», «подарок», «отмена».</li>`;
   }
   function openSheet(){ lastFocus = document.activeElement; sheet.hidden = false; document.body.style.overflow='hidden'; renderList(); setTimeout(() => q.focus(), 0); }
-  function closeSheet(){ sheet.hidden = true; document.body.style.overflow=''; lastFocus?.focus?.(); }
+  function closeSheet(){ sheet.hidden = true; document.body.style.overflow=''; const f = lastFocus; setTimeout(() => f?.focus?.(), 0); }
   function pick(id){ closeSheet(); setTimeout(() => goTo(id), 20); }
   document.getElementById('openAll').onclick = openSheet;
   document.getElementById('sClose').onclick = closeSheet;
@@ -898,7 +898,7 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
   q.addEventListener('keydown', ev => {
     if (ev.key==='ArrowDown' || ev.key==='ArrowUp'){ ev.preventDefault(); act = Math.max(0, Math.min(hits.length-1, act + (ev.key==='ArrowDown'?1:-1)));
       list.querySelectorAll('.step').forEach(b => b.classList.toggle('act', +b.dataset.i===act)); list.querySelector('.step.act')?.scrollIntoView({block:'nearest'}); }
-    else if (ev.key==='Enter'){ if (hits[act]) pick(hits[act].id); }
+    else if (ev.key==='Enter'){ ev.preventDefault(); if (hits[act]) pick(hits[act].id); }
   });
   document.addEventListener('keydown', ev => {
     if (!sheet.hidden){ if (ev.key==='Escape') closeSheet(); return; }
