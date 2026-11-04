@@ -67,7 +67,7 @@ svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stro
 .side .me:hover{background:var(--hover)}
 .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:500;color:#fff;flex:none;background:var(--c,#6C7790)}
 .av.sm{width:22px;height:22px;font-size:10px}
-.av.lg{width:40px;height:40px;font-size:14px}
+.av.xl{width:40px;height:40px;font-size:14px}
 .side .me .t{min-width:0} .side .me .t b{display:block;font-weight:500;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .side .me .t span{font-size:11px;color:var(--mutedfg)}
 .side .me button{margin-left:auto;color:var(--icon);width:28px;height:28px;border-radius:8px;display:grid;place-items:center} .side .me button:hover{background:var(--sunk);color:var(--fg)}
 
@@ -249,11 +249,11 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 /* ---------- спокойная палитра (04.11): один графитовый цвет на графиках, нейтральные аватары,
    красный только для просрочки; цвета отделов остаются на карте бизнеса, в кабинете не используются ---------- */
 .bar{background:var(--sunk)}
-.bar i{background:rgba(38,38,51,.78)!important}
+.bar i{background:var(--c,rgba(38,38,51,.78))}
 .bar i+i{box-shadow:inset 2px 0 0 #fff}
 .hbar .dot{display:none!important}
 .hbar .n{display:flex;align-items:center;gap:8px}
-.leg i,.ch>i,.st>i,.stp .lane{background:rgba(73,79,92,.28)!important}
+.ch>i,.st>i,.stp .lane{background:rgba(73,79,92,.28)!important}
 .av{background:#ECECEF!important;color:var(--text)!important;font-weight:500}
 .side .me .av{background:var(--fg)!important;color:#fff!important}
 .att .row .ic,.att .row .ic.warn,.att .row .ic.wait{background:var(--sunk);color:var(--icon)}
@@ -344,6 +344,7 @@ document.getElementById('logout').onclick=()=>{try{sessionStorage.removeItem('pf
 const TODAY=new Date(2026,10,4); // 4 ноября 2026 — демо «сегодня»
 const LANES={sales:'Продажи',marketing:'Маркетинг',pm:'Проект',design:'Проектирование',production:'Производство',event:'Площадка',people:'Люди',warehouse:'Склад',logistics:'Логистика',suppliers:'Внешняя аренда',service:'Сервис',finance:'Финансы',management:'Руководство',data:'Данные'};
 const hue=l=>`var(--d-${l})`;
+const gcol=st=>`rgba(38,38,51,${(0.9-STAGES.indexOf(st)*0.1).toFixed(2)})`;
 const STEPS=[
  ['start','sales','Пришёл запрос'],['brief','sales','Заказ и бриф'],['what','sales','Что продаём?'],['rider','sales','Райдер и состав'],['stock','warehouse','Техника на даты свободна?'],['kp','sales','Расчёт КП'],['tg','sales','КП отправлено клиенту'],['answer','sales','Ответ клиента'],
  ['contract','finance','Договор и аванс'],['pack','pm','Пакет в производство'],['plan','production','Люди и техника на одно окно'],['kit','warehouse','Комплектование и проверка'],['deliv','logistics','Погрузка и доставка'],['mount','event','Монтаж и застройка'],['event','event','Мероприятие'],
@@ -514,10 +515,10 @@ function autoFor(d){const s=d.step;const L=[];
 function rManagers(){setTop('Менеджеры','нагрузка и прозрачность по каждому');view.className='view';
   view.innerHTML=`<div class="grid g2" style="grid-template-columns:repeat(auto-fill,minmax(360px,1fr))">${Object.entries(MGR).map(([k,m])=>{const ds=DEALS.filter(d=>d.m===k);const sum=ds.reduce((a,d)=>a+d.amt,0);const bad=ds.filter(d=>status(d).k==='bad').length;const wait=ds.filter(d=>status(d).k==='wait').length;const conv=Math.round(m.won/(m.won+m.lost)*100);
     const byStage=STAGES.map(st=>({st,n:ds.filter(d=>stageOf(d).id===st.id).length})).filter(x=>x.n);
-    return `<div class="card mg" data-m="${k}"><div class="h">${avatar(k,'lg')}<div><b>${m.n}</b><span>${m.s} · ${ds.length} ${pl(ds.length,'сделка','сделки','сделок')} в работе</span></div></div>
+    return `<div class="card mg" data-m="${k}"><div class="h">${avatar(k,'xl')}<div><b>${m.n}</b><span>${m.s} · ${ds.length} ${pl(ds.length,'сделка','сделки','сделок')} в работе</span></div></div>
     <div class="nums"><div><b>${money(sum).replace(' BYN','')}</b><span>BYN в работе</span></div><div><b class="${bad?'bad':''}">${bad}</b><span>просрочено</span></div><div><b>${wait}</b><span>ждут клиента</span></div></div>
-    <div class="bar">${byStage.map(x=>`<i style="--c:${hue(x.st.c)};width:${x.n/ds.length*100}%" title="${x.st.n}: ${x.n}"></i>`).join('')}</div>
-    <div class="leg">${byStage.map(x=>`<span><i style="--c:${hue(x.st.c)}"></i>${x.st.n} ${x.n}</span>`).join('')}</div>
+    <div class="bar">${byStage.map(x=>`<i style="--c:${gcol(x.st)};width:${x.n/ds.length*100}%" title="${x.st.n}: ${x.n}"></i>`).join('')}</div>
+    <div class="leg">${byStage.map(x=>`<span><i style="--c:${gcol(x.st)}"></i>${x.st.n} ${x.n}</span>`).join('')}</div>
     <div class="foot"><span>Конверсия 90 дн <b>${conv} %</b></span><span>Ответ клиенту <b>${m.resp} ч</b></span><span>Выиграно <b>${m.won}</b> · потеряно <b>${m.lost}</b></span></div></div>`}).join('')}</div>`;
   view.onclick=e=>{const c=e.target.closest('[data-m]');if(c){S.mgr=c.dataset.m;save();location.hash='#/board'}};
 }
@@ -546,7 +547,7 @@ function rOverview(){setTop('Обзор','Partyfon · все сделки');view
       <div class="card"><div class="hd"><h2>Ближайшие мероприятия</h2><span class="sub">10 дней</span></div><div class="bd rows">${week.map(d=>`<div class="row" data-id="${d.id}"><div class="t"><b>${esc(d.t)}</b><span>${esc(d.venue)} · ${esc(stepLabel(d))}</span></div>${avatar(d.m,'sm')}<div class="r"><b>${fd(d.ev)}</b>${money(d.amt)}</div></div>`).join('')||'<div class="empty">Пусто</div>'}</div></div>
     </div>
     <div class="grid" style="gap:16px">
-      <div class="card"><div class="hd"><h2>Сделки по этапам</h2><span class="sub">путь клиента</span></div><div class="bd">${STAGES.map(st=>{const n=DEALS.filter(d=>stageOf(d).id===st.id).length;return `<div class="hbar"><span class="n"><i class="dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${hue(st.c)};margin-right:6px"></i>${st.n}</span><div class="bar"><i style="--c:${hue(st.c)};width:${n/mx*100}%"></i></div><span class="v">${n}</span></div>`}).join('')}</div></div>
+      <div class="card"><div class="hd"><h2>Сделки по этапам</h2><span class="sub">путь клиента</span></div><div class="bd">${STAGES.map(st=>{const n=DEALS.filter(d=>stageOf(d).id===st.id).length;return `<div class="hbar"><span class="n"><i class="dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${hue(st.c)};margin-right:6px"></i>${st.n}</span><div class="bar"><i style="--c:${gcol(st)};width:${n/mx*100}%"></i></div><span class="v">${n}</span></div>`}).join('')}</div></div>
       <div class="card"><div class="hd"><h2>Нагрузка по менеджерам</h2><span class="sp"></span><a class="btn ghost sm" href="#/managers">Подробнее ${icon('arrow')}</a></div><div class="bd">${Object.entries(MGR).map(([k,m])=>{const ds=DEALS.filter(d=>d.m===k);const bad=ds.filter(d=>status(d).k==='bad').length;return `<div class="hbar" style="grid-template-columns:150px 1fr 60px"><span class="n">${avatar(k,'sm')} ${m.n.split(' ')[0]}</span><div class="bar"><i style="--c:${m.c};width:${ds.length/6*100}%"></i></div><span class="v">${ds.length}${bad?` <span style="color:var(--danger)">· ${bad}</span>`:''}</span></div>`}).join('')}</div></div>
     </div>
   </div>`;
