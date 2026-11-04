@@ -47,9 +47,10 @@ a:hover .arr{transform:rotate(45deg)}
 .hero h1{max-width:1100px;margin:0 auto 18px}
 .hero p{font-size:20px;color:var(--c05);max-width:760px;margin:0 auto 36px}
 .hero .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.shot{margin:64px auto 0;max-width:1480px;border-radius:24px;overflow:hidden;background:var(--c01);padding:14px;position:relative}
+.shot{margin:64px auto 0;max-width:1480px;border-radius:24px;overflow:hidden;background:var(--c01);padding:14px;text-align:left}
 .shot img{border-radius:14px;width:100%}
-.shot .tag{position:absolute;left:34px;top:34px;background:var(--c00);color:var(--c03);border-radius:100px;padding:8px 14px;font-size:13px;font-weight:500}
+.shot .tag{display:inline-flex;align-items:center;gap:8px;margin:4px 0 12px 6px;color:var(--c05);font-size:14px;font-weight:500}
+.shot .tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--red)}
 
 /* sections */
 section{padding:56px 0}
@@ -72,7 +73,8 @@ section{padding:56px 0}
 .who li{display:flex;gap:14px;align-items:flex-start}
 .who li i{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:none;margin-top:1px}
 .who li i svg{width:12px;height:12px;stroke:var(--c03);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.who img{border-radius:14px;margin-top:8px;border:1px solid var(--line)}
+.who .pv{margin-top:8px;border-radius:14px;border:1px solid var(--line);overflow:hidden;aspect-ratio:16/10;background:#fff}
+.who .pv img{width:160%;max-width:none;height:auto}
 
 .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
 .num-c{padding:36px 40px 40px}
@@ -108,7 +110,7 @@ footer nav{display:flex;gap:24px}
   .cat{padding:28px 24px;min-height:0}.cat .t h3{font-size:26px}.cat .num{font-size:72px}
   .who,.rowc{padding:28px 24px}.rowc h3{font-size:24px}.cta-b{padding:40px 24px}.cta-b h2{font-size:32px}
   .sec-h{flex-direction:column;align-items:flex-start;gap:12px}
-  .shot{padding:8px;border-radius:16px}.shot .tag{left:18px;top:18px}
+  .shot{padding:8px;border-radius:16px}.shot .tag{margin:4px 0 8px 4px;font-size:13px}
   .chip{height:38px;font-size:14px;padding:0 14px}
   .btn{white-space:normal;text-align:center;height:auto;min-height:52px;padding:12px 22px;line-height:1.25}.hdr .btn{min-height:40px;padding:8px 16px}
 }
@@ -153,14 +155,14 @@ footer nav{display:flex;gap:24px}
         <li><i><svg viewBox="0 0 24 24"><path d="m5 12 5 5L19 7"/></svg></i>Нагрузка и просрочки по каждому менеджеру, время ответа клиенту, конверсия</li>
         <li><i><svg viewBox="0 0 24 24"><path d="m5 12 5 5L19 7"/></svg></i>Список «требуют внимания»: КП без ответа, сделки вне пути, срок сегодня</li>
       </ul>
-      <img src="../assets/cab-board.png" alt="Доска сделок по этапам пути клиента" width="1440" height="900"></div>
+      <div class="pv"><img src="../assets/cab-board.png" alt="Доска сделок по этапам пути клиента" width="1440" height="900"></div></div>
     <div class="card who"><span class="lab">Менеджеру</span><h3>Одна карточка на сделку</h3>
       <ul>
         <li><i><svg viewBox="0 0 24 24"><path d="m5 12 5 5L19 7"/></svg></i>Путь клиента с текущим шагом, следующее действие и его срок</li>
         <li><i><svg viewBox="0 0 24 24"><path d="m5 12 5 5L19 7"/></svg></i>Бриф, версии КП, договор и пакет в производство в одном месте, а не в Excel и Telegram</li>
         <li><i><svg viewBox="0 0 24 24"><path d="m5 12 5 5L19 7"/></svg></i>Напоминание о касании само ставит задачу, если клиент молчит</li>
       </ul>
-      <img src="../assets/cab-deal.png" alt="Карточка сделки с путём клиента" width="1440" height="900"></div>
+      <div class="pv"><img src="../assets/cab-deal.png" alt="Карточка сделки с путём клиента" width="1440" height="900"></div></div>
   </div>
 </section>
 

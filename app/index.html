@@ -152,6 +152,8 @@ svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stro
 .dc .nx.bad svg,.dc .nx.bad .d{color:var(--danger)} .dc .nx.today .d{color:var(--warn)}
 .dc .nx .d{white-space:nowrap;margin-left:auto;font-variant-numeric:tabular-nums;color:var(--mutedfg)}
 .dc .nx span{flex:1}
+.dc .lc{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mutedfg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .dc .lc svg{width:13px;height:13px;color:var(--icon)} .dc .lc b{font-weight:500;color:var(--text)}
+.tech{display:flex;flex-direction:column} .tech .r{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--border);font-size:12px} .tech .r:first-child{border-top:0} .tech .r i{width:8px;height:8px;border-radius:50%;flex:none;margin-top:5px;background:var(--ok)} .tech .r.warn i{background:var(--warn)} .tech .r.bad i{background:var(--danger)} .tech .r b{display:block;font-weight:500;color:var(--fg)} .tech .r span{color:var(--mutedfg)}
 /* list view */
 table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl th{text-align:left;font-weight:400;font-size:12px;color:var(--mutedfg);padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
@@ -303,6 +305,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
   <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.5 8.5 3 3 6-7"/></symbol>
   <symbol id="i-ext" viewBox="0 0 16 16"><path d="M6.5 3H3.8a.8.8 0 0 0-.8.8v8.4a.8.8 0 0 0 .8.8h8.4a.8.8 0 0 0 .8-.8V9.5M9.5 3H13v3.5M13 3 7.5 8.5"/></symbol>
   <symbol id="i-money" viewBox="0 0 16 16"><rect x="1.8" y="4" width="12.4" height="8" rx="1.5"/><circle cx="8" cy="8" r="2"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 16 16"><path d="M2.5 3.5h11v7h-6L4.5 13v-2.5h-2z"/></symbol>
   <symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.2 2.2 6.8 5.1 5.4 6.6a8 8 0 0 0 4 4l1.5-1.4 2.9 1.6-.9 2.3c-.3.6-.9.9-1.5.8A11 11 0 0 1 2.1 4.6c-.1-.6.2-1.2.8-1.5Z"/></symbol>
 </svg>
 
@@ -344,7 +347,7 @@ const BR={
 const STAGES=[
  {id:'req',n:'Запрос и бриф',steps:['start','brief','what'],c:'sales'},
  {id:'calc',n:'Расчёт и КП',steps:['rider','stock','kp','tg'],c:'sales'},
- {id:'wait',n:'Ждём ответ',steps:['answer'],c:'marketing'},
+ {id:'wait',n:'Ожидание ответа по КП',steps:['answer'],c:'marketing'},
  {id:'contract',n:'Договор',steps:['contract'],c:'finance'},
  {id:'prep',n:'Подготовка',steps:['pack','plan','kit'],c:'production'},
  {id:'live',n:'Монтаж и ивент',steps:['deliv','mount','event'],c:'event'},
@@ -378,7 +381,10 @@ const DEALS=[
  {id:'d17',t:'Городской забег, стартовый городок',cl:'Спортклуб «Темп»',ty:'PR-мероприятие',ev:D(11,9),venue:'Площадь у стадиона',amt:7900,m:'alina',step:'incomplete',since:D(11,3),due:D(11,4),next:'Продажи: дополнить контакты площадки и схему подключения',eq:['Звук','Сцена']},
  {id:'d18',t:'Корпоратив «Итоги года», 90 гостей',cl:'Студия «Пиксель»',ty:'Корпоратив',ev:D(12,26),venue:'Бар «Крыша»',amt:4600,m:'daria',step:'what',since:D(11,3),due:D(11,5),next:'Выбрать формат: технический ивент или сухая аренда',eq:['Звук','Свет']},
 ];
-DEALS.forEach(d=>{d.hist=[];});
+const LAST={d01:[D(11,3),'16:20','Telegram'],d02:[D(10,28),'12:05','Telegram'],d03:[D(11,3),'11:30','телефон'],d04:[D(11,4),'09:10','Telegram'],d05:[D(11,2),'15:45','почта'],d06:[D(10,30),'10:00','Telegram'],d07:[D(11,3),'18:10','Telegram'],d08:[D(11,2),'13:00','почта'],d09:[D(11,4),'10:40','Telegram'],d10:[D(11,3),'12:15','Telegram'],d11:[D(11,4),'08:30','телефон'],d12:[D(10,31),'17:50','Telegram'],d13:[D(11,3),'14:00','телефон'],d14:[D(11,2),'11:20','Telegram'],d15:[D(10,30),'09:40','почта'],d16:[D(11,4),'11:05','сайт'],d17:[D(11,3),'16:30','Telegram'],d18:[D(11,3),'13:25','Telegram']};
+const EXPECT={d02:D(11,5),d06:D(11,6),d07:D(11,6),d12:D(11,5),d01:D(11,6)};
+const TECH={d09:[['LED-экран 6×3','своё, свободно','ok'],['Головы Beam 230 × 24','16 из 40 забронированы Алиной под «Форум предпринимателей» 2–4 дек','warn'],['Линейный массив','своё, свободно','ok']],d13:[['Головы Beam 230 × 24','дефицит на 2–4 дек: пересечение с «Корпоратив банка» (та же бригада дат)','bad'],['LED-экран 8×4','запрос партнёру, ответ сегодня','warn'],['Сцена 10×8','своё, свободно','ok']]};
+DEALS.forEach(d=>{d.hist=[];const l=LAST[d.id];d.last={d:l[0],h:l[1],ch:l[2]};d.expect=EXPECT[d.id]||null;d.tech=TECH[d.id]||null;});
 
 /* ============ helpers ============ */
 const MON=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
@@ -400,6 +406,8 @@ function status(d){ // bad / today / wait / ok
   return{k:'ok',l:'В работе'};
 }
 const pl=(n,a,b,c)=>{n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c};
+const rel=d=>{const n=days(TODAY,d);return n===0?'сегодня':n===1?'вчера':fd(d)};
+const lastHTML=d=>`<div class="lc">${icon('msg')}<span>${esc(d.last.ch)}</span> · ${rel(d.last.d)} ${d.last.h}${d.expect?` · <b>ответ ${rel(d.expect)==='сегодня'?'сегодня':'к '+fd(d.expect)}</b>`:''}</div>`;
 const stepLabel=d=>BR[d.step]?BR[d.step].t:SI[d.step].t;
 const icon=k=>`<svg class="i"><use href="#i-${k}"/></svg>`;
 let toastT;function toast(s){const t=document.getElementById('toast');t.textContent=s;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200)}
@@ -422,6 +430,7 @@ function dealCard(d){const ms=mainStep(d);const br=BR[d.step];const st=status(d)
     <div class="ti">${esc(d.t)}</div><div class="cl">${esc(d.cl)} · ${esc(d.ty)}</div>
     <div class="st"><i style="--c:${hue(ms.lane)}"></i>${br?`<span class="br">${esc(br.t)}</span>`:`${ms.n}. ${esc(ms.t)}`}</div>
     ${nextHTML(d)}
+    ${lastHTML(d)}
     <div class="ft">${avatar(d.m,'sm')}<span class="amt">${money(d.amt)}</span><span class="sp"></span><span class="dt">${icon('cal')} ${fdy(d.ev)}</span></div>
   </div>`}
 
@@ -462,7 +471,8 @@ function rDeal(id){const d=DEALS.find(x=>x.id===id);if(!d){location.hash='#/boar
   </div>
   <div class="grid" style="gap:16px">
     <div class="next ${st.k==='bad'?'bad':st.k==='today'?'today':''}"><div class="l">Следующее действие</div><b>${esc(d.next)}</b><div class="d">${icon(st.k==='bad'?'alert':'clock')} ${days(d.due,TODAY)===0?'сегодня':days(d.due,TODAY)<0?'просрочено с '+fd(d.due):fd(d.due)} · ${esc(MGR[d.m].n)}</div></div>
-    <div class="card"><div class="hd"><h2>Детали</h2></div><div class="bd kv"><span>Менеджер</span><b>${avatar(d.m,'sm')} ${esc(MGR[d.m].n)}</b><span>Клиент</span><b>${esc(d.cl)}</b><span>Формат</span><b>${esc(d.ty)}</b><span>Дата</span><b>${fdy(d.ev)}</b><span>Площадка</span><b>${esc(d.venue)}</b><span>Смета</span><b>${money(d.amt)}</b><span>Оборудование</span><b><span class="chips">${d.eq.map(e=>`<span class="chip sm">${e}</span>`).join('')}</span></b>${d.note?`<span>Заметка</span><b>${esc(d.note)}</b>`:''}</div></div>
+    <div class="card"><div class="hd"><h2>Детали</h2></div><div class="bd kv"><span>Менеджер</span><b>${avatar(d.m,'sm')} ${esc(MGR[d.m].n)}</b><span>Клиент</span><b>${esc(d.cl)}</b><span>Формат</span><b>${esc(d.ty)}</b><span>Дата</span><b>${fdy(d.ev)}</b><span>Площадка</span><b>${esc(d.venue)}</b><span>Смета</span><b>${money(d.amt)}</b><span>Последний контакт</span><b>${esc(d.last.ch)} · ${rel(d.last.d)} ${d.last.h}</b>${d.expect?`<span>Ответ ожидается</span><b>${fd(d.expect)}</b>`:''}<span>Оборудование</span><b><span class="chips">${d.eq.map(e=>`<span class="chip sm">${e}</span>`).join('')}</span></b>${d.note?`<span>Заметка</span><b>${esc(d.note)}</b>`:''}</div></div>
+    ${d.tech?`<div class="card"><div class="hd"><h2>Техника на даты</h2><span class="sub">${fd(d.ev)}</span></div><div class="bd tech">${d.tech.map(t=>`<div class="r ${t[2]}"><i></i><div><b>${esc(t[0])}</b><span>${esc(t[1])}</span></div></div>`).join('')}</div></div>`:''}
     <div class="card docs"><div class="hd"><h2>Документы</h2></div><div class="bd rows">${docsFor(d).map(x=>`<div class="row"><div class="ic">${icon('doc')}</div><div class="t"><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join('')||'<div class="empty">Пока нет документов</div>'}</div></div>
     <div class="card"><div class="hd"><h2>Mary следит</h2><span class="sub">автоматизации шага</span></div><div class="bd">${auto.map(a=>`<div class="aut"><div class="t"><b>${a[0]}</b><span>${a[1]}</span></div><button class="sw ${a[2]?'on':''}" aria-label="переключить"></button></div>`).join('')}</div></div>
   </div></div>`;
@@ -471,7 +481,8 @@ function rDeal(id){const d=DEALS.find(x=>x.id===id);if(!d){location.hash='#/boar
 }
 function docsFor(d){const ms=mainStep(d);const r=[];if(ms.n>=4)r.push(['Бриф.pdf','заполнен '+fd(new Date(d.since-864e5*3))]);if(ms.n>=7||d.step==='fix')r.push(['КП v1.xlsx',d.step==='fix'?'на пересчёте':'отправлено в Telegram']);if(d.step==='fix'||(ms.n>=8&&d.id==='d02'))r.push(['КП v2.xlsx','правки клиента']);if(ms.n>=9)r.push(['Договор №'+(100+parseInt(d.id.slice(1)))+'.pdf','подписан, аванс 50 %']);if(ms.n>=10)r.push(['Пакет в производство','бриф, площадка, райдер, контакты']);if(ms.n>=18)r.push(['Акт выполненных работ','ожидает подписи']);return r}
 function autoFor(d){const s=d.step;const L=[];
-  if(['tg','answer','touch'].includes(s))L.push(['Напоминание о касании','Через 2 дня без ответа — задача менеджеру, срок виден руководителю',true]);
+  if(['tg','answer','touch'].includes(s))L.push(['Напоминание о касании','Через день после КП без ответа — задача менеджеру, срок виден руководителю продаж',true],['Контакт из Telegram','Переписка менеджера с клиентом подтягивается в сделку: когда и о чём говорили, когда ждём ответ',true]);
+  if(['kp','fix'].includes(s))L.push(['Срок на КП: 1 день','По умолчанию день на расчёт, менеджер может сдвинуть срок вручную. Просрочка видна руководителю продаж',true]);
   if(['kp','fix','rider','stock','partner'].includes(s))L.push(['Проверка техники на даты','Перед расчётом Mary сверяет склад с календарём брони: выдача, дорога, монтаж, возврат',true]);
   if(s==='partner')L.push(['Запрос партнёру','Письмо партнёру с составом и датами, ответ — в сделку',true]);
   if(['contract','pack','incomplete'].includes(s))L.push(['Пакет в производство','Собирается из брифа, площадки и райдера. Пустые поля — вернуть с причиной',true]);
@@ -531,7 +542,9 @@ function rAuto(){setTop('Автоматизации','что Mary берёт н�
    ['Запрос → ответственный','Заявка с сайта, звонок или сообщение сразу попадают в сделку и к менеджеру. Руководитель видит время первого ответа.','Продажи',true],
    ['Техника на даты','Перед расчётом Mary сверяет состав со складом и календарём: выдача, дорога, монтаж, возврат. Дефицит → запрос партнёру.','Склад',true],
    ['КП внутри сделки','Расчёт в сделке, а не в отдельном Excel. Версии КП и статус «отправлено / открыто / ответ» видны всем.','Продажи',true],
-   ['Касание после КП','Нет ответа 2 дня → задача менеджеру с датой. Просрочка подсвечивается руководителю.','Продажи',true],
+   ['Срок на КП','По умолчанию один день на расчёт. Менеджер может сдвинуть срок, если договорился с клиентом иначе. Просрочка видна руководителю продаж.','Продажи',true],
+   ['Касание после КП','День без ответа — задача менеджеру с датой. Просрочка подсвечивается на доске и в списке «требуют внимания».','Продажи',true],
+   ['Контакт из Telegram','Рабочие аккаунты менеджеров подключены к сделкам: последний контакт, краткое содержание и дата ожидаемого ответа видны без вопросов в чате.','Продажи',true],
    ['Пакет в производство','Собирается из брифа, площадки, райдера и контактов. Неполный пакет возвращается продажам с причиной.','Проект',true],
    ['Одно окно на дату','Люди, склад, транспорт и площадка подтверждают готовность к одной дате. Отмена снимает брони.','Производство',true],
    ['Приёмка возврата','Чек-лист по факту. Дефект или недостача уходят в сервис, комплект не теряется.','Склад',false],
