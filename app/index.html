@@ -153,6 +153,21 @@ svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stro
 .dc .nx .d{white-space:nowrap;margin-left:auto;font-variant-numeric:tabular-nums;color:var(--mutedfg)}
 .dc .nx span{flex:1}
 .dc .lc{display:flex;align-items:center;flex-wrap:wrap;gap:2px 5px;font-size:11px;color:var(--mutedfg);line-height:1.4} .dc .lc svg{width:13px;height:13px;color:var(--icon)} .dc .lc b{font-weight:500;color:var(--text);flex-basis:100%;padding-left:18px}
+.cal{overflow:auto}
+.cal .ct{min-width:900px;font-size:12px}
+.cal .cr{display:grid;grid-template-columns:230px 54px minmax(0,1fr);align-items:center;border-bottom:1px solid var(--border);min-height:38px}
+.cal .cr.hd2{min-height:0;padding-bottom:6px;color:var(--mutedfg);font-size:11px}
+.cal .wk{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;text-align:center} .cal .wk span{border-left:1px solid var(--border)} .cal .wk span.cur{color:var(--fg)}
+.cal .nm{padding-right:12px} .cal .nm b{display:block;font-weight:500;color:var(--fg);white-space:nowrap} .cal .nm span{color:var(--mutedfg);font-size:11px}
+.cal .tot{text-align:right;padding-right:12px;color:var(--mutedfg);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cal .tl{position:relative;height:38px;min-width:0} .cal .tl.two{height:62px}
+.cal .gl{position:absolute;inset:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr} .cal .gl i{border-left:1px solid var(--border)} .cal .gl i.cur{background:rgba(89,97,255,.05)}
+.cal .bk{position:absolute;top:8px;height:22px;border-radius:6px;background:rgba(38,38,51,.78);color:#fff;font-size:11px;line-height:22px;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;box-sizing:border-box}
+.cal .bk.hold{background:var(--card);border:1px solid rgba(38,38,51,.5);color:var(--fg)} .cal .bk.partner{background:var(--card);border:1px dashed rgba(38,38,51,.5);color:var(--text)} .cal .bk.service{background:var(--danger-soft);color:var(--danger);border:1px solid rgba(217,58,43,.25)}
+.cal .bk.r2{top:auto;bottom:8px}
+.cal .def{position:absolute;bottom:0;height:3px;background:var(--danger);border-radius:2px}
+.cal .today{position:absolute;top:0;bottom:0;width:1px;background:var(--brand);opacity:.6}
+.leg2{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px;color:var(--mutedfg);margin-top:12px} .leg2 i{display:inline-block;width:14px;height:10px;border-radius:3px;background:rgba(38,38,51,.78);vertical-align:-1px;margin-right:5px} .leg2 i.hold{background:#fff;border:1px solid rgba(38,38,51,.5)} .leg2 i.partner{background:#fff;border:1px dashed rgba(38,38,51,.5)} .leg2 i.service{background:var(--danger-soft);border:1px solid rgba(217,58,43,.25)} .leg2 i.def{height:3px;background:var(--danger);border-radius:2px;vertical-align:2px}
 .tech{display:flex;flex-direction:column} .tech .r{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--border);font-size:12px} .tech .r:first-child{border-top:0} .tech .r i{width:8px;height:8px;border-radius:50%;flex:none;margin-top:5px;background:var(--ok)} .tech .r.warn i{background:var(--warn)} .tech .r.bad i{background:var(--danger)} .tech .r b{display:block;font-weight:500;color:var(--fg)} .tech .r span{color:var(--mutedfg)}
 /* list view */
 table.tbl{width:100%;border-collapse:collapse;font-size:13px}
@@ -288,6 +303,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
       <a href="#/overview" data-v="overview"><svg class="i"><use href="#i-grid"/></svg>Обзор</a>
       <a href="#/board" data-v="board"><svg class="i"><use href="#i-cols"/></svg>Сделки<span class="n" id="n-deals"></span></a>
       <a href="#/managers" data-v="managers"><svg class="i"><use href="#i-users"/></svg>Менеджеры</a>
+      <a href="#/stock" data-v="stock"><svg class="i"><use href="#i-box"/></svg>Склад<span class="n" id="n-stock"></span></a>
       <a href="#/attention" data-v="attention"><svg class="i"><use href="#i-alert"/></svg>Требуют внимания<span class="n red" id="n-att"></span></a>
     </nav>
     <div class="grp">Процессы</div>
@@ -325,6 +341,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
   <symbol id="i-ext" viewBox="0 0 16 16"><path d="M6.5 3H3.8a.8.8 0 0 0-.8.8v8.4a.8.8 0 0 0 .8.8h8.4a.8.8 0 0 0 .8-.8V9.5M9.5 3H13v3.5M13 3 7.5 8.5"/></symbol>
   <symbol id="i-money" viewBox="0 0 16 16"><rect x="1.8" y="4" width="12.4" height="8" rx="1.5"/><circle cx="8" cy="8" r="2"/></symbol>
   <symbol id="i-msg" viewBox="0 0 16 16"><path d="M2.5 3.5h11v7h-6L4.5 13v-2.5h-2z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 16 16"><path d="M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z"/><path d="M2.5 5 8 7.5 13.5 5M8 7.5v6"/></symbol>
   <symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.2 2.2 6.8 5.1 5.4 6.6a8 8 0 0 0 4 4l1.5-1.4 2.9 1.6-.9 2.3c-.3.6-.9.9-1.5.8A11 11 0 0 1 2.1 4.6c-.1-.6.2-1.2.8-1.5Z"/></symbol>
 </svg>
 
@@ -332,13 +349,13 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 /* ============ auth ============ */
 const HASH='6e7cc261843f9ff0d2bf80519e6ad0798db6a61f1c224d6748dae2f7d4f4c808';
 async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-const authed=()=>{try{return sessionStorage.getItem('pf.auth')==='1'}catch(e){return false}};
+const authed=()=>{try{return localStorage.getItem('pf.auth')==='1'}catch(e){return false}};
 function showApp(){document.getElementById('login').hidden=true;document.getElementById('shell').hidden=false;route()}
 document.getElementById('lform').onsubmit=async e=>{e.preventDefault();const u=document.getElementById('lu').value.trim().toLowerCase(),p=document.getElementById('lp').value;const err=document.getElementById('lerr');
   let ok=false;try{ok=u==='partyfon'&&(await sha(p))===HASH}catch(_){err.textContent='Откройте кабинет по https';return}
   if(!ok){err.textContent='Неверный логин или пароль';document.getElementById('lp').value='';document.getElementById('lp').focus();return}
-  err.textContent='';try{sessionStorage.setItem('pf.auth','1')}catch(_){};showApp()};
-document.getElementById('logout').onclick=()=>{try{sessionStorage.removeItem('pf.auth')}catch(_){};location.hash='';location.reload()};
+  err.textContent='';try{localStorage.setItem('pf.auth','1')}catch(_){};showApp()};
+document.getElementById('logout').onclick=()=>{try{localStorage.removeItem('pf.auth')}catch(_){};location.hash='';location.reload()};
 
 /* ============ data ============ */
 const TODAY=new Date(2026,10,4); // 4 ноября 2026 — демо «сегодня»
@@ -390,20 +407,39 @@ const DEALS=[
  {id:'d06',t:'Юбилей компании, 120 гостей',cl:'Логистическая компания «ТрансБел»',ty:'Корпоратив',ev:D(12,5),venue:'Ресторан «Высота»',amt:9800,m:'maxim',step:'touch',since:D(10,30),due:D(11,6),next:'Касание №2: позвонить, предложить скидку на свет',eq:['Звук','Свет']},
  {id:'d07',t:'Фестиваль уличной еды, главная сцена',cl:'Фестиваль «Вкусно»',ty:'PR-мероприятие',ev:D(11,21),venue:'Парк «Дружба»',amt:22700,m:'daria',step:'fix',since:D(11,3),due:D(11,4),next:'Пересчитать: убрать LED-экран, добавить навес',eq:['Звук','Сцена','Видео']},
  {id:'d08',t:'Конференция по ритейлу, 300 человек',cl:'Ассоциация «Ритейл.бай»',ty:'Конференция',ev:D(12,10),venue:'Отель «Меридиан», зал 2',amt:17600,m:'kirill',step:'contract',since:D(11,2),due:D(11,7),next:'Получить аванс 50 % по договору №118',eq:['Звук','Видео','Свет']},
- {id:'d09',t:'Корпоратив банка, 500 гостей',cl:'Банк «Столичный»',ty:'Корпоратив',ev:D(12,23),venue:'Арена «Орбита»',amt:48300,m:'alina',step:'stock',since:D(11,4),due:D(11,4),next:'Склад: проверить LED 6×3 и 24 головы на 22–24.12',eq:['Звук','Свет','Сцена','Видео','Спецэффекты'],note:'Пересечение по датам с d13 — проверить'},
+ {id:'d09',t:'Корпоратив банка, 500 гостей',cl:'Банк «Столичный»',ty:'Корпоратив',ev:D(12,23),venue:'Арена «Орбита»',amt:48300,m:'alina',step:'stock',since:D(11,4),due:D(11,4),next:'Склад: проверить LED 6×3 и 24 головы на 22–24.12',eq:['Звук','Свет','Сцена','Видео','Спецэффекты'],note:'16 голов в сухой аренде до 10 янв, на 22–24 дек резерва по свету нет'},
  {id:'d10',t:'Свадьба Анны и Дмитрия',cl:'Частный клиент',ty:'Свадьба',ev:D(11,14),venue:'Загородный клуб «Роща»',amt:6400,m:'daria',step:'kit',since:D(11,3),due:D(11,12),next:'Комплектование к 12.11, проверить радиомикрофоны',eq:['Звук','Свет']},
  {id:'d11',t:'Открытие флагманского магазина',cl:'Бренд «Lumo»',ty:'PR-мероприятие',ev:D(11,5),venue:'ТЦ «Галерея», атриум',amt:11900,m:'maxim',step:'mount',since:D(11,4),due:D(11,5),next:'Монтаж сегодня с 20:00, старт 05.11 в 11:00',eq:['Свет','Видео','Спецэффекты']},
  {id:'d12',t:'Выпускной IT-школы',cl:'Школа «Код+»',ty:'Частный праздник',ev:D(11,28),venue:'Лофт «Фабрика»',amt:5200,m:'kirill',step:'tg',since:D(10,31),due:D(11,3),next:'Напомнить о КП, предложить созвон',eq:['Звук','Свет']},
- {id:'d13',t:'Форум предпринимателей, 800 человек',cl:'Бизнес-клуб «Импульс»',ty:'Конференция',ev:D(12,3),venue:'Конгресс-холл «Меридиан»',amt:36800,m:'alina',step:'partner',since:D(11,2),due:D(11,4),next:'Ответ партнёра по 24 головам и LED 8×4',eq:['Звук','Свет','Видео','Сцена'],note:'Своих голов на даты не хватает: 16 из 40 заняты'},
+ {id:'d13',t:'Форум предпринимателей, 800 человек',cl:'Бизнес-клуб «Импульс»',ty:'Конференция',ev:D(12,3),venue:'Конгресс-холл «Меридиан»',amt:36800,m:'alina',step:'partner',since:D(11,2),due:D(11,4),next:'Ответ партнёра по 24 головам и LED 8×4',eq:['Звук','Свет','Видео','Сцена'],note:'Нужно 32 головы, свободно 24: дефицит 8, запрос партнёру'},
  {id:'d14',t:'Корпоратив «Хэллоуин», 200 гостей',cl:'Агентство «Кадр»',ty:'Корпоратив',ev:D(10,31),venue:'Клуб «Депо»',amt:8700,m:'maxim',step:'back',since:D(11,2),due:D(11,4),next:'Приёмка комплекта: 2 прибора на проверке',eq:['Звук','Свет','Спецэффекты']},
  {id:'d15',t:'Конференция HR-день',cl:'HR-сообщество «Люди»',ty:'Конференция',ev:D(10,22),venue:'Отель «Виктория»',amt:12300,m:'daria',step:'close',since:D(10,24),due:D(11,3),next:'Закрывающие документы и остаток 30 %',eq:['Звук','Видео']},
  {id:'d16',t:'День рождения, 60 гостей',cl:'Частный клиент',ty:'Частный праздник',ev:D(11,20),venue:'Ресторан «Сад»',amt:3100,m:'kirill',step:'start',since:D(11,4),due:D(11,4),next:'Перезвонить в течение часа',eq:['Звук']},
  {id:'d17',t:'Городской забег, стартовый городок',cl:'Спортклуб «Темп»',ty:'PR-мероприятие',ev:D(11,9),venue:'Площадь у стадиона',amt:7900,m:'alina',step:'incomplete',since:D(11,3),due:D(11,4),next:'Продажи: дополнить контакты площадки и схему подключения',eq:['Звук','Сцена']},
+ {id:'d19',t:'Сухая аренда: новогодняя подсветка ТЦ',cl:'ТЦ «Галерея»',ty:'Сухая аренда',ev:D(11,28),venue:'ТЦ «Галерея», фасад и атриум',amt:14500,m:'maxim',step:'event',since:D(11,28),due:D(12,5),next:'Еженедельная проверка подсветки на объекте',eq:['Свет'],note:'16 голов Beam заняты до 10 янв, прокат без команды'},
  {id:'d18',t:'Корпоратив «Итоги года», 90 гостей',cl:'Студия «Пиксель»',ty:'Корпоратив',ev:D(12,26),venue:'Бар «Крыша»',amt:4600,m:'daria',step:'what',since:D(11,3),due:D(11,5),next:'Выбрать формат: технический ивент или сухая аренда',eq:['Звук','Свет']},
 ];
-const LAST={d01:[D(11,3),'16:20','Telegram'],d02:[D(10,28),'12:05','Telegram'],d03:[D(11,3),'11:30','телефон'],d04:[D(11,4),'09:10','Telegram'],d05:[D(11,2),'15:45','почта'],d06:[D(10,30),'10:00','Telegram'],d07:[D(11,3),'18:10','Telegram'],d08:[D(11,2),'13:00','почта'],d09:[D(11,4),'10:40','Telegram'],d10:[D(11,3),'12:15','Telegram'],d11:[D(11,4),'08:30','телефон'],d12:[D(10,31),'17:50','Telegram'],d13:[D(11,3),'14:00','телефон'],d14:[D(11,2),'11:20','Telegram'],d15:[D(10,30),'09:40','почта'],d16:[D(11,4),'11:05','сайт'],d17:[D(11,3),'16:30','Telegram'],d18:[D(11,3),'13:25','Telegram']};
+const LAST={d01:[D(11,3),'16:20','Telegram'],d02:[D(10,28),'12:05','Telegram'],d03:[D(11,3),'11:30','телефон'],d04:[D(11,4),'09:10','Telegram'],d05:[D(11,2),'15:45','почта'],d06:[D(10,30),'10:00','Telegram'],d07:[D(11,3),'18:10','Telegram'],d08:[D(11,2),'13:00','почта'],d09:[D(11,4),'10:40','Telegram'],d10:[D(11,3),'12:15','Telegram'],d11:[D(11,4),'08:30','телефон'],d12:[D(10,31),'17:50','Telegram'],d13:[D(11,3),'14:00','телефон'],d14:[D(11,2),'11:20','Telegram'],d15:[D(10,30),'09:40','почта'],d16:[D(11,4),'11:05','сайт'],d17:[D(11,3),'16:30','Telegram'],d18:[D(11,3),'13:25','Telegram'],d19:[D(11,2),'12:00','почта']};
 const EXPECT={d02:D(11,5),d06:D(11,6),d07:D(11,6),d12:D(11,5),d01:D(11,6)};
-const TECH={d09:[['LED-экран 6×3','своё, свободно','ok'],['Головы Beam 230 × 24','16 из 40 забронированы Алиной под «Форум предпринимателей» 2–4 дек','warn'],['Линейный массив','своё, свободно','ok']],d13:[['Головы Beam 230 × 24','дефицит на 2–4 дек: пересечение с «Корпоратив банка» (та же бригада дат)','bad'],['LED-экран 8×4','запрос партнёру, ответ сегодня','warn'],['Сцена 10×8','своё, свободно','ok']]};
+const TECH={d09:[['LED-экран 6×3','своё, свободно на 22–24 дек','ok'],['Головы Beam 230 × 24','16 из 40 в сухой аренде ТЦ до 10 янв: остаётся ровно 24, резерва нет','warn'],['Линейный массив','своё, свободно','ok']],d13:[['Головы Beam 230 × 32','на 2–4 дек свободно 24 (16 в сухой аренде ТЦ): дефицит 8 → запрос партнёру','bad'],['LED-экран 8×4','свой один, занят ТЦ: запрос партнёру, ответ сегодня','warn'],['Сцена 10×8','своё, свободно','ok']]};
+const EQ=[{id:'beam',n:'Головы Beam 230',cat:'Свет',total:40},{id:'wash',n:'Заливной свет LED',cat:'Свет',total:60},{id:'led63',n:'LED-экран 6×3',cat:'Видео',total:2},{id:'led84',n:'LED-экран 8×4',cat:'Видео',total:1},{id:'proj',n:'Проекторы',cat:'Видео',total:6},{id:'la',n:'Линейный массив, комплект',cat:'Звук',total:2},{id:'mic',n:'Радиомикрофоны',cat:'Звук',total:24},{id:'stage',n:'Сцена 10×8',cat:'Сцена',total:1},{id:'truss',n:'Фермы, м',cat:'Сцена',total:120},{id:'conf',n:'Конфетти-машины',cat:'Спецэффекты',total:4},{id:'haze',n:'Дым тяжёлый',cat:'Спецэффекты',total:3}];
+// st: ok — подтверждено, hold — под КП (не подтверждено), partner — привлечённое, service — на проверке/ремонте
+const BOOK=[
+ {eq:'beam',d:'d19',n:16,f:D(11,28),t:D(1,10,2027),st:'ok'},{eq:'wash',d:'d19',n:20,f:D(11,28),t:D(1,10,2027),st:'ok'},{eq:'led84',d:'d19',n:1,f:D(11,28),t:D(1,10,2027),st:'ok'},
+ {eq:'beam',d:'d04',n:24,f:D(11,6),t:D(11,8),st:'ok'},{eq:'la',d:'d04',n:2,f:D(11,6),t:D(11,8),st:'ok'},{eq:'stage',d:'d04',n:1,f:D(11,6),t:D(11,8),st:'ok'},{eq:'truss',d:'d04',n:60,f:D(11,6),t:D(11,8),st:'ok'},{eq:'haze',d:'d04',n:2,f:D(11,6),t:D(11,8),st:'ok'},{eq:'conf',d:'d04',n:2,f:D(11,6),t:D(11,8),st:'ok'},
+ {eq:'led63',d:'d11',n:1,f:D(11,4),t:D(11,6),st:'ok'},{eq:'wash',d:'d11',n:16,f:D(11,4),t:D(11,6),st:'ok'},{eq:'haze',d:'d11',n:1,f:D(11,4),t:D(11,6),st:'ok'},
+ {eq:'truss',d:'d17',n:40,f:D(11,8),t:D(11,10),st:'ok'},{eq:'mic',d:'d17',n:4,f:D(11,8),t:D(11,10),st:'ok'},
+ {eq:'beam',d:'d05',n:12,f:D(11,11),t:D(11,13),st:'ok'},{eq:'proj',d:'d05',n:2,f:D(11,11),t:D(11,13),st:'ok'},{eq:'conf',d:'d05',n:1,f:D(11,11),t:D(11,13),st:'ok'},
+ {eq:'mic',d:'d10',n:6,f:D(11,13),t:D(11,15),st:'ok'},{eq:'wash',d:'d10',n:12,f:D(11,13),t:D(11,15),st:'ok'},
+ {eq:'wash',d:'d16',n:8,f:D(11,19),t:D(11,21),st:'hold'},
+ {eq:'beam',d:'d02',n:16,f:D(11,26),t:D(11,28),st:'hold'},{eq:'led63',d:'d02',n:1,f:D(11,26),t:D(11,28),st:'hold'},{eq:'mic',d:'d02',n:8,f:D(11,26),t:D(11,28),st:'hold'},
+ {eq:'beam',d:'d13',n:32,f:D(12,2),t:D(12,4),st:'hold'},{eq:'led84',d:'d13',n:1,f:D(12,2),t:D(12,4),st:'partner'},{eq:'stage',d:'d13',n:1,f:D(12,2),t:D(12,4),st:'hold'},{eq:'mic',d:'d13',n:12,f:D(12,2),t:D(12,4),st:'hold'},
+ {eq:'mic',d:'d08',n:8,f:D(12,9),t:D(12,11),st:'ok'},{eq:'proj',d:'d08',n:2,f:D(12,9),t:D(12,11),st:'ok'},
+ {eq:'beam',d:'d01',n:16,f:D(12,17),t:D(12,19),st:'hold'},{eq:'conf',d:'d01',n:2,f:D(12,17),t:D(12,19),st:'hold'},{eq:'stage',d:'d01',n:1,f:D(12,17),t:D(12,19),st:'hold'},
+ {eq:'beam',d:'d09',n:24,f:D(12,22),t:D(12,24),st:'hold'},{eq:'led63',d:'d09',n:1,f:D(12,22),t:D(12,24),st:'hold'},{eq:'la',d:'d09',n:2,f:D(12,22),t:D(12,24),st:'hold'},{eq:'truss',d:'d09',n:80,f:D(12,22),t:D(12,24),st:'hold'},
+ {eq:'haze',d:'d14',n:1,f:D(11,2),t:D(11,9),st:'service'},{eq:'beam',d:'d14',n:1,f:D(11,2),t:D(11,12),st:'service'},
+];
+const MOVES=[{d:'d14',when:D(11,4),k:'Приёмка возврата',x:'2 прибора на проверке: дым тяжёлый, голова Beam'},{d:'d11',when:D(11,6),k:'Возврат',x:'LED 6×3, заливной свет 16, дым'},{d:'d04',when:D(11,6),k:'Погрузка',x:'две машины, 09:00: массив, головы 24, сцена, фермы'},{d:'d17',when:D(11,8),k:'Выдача',x:'фермы 40 м, радиомикрофоны 4'},{d:'d04',when:D(11,8),k:'Возврат',x:'после демонтажа, ночь'},{d:'d05',when:D(11,11),k:'Выдача',x:'головы 12, проекторы 2, конфетти'},{d:'d10',when:D(11,12),k:'Комплектование',x:'проверить радиомикрофоны, 6 шт'}];
 DEALS.forEach(d=>{d.hist=[];const l=LAST[d.id];d.last={d:l[0],h:l[1],ch:l[2]};d.expect=EXPECT[d.id]||null;d.tech=TECH[d.id]||null;});
 
 /* ============ helpers ============ */
@@ -554,6 +590,32 @@ function rOverview(){setTop('Обзор','Partyfon · все сделки');view
   view.onclick=e=>{const c=e.target.closest('[data-id]');if(c)location.hash='#/deal/'+c.dataset.id};
 }
 
+function dayOf(x){return Math.floor((x-D(11,2))/864e5)}
+function stockDeficits(){const out=[];EQ.forEach(e=>{const by={};BOOK.filter(b=>b.eq===e.id&&b.st!=='partner').forEach(b=>{for(let x=dayOf(b.f);x<=dayOf(b.t);x++)by[x]=(by[x]||0)+b.n});let run=null;Object.keys(by).map(Number).sort((a,b)=>a-b).forEach(x=>{if(by[x]>e.total){if(run&&run.to===x-1)run.to=x;else{run={eq:e,from:x,to:x,over:by[x]-e.total};out.push(run)}}else run=null})});return out}
+function rStock(){const WEEKS=9,start=D(11,2),span=WEEKS*7;const defs=stockDeficits();const onRepair=BOOK.filter(b=>b.st==='service').reduce((a,b)=>a+b.n,0);
+  const busy=EQ.map(e=>({e,n:BOOK.filter(b=>b.eq===e.id&&b.st!=='partner'&&dayOf(b.f)<=2&&dayOf(b.t)>=2).reduce((a,b)=>a+b.n,0)})).filter(x=>x.n);
+  setTop('Склад','занятость техники и выдачи',`<a class="btn ghost sm" href="../#w04" target="_blank">Шаг «Техника на даты» ${icon('ext')}</a>`);view.className='view';
+  const rows=EQ.map(e=>{const bs=BOOK.filter(b=>b.eq===e.id).sort((a,b)=>a.f-b.f);let lanes=[[],[]];bs.forEach(b=>{const l=lanes[0].some(o=>!(dayOf(b.t)<dayOf(o.f)||dayOf(b.f)>dayOf(o.t)))?1:0;lanes[l].push(b);b.l=l});const two=lanes[1].length>0;
+    const dl=defs.filter(d=>d.eq.id===e.id);
+    return `<div class="cr"><div class="nm"><b>${esc(e.n)}</b><span>${e.cat}</span></div><div class="tot">${e.total}</div><div class="tl ${two?'two':''}"><div class="gl">${Array.from({length:WEEKS},(_, i)=>`<i class="${i===0?'cur':''}"></i>`).join('')}</div><div class="today" style="left:${2/span*100}%"></div>
+      ${bs.map(b=>{const d=DEALS.find(x=>x.id===b.d);const L=dayOf(b.f)/span*100,W=Math.max((dayOf(b.t)-dayOf(b.f)+1)/span*100,1.2);return `<div class="bk ${b.st} ${b.l?'r2':''}" style="left:${L}%;width:${Math.min(W,100-L)}%" data-id="${b.d}" title="${esc(d.t)} · ${b.n} · ${fd(b.f)}–${fd(b.t)}${b.st==='hold'?' · под КП':b.st==='partner'?' · у партнёра':b.st==='service'?' · на проверке':''}">${b.n} · ${esc(d.t.split(/[,:]/)[0])}</div>`}).join('')}
+      ${dl.map(d=>`<div class="def" style="left:${d.from/span*100}%;width:${(d.to-d.from+1)/span*100}%" title="дефицит ${d.over}"></div>`).join('')}</div></div>`}).join('');
+  const heads=Array.from({length:WEEKS},(_,i)=>{const d=new Date(start.getTime()+i*7*864e5);return `<span class="${i===0?'cur':''}">${fd(d)}</span>`}).join('');
+  view.innerHTML=`<div class="grid g4" style="margin-bottom:16px">
+    <div class="card kpi"><div class="l">Позиций в парке</div><div class="v">${EQ.length}</div><div class="s">${EQ.reduce((a,e)=>a+e.total,0)} единиц</div></div>
+    <div class="card kpi"><div class="l">Занято сегодня</div><div class="v">${busy.length}</div><div class="s">${busy.map(x=>x.e.n.split(',')[0]+' '+x.n).slice(0,3).join(' · ')}</div></div>
+    <div class="card kpi"><div class="l">Дефицит на 60 дней</div><div class="v" style="color:${defs.length?'var(--danger)':'inherit'}">${defs.length}</div><div class="s ${defs.length?'bad':'ok'}">${defs.length?defs.map(d=>d.eq.n.split(' ')[0]+' '+fd(new Date(start.getTime()+d.from*864e5))+': не хватает '+d.over).join(' · '):'хватает всего'}</div></div>
+    <div class="card kpi"><div class="l">На проверке и ремонте</div><div class="v">${onRepair}</div><div class="s">после возврата «Хэллоуин»</div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px"><div class="hd"><h2>Календарь оборудования</h2><span class="sub">с ${fd(start)} на ${WEEKS} недель · считается не только событие: выдача, дорога, монтаж, возврат</span></div><div class="bd cal"><div class="ct"><div class="cr hd2"><div>Позиция</div><div class="tot">Всего</div><div class="wk">${heads}</div></div>${rows}</div>
+    <div class="leg2"><span><i></i>подтверждено</span><span><i class="hold"></i>под КП, не подтверждено</span><span><i class="partner"></i>привлечённое у партнёра</span><span><i class="service"></i>на проверке или ремонте</span><span><i class="def"></i>дефицит: бронь больше парка</span></div></div></div>
+  <div class="grid g2">
+    <div class="card"><div class="hd"><h2>Выдачи и возвраты</h2><span class="sub">ближайшие 10 дней</span></div><div class="bd rows">${MOVES.sort((a,b)=>a.when-b.when).map(m=>{const d=DEALS.find(x=>x.id===m.d);return `<div class="row" data-id="${m.d}"><div class="t"><b>${m.k}: ${esc(d.t)}</b><span>${esc(m.x)}</span></div>${avatar(d.m,'sm')}<div class="r"><b>${rel(m.when)==='сегодня'?'сегодня':fd(m.when)}</b>${esc(d.venue.split(',')[0])}</div></div>`}).join('')}</div></div>
+    <div class="card"><div class="hd"><h2>Mary следит</h2><span class="sub">склад</span></div><div class="bd">${[['Бронь при расчёте КП','Менеджер видит свободное на даты до отправки КП. Бронь под КП держится до ответа клиента и снимается при отказе',true],['Дефицит → партнёр','Если брони больше парка, запрос партнёру уходит автоматически, цена попадает в смету',true],['Кабинет кладовщика','Что скомплектовать и проверить к какой дате, задачи от продаж и производства в одном списке',true],['Приёмка по факту','Чек-лист возврата, дефект сразу в сервис, позиция исключается из свободных до ремонта',false]].map(a=>`<div class="aut"><div class="t"><b>${a[0]}</b><span>${a[1]}</span></div><button class="sw ${a[2]?'on':''}"></button></div>`).join('')}</div></div>
+  </div>`;
+  view.onclick=e=>{const c=e.target.closest('[data-id]');if(c)location.hash='#/deal/'+c.dataset.id};
+  view.querySelectorAll('.sw').forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
+}
 function rMap(){setTop('Карта бизнеса','14 отделов · 122 шага · путь клиента',`<a class="btn sec sm" href="../" target="_blank">Открыть отдельно ${icon('ext')}</a>`);view.className='view noscroll';
   view.innerHTML=`<iframe class="mapf" src="../" title="Карта бизнеса Partyfon"></iframe>`}
 
@@ -575,11 +637,11 @@ function rAuto(){setTop('Автоматизации','что Mary берёт н�
   view.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
 }
 
-function updateNav(){document.getElementById('n-deals').textContent=DEALS.length;const a=attention().filter(x=>x.st.k==='bad').length;const el=document.getElementById('n-att');el.textContent=a||'';el.hidden=!a}
+function updateNav(){document.getElementById('n-deals').textContent=DEALS.length;const ds=stockDeficits().length;const ns=document.getElementById('n-stock');ns.textContent=ds||'';ns.className='n'+(ds?' red':'');ns.hidden=!ds;const a=attention().filter(x=>x.st.k==='bad').length;const el=document.getElementById('n-att');el.textContent=a||'';el.hidden=!a}
 function route(){if(!authed())return;const h=location.hash||'#/overview';const [,v,arg]=h.split('/');
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v||(v==='deal'&&a.dataset.v==='board')));
   updateNav();
-  ({overview:rOverview,board:rBoard,deal:()=>rDeal(arg),managers:rManagers,attention:rAttention,map:rMap,auto:rAuto}[v]||rOverview)();
+  ({overview:rOverview,board:rBoard,deal:()=>rDeal(arg),managers:rManagers,attention:rAttention,stock:rStock,map:rMap,auto:rAuto}[v]||rOverview)();
   if(!view.classList.contains('noscroll'))view.scrollTop=0;
 }
 window.addEventListener('hashchange',route);
