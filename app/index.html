@@ -105,7 +105,7 @@ svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stro
 .card .hd{display:flex;align-items:center;gap:10px;padding:14px 16px 0}
 .card .hd h2{font-size:14px} .card .hd .sub{color:var(--mutedfg);font-size:12px} .card .hd .sp{flex:1}
 .card .bd{padding:12px 16px 16px}
-.grid{display:grid;gap:16px}
+.grid{display:grid;gap:16px} .grid>*{min-width:0}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))} .g3{grid-template-columns:repeat(3,minmax(0,1fr))} .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .kpi{padding:16px 18px}
 .kpi .l{font-size:12px;color:var(--mutedfg)} .kpi .v{font-size:24px;color:var(--fg);font-weight:500;line-height:1.2;margin:4px 0 2px;font-variant-numeric:tabular-nums} .kpi .s{font-size:12px;color:var(--mutedfg)}
@@ -117,7 +117,9 @@ svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stro
 .row:first-child{border-top:0}
 .row:hover .t b{color:var(--brand)}
 .row .t{min-width:0;flex:1} .row .t b{display:block;font-weight:500;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .row .t span{display:block;font-size:12px;color:var(--mutedfg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row .r{text-align:right;font-size:12px;color:var(--mutedfg);white-space:nowrap} .row .r b{display:block;font-weight:500;color:var(--fg)}
+.row .r{text-align:right;font-size:12px;color:var(--mutedfg);white-space:nowrap;flex:none}
+.row .t b .chip{display:inline-flex;vertical-align:1px;margin-left:5px;font-size:11px;color:var(--text);overflow:visible;height:18px;padding:0 7px}
+.row>.chip{flex:none} .row .r b{display:block;font-weight:500;color:var(--fg)}
 .bar{height:8px;border-radius:999px;background:var(--sunk);overflow:hidden;display:flex}
 .bar i{display:block;height:100%;background:var(--c,var(--brand))}
 .hbar{display:grid;grid-template-columns:150px 1fr 40px;align-items:center;gap:10px;padding:5px 0;font-size:12px}
@@ -168,6 +170,35 @@ svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stro
 .cal .def{position:absolute;bottom:0;height:3px;background:var(--danger);border-radius:2px}
 .cal .today{position:absolute;top:0;bottom:0;width:1px;background:var(--brand);opacity:.6}
 .leg2{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px;color:var(--mutedfg);margin-top:12px} .leg2 i{display:inline-block;width:14px;height:10px;border-radius:3px;background:rgba(38,38,51,.78);vertical-align:-1px;margin-right:5px} .leg2 i.hold{background:#fff;border:1px solid rgba(38,38,51,.5)} .leg2 i.partner{background:#fff;border:1px dashed rgba(38,38,51,.5)} .leg2 i.service{background:var(--danger-soft);border:1px solid rgba(217,58,43,.25)} .leg2 i.def{height:3px;background:var(--danger);border-radius:2px;vertical-align:2px}
+.chatw{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;height:100%;min-height:0}
+.chat{display:flex;flex-direction:column;min-height:0}
+.chat .msgs{flex:1;overflow:auto;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:78%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.45;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--fg);color:#fff;border-bottom-right-radius:4px}
+.msg.them{align-self:flex-start;background:var(--sunk);color:var(--fg);border-bottom-left-radius:4px}
+.msg.mary{align-self:flex-start;background:var(--card);border:1px solid var(--border);color:var(--fg);border-bottom-left-radius:4px}
+.msg .w{display:block;font-size:11px;color:var(--mutedfg);margin-bottom:2px} .msg.me .w{color:rgba(255,255,255,.6)}
+.msg .tsk{margin-top:8px;border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:var(--sunk);font-size:12px} .msg .tsk b{display:block;font-weight:500;color:var(--fg)} .msg .tsk span{color:var(--mutedfg)}
+.opts2{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px 10px}
+.opt2{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--input);background:var(--card);font-size:12px;color:var(--fg);cursor:pointer} .opt2:hover{background:var(--hover)} .opt2 svg{width:12px;height:12px;color:var(--icon)}
+.cin{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
+.cin input{flex:1;height:36px;border:1px solid var(--input);border-radius:999px;padding:0 14px;outline:0;background:var(--card)} .cin input:focus{border-color:var(--ring);box-shadow:0 0 0 3px var(--brand-soft)}
+.cin button{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--text)} .cin button:hover{background:var(--hover)} .cin button.go{background:var(--primary);color:#fff}
+.task{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--border)} .task:first-child{border-top:0}
+.task .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--input);flex:none;margin-top:2px;cursor:pointer;display:grid;place-items:center} .task.done .cb{background:var(--fg);border-color:var(--fg)} .task.done .cb::after{content:'';width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translate(0,-1px)}
+.task .t{flex:1;min-width:0} .task .t b{display:block;font-weight:400;color:var(--fg);line-height:1.35} .task.done .t b{color:var(--mutedfg);text-decoration:line-through} .task .t span{font-size:11px;color:var(--mutedfg)} .task .t span.bad{color:var(--danger)}
+.task .nw{font-size:11px;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:1px 7px;margin-left:4px}
+.cl-h{display:flex;align-items:center;gap:14px;margin-bottom:18px} .cl-h .av{font-size:14px} .cl-h h1{font-size:20px} .cl-h .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.cl-h .acts{margin-left:auto;display:flex;gap:8px}
+.cl-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start}
+.mini-chat .msgs{max-height:300px}
+.trip{display:grid;grid-template-columns:70px 1fr auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--border);cursor:pointer} .trip:first-child{border-top:0}
+.trip .d{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums} .trip .d span{display:block;font-size:11px;color:var(--mutedfg);font-weight:400}
+.trip .t b{display:block;font-weight:500;color:var(--fg)} .trip .t span{font-size:12px;color:var(--mutedfg);display:block}
+.tbl td .st{display:inline-flex;align-items:center;gap:5px}
+.vbar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:end;height:140px;padding-top:8px} .vbar div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:var(--mutedfg);height:100%;justify-content:flex-end} .vbar i{width:100%;max-width:64px;background:rgba(38,38,51,.78);border-radius:6px 6px 2px 2px} .vbar b{font-weight:500;color:var(--fg);font-size:12px}
+.donut{display:flex;align-items:center;gap:18px} .donut svg{width:110px;height:110px;flex:none} .donut .lg3{font-size:12px;color:var(--text);display:flex;flex-direction:column;gap:5px} .donut .lg3 i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+@media (max-width:1100px){.chatw,.cl-grid{grid-template-columns:1fr}.chatw{height:auto!important}.chatw .chat{height:520px}}
 .tech{display:flex;flex-direction:column} .tech .r{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--border);font-size:12px} .tech .r:first-child{border-top:0} .tech .r i{width:8px;height:8px;border-radius:50%;flex:none;margin-top:5px;background:var(--ok)} .tech .r.warn i{background:var(--warn)} .tech .r.bad i{background:var(--danger)} .tech .r b{display:block;font-weight:500;color:var(--fg)} .tech .r span{color:var(--mutedfg)}
 /* list view */
 table.tbl{width:100%;border-collapse:collapse;font-size:13px}
@@ -302,12 +333,20 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
     <nav class="nav" id="nav">
       <a href="#/overview" data-v="overview"><svg class="i"><use href="#i-grid"/></svg>Обзор</a>
       <a href="#/board" data-v="board"><svg class="i"><use href="#i-cols"/></svg>Сделки<span class="n" id="n-deals"></span></a>
+      <a href="#/clients" data-v="clients"><svg class="i"><use href="#i-user"/></svg>Клиенты</a>
       <a href="#/managers" data-v="managers"><svg class="i"><use href="#i-users"/></svg>Менеджеры</a>
-      <a href="#/stock" data-v="stock"><svg class="i"><use href="#i-box"/></svg>Склад<span class="n" id="n-stock"></span></a>
       <a href="#/attention" data-v="attention"><svg class="i"><use href="#i-alert"/></svg>Требуют внимания<span class="n red" id="n-att"></span></a>
     </nav>
-    <div class="grp">Процессы</div>
+    <div class="grp">Отделы</div>
     <nav class="nav">
+      <a href="#/stock" data-v="stock"><svg class="i"><use href="#i-box"/></svg>Склад<span class="n" id="n-stock"></span></a>
+      <a href="#/logistics" data-v="logistics"><svg class="i"><use href="#i-truck"/></svg>Логистика</a>
+      <a href="#/marketing" data-v="marketing"><svg class="i"><use href="#i-gift"/></svg>Маркетинг</a>
+      <a href="#/reports" data-v="reports"><svg class="i"><use href="#i-chart"/></svg>Отчёты</a>
+    </nav>
+    <div class="grp">Mary</div>
+    <nav class="nav">
+      <a href="#/chat" data-v="chat"><svg class="i"><use href="#i-msg"/></svg>Чат и задачи<span class="n" id="n-tasks"></span></a>
       <a href="#/map" data-v="map"><svg class="i"><use href="#i-route"/></svg>Карта бизнеса</a>
       <a href="#/auto" data-v="auto"><svg class="i"><use href="#i-zap"/></svg>Автоматизации</a>
     </nav>
@@ -342,6 +381,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
   <symbol id="i-money" viewBox="0 0 16 16"><rect x="1.8" y="4" width="12.4" height="8" rx="1.5"/><circle cx="8" cy="8" r="2"/></symbol>
   <symbol id="i-msg" viewBox="0 0 16 16"><path d="M2.5 3.5h11v7h-6L4.5 13v-2.5h-2z"/></symbol>
   <symbol id="i-box" viewBox="0 0 16 16"><path d="M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z"/><path d="M2.5 5 8 7.5 13.5 5M8 7.5v6"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 16 16"><path d="M1.5 4.5h8v6h-8zM9.5 7h2.8l2.2 2.2v1.3H9.5z"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 16 16"><path d="M2.5 7.5h11V14h-11zM2 4.5h12v3H2zM8 4.5V14M8 4.5C6.5 4.5 5 3.8 5 2.7 5 1.9 5.7 1.5 6.3 1.5c1 0 1.7 1.5 1.7 3M8 4.5c1.5 0 3-.7 3-1.8 0-.8-.7-1.2-1.3-1.2-1 0-1.7 1.5-1.7 3"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 16 16"><path d="M2 13.5h12M4 11V7M8 11V4M12 11V8.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 16 16"><path d="M2.5 8 13.5 2.8 10.8 13.5 8 9.2z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 16 16"><rect x="5.5" y="1.8" width="5" height="8" rx="2.5"/><path d="M3.5 7.5a4.5 4.5 0 0 0 9 0M8 12v2.2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2 1.8 3.8 4.2.5-3.1 2.9.8 4.1L8 11.3l-3.7 2 .8-4.1L2 6.3l4.2-.5z"/></symbol>
   <symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.2 2.2 6.8 5.1 5.4 6.6a8 8 0 0 0 4 4l1.5-1.4 2.9 1.6-.9 2.3c-.3.6-.9.9-1.5.8A11 11 0 0 1 2.1 4.6c-.1-.6.2-1.2.8-1.5Z"/></symbol>
 </svg>
 
@@ -440,6 +485,59 @@ const BOOK=[
  {eq:'haze',d:'d14',n:1,f:D(11,2),t:D(11,9),st:'service'},{eq:'beam',d:'d14',n:1,f:D(11,2),t:D(11,12),st:'service'},
 ];
 const MOVES=[{d:'d14',when:D(11,4),k:'Приёмка возврата',x:'2 прибора на проверке: дым тяжёлый, голова Beam'},{d:'d11',when:D(11,6),k:'Возврат',x:'LED 6×3, заливной свет 16, дым'},{d:'d04',when:D(11,6),k:'Погрузка',x:'две машины, 09:00: массив, головы 24, сцена, фермы'},{d:'d17',when:D(11,8),k:'Выдача',x:'фермы 40 м, радиомикрофоны 4'},{d:'d04',when:D(11,8),k:'Возврат',x:'после демонтажа, ночь'},{d:'d05',when:D(11,11),k:'Выдача',x:'головы 12, проекторы 2, конфетти'},{d:'d10',when:D(11,12),k:'Комплектование',x:'проверить радиомикрофоны, 6 шт'}];
+const CLIENTS={
+ 'Сеть кофеен «Зерно»':{ty:'Корпоративный клиент',who:'Ольга Ермакова, HR-директор',tg:'@o_ermakova',ph:'+375 29 118-20-14',em:'hr@zerno.example',since:2023,vip:true,bday:D(11,12),cday:D(12,1),notes:'Любят конфетти и тёплый свет. В 2025 просили без дыма.',gift:'Подарочный набор + открытка ко дню компании'},
+ 'IT-хаб «Октава»':{ty:'Корпоративный клиент',who:'Денис Лапко, event-менеджер',tg:'@dlapko',ph:'+375 44 702-33-81',em:'events@oktava.example',since:2024,vip:true,bday:D(12,20),notes:'Большие конференции, всегда нужны суфлёры и 2 оператора.',gift:'Мерч-набор'},
+ 'Частный клиент':{ty:'Частное лицо',who:'по заявке с сайта',tg:'',ph:'',em:'',since:2026,vip:false},
+ 'Промо-агентство «Шум»':{ty:'Агентство',who:'Вера Савич, продюсер',tg:'@vera_shum',ph:'+375 29 555-10-08',em:'vera@shum.example',since:2022,vip:true,bday:D(11,18),notes:'Платят вовремя, отправляют райдеры артистов заранее. 11 проектов.',gift:'Подарочная коробка'},
+ 'Дилер «АвтоВектор»':{ty:'Корпоративный клиент',who:'Павел Грищенко, маркетинг',tg:'@p_grishchenko',ph:'+375 33 412-09-77',em:'pr@autovector.example',since:2025,vip:false},
+ 'Логистическая компания «ТрансБел»':{ty:'Корпоративный клиент',who:'Ирина Котова, офис-менеджер',tg:'@ikotova',ph:'+375 29 640-21-55',em:'office@transbel.example',since:2026,vip:false,cday:D(12,5)},
+ 'Фестиваль «Вкусно»':{ty:'Организатор',who:'Антон Мороз',tg:'@a_moroz',ph:'+375 44 180-70-12',em:'',since:2024,vip:false},
+ 'Ассоциация «Ритейл.бай»':{ty:'Корпоративный клиент',who:'Светлана Жук, координатор',tg:'@s_zhuk',ph:'+375 29 311-44-90',em:'conf@retail.example',since:2023,vip:false,bday:D(12,9)},
+ 'Банк «Столичный»':{ty:'Корпоративный клиент',who:'Марина Величко, внутренние коммуникации',tg:'@m_velichko',ph:'+375 29 770-18-30',em:'events@bank.example',since:2021,vip:true,bday:D(11,25),cday:D(12,23),notes:'VIP. Три корпоратива подряд, в 2025 было 450 гостей. Согласования через службу безопасности, заезд за сутки.',gift:'Подарочная коробка руководителю + мерч команде'},
+ 'Бренд «Lumo»':{ty:'Корпоративный клиент',who:'Кристина Бель, бренд-менеджер',tg:'@kbel',ph:'+375 44 902-13-13',em:'',since:2026,vip:false},
+ 'Школа «Код+»':{ty:'Корпоративный клиент',who:'Алексей Дрозд',tg:'@a_drozd',ph:'+375 29 215-66-01',em:'',since:2026,vip:false},
+ 'Бизнес-клуб «Импульс»':{ty:'Организатор',who:'Наталья Рыбак, директор',tg:'@n_rybak',ph:'+375 29 480-55-21',em:'forum@impuls.example',since:2024,vip:true,bday:D(12,3),notes:'Форум ежегодно в начале декабря, 800+ гостей. Просят техпроект за 2 недели.',gift:'Подарочная коробка'},
+ 'Агентство «Кадр»':{ty:'Агентство',who:'Юлия Прокопович',tg:'@yprok',ph:'+375 33 650-72-19',em:'',since:2025,vip:false},
+ 'HR-сообщество «Люди»':{ty:'Организатор',who:'Егор Ковалёв',tg:'@e_kovalev',ph:'+375 29 333-80-04',em:'',since:2025,vip:false},
+ 'Спортклуб «Темп»':{ty:'Организатор',who:'Станислав Гурин',tg:'@s_gurin',ph:'+375 44 120-40-61',em:'',since:2026,vip:false},
+ 'Студия «Пиксель»':{ty:'Корпоративный клиент',who:'Анна Лис',tg:'@anna_lis',ph:'+375 29 905-27-70',em:'',since:2026,vip:false,bday:D(11,10)},
+ 'ТЦ «Галерея»':{ty:'Корпоративный клиент',who:'Дмитрий Шило, управляющий',tg:'@d_shilo',ph:'+375 29 199-01-01',em:'admin@galereya.example',since:2024,vip:true,cday:D(11,20),notes:'Сухая аренда на сезон каждый год. Открытия магазинов арендаторов — через нас.',gift:'Мерч-набор'},
+};
+const cid=n=>'c'+[...n].reduce((a,c)=>(a*31+c.charCodeAt(0))%100000,7);
+Object.keys(CLIENTS).forEach(k=>{CLIENTS[k].id=cid(k);CLIENTS[k].n=k;});
+const clientOf=d=>CLIENTS[d.cl];
+const CHAT={
+ d02:[['them','28 окт 12:05','Добрый день! Получили КП v2, спасибо. Руководство смотрит, вернёмся с решением.'],['me','28 окт 12:10','Отлично, Денис. Напомню: головы и LED держим под вас до 5 ноября, дальше без брони.'],['them','28 окт 12:12','Понял, постараемся быстрее.']],
+ d06:[['them','30 окт 10:00','Ирина: пока думаем, бюджет чуть выше, чем планировали.'],['me','30 окт 10:04','Понимаю. Могу предложить вариант без заливного света, минус 1 200. Удобно, если позвоню в четверг?'],['them','30 окт 10:05','Да, давайте в четверг.']],
+ d12:[['me','31 окт 17:50','Алексей, отправил КП на выпускной: звук, свет, 2 радиомикрофона. Итого 5 200.'],['them','31 окт 17:58','Спасибо! Посмотрю на выходных.']],
+ d13:[['them','3 ноя 14:00','Наталья: нужно 32 головы, как в прошлом году, и экран 8×4 за спикерами.'],['me','3 ноя 14:06','Принято. Свои 24 головы ставлю в бронь, по остальным 8 и экрану запрошу партнёра сегодня, цену дам завтра.'],['them','3 ноя 14:07','Ок, ждём.']],
+ d09:[['them','4 ноя 10:40','Марина: дата 23 декабря подтверждена, 500 гостей, площадка «Орбита».'],['me','4 ноя 10:52','Спасибо! Сегодня сверяю технику на 22–24 декабря и в среду отправлю расчёт.']],
+ d19:[['them','2 ноя 12:00','Дмитрий: подсветка на фасаде работает, спасибо. На атриуме два прибора мигают.'],['me','2 ноя 12:30','Заменим в четверг при плановой проверке, привезём два запасных.']],
+};
+const chatOf=d=>CHAT[d.id]||[['them',fd(d.last.d)+' '+d.last.h,`${clientOf(d).who.split(',')[0]}: добрый день, уточняю по проекту «${d.t.split(',')[0]}».`],['me',fd(d.last.d)+' '+d.last.h,'Здравствуйте! '+d.next+'.']];
+const TASKS=[
+ {id:'t1',t:'Отправить КП v1 по корпоративу «Зерно»',who:'alina',due:D(11,4),d:'d01'},
+ {id:'t2',t:'Напомнить школе «Код+» о КП, предложить созвон',who:'kirill',due:D(11,3),d:'d12'},
+ {id:'t3',t:'Ответ партнёра по 8 головам и LED 8×4 для форума',who:'alina',due:D(11,4),d:'d13'},
+ {id:'t4',t:'Приёмка «Хэллоуин»: 2 прибора на проверке',who:'stock',due:D(11,4),d:'d14'},
+ {id:'t5',t:'Погрузка «Концерт группы», две машины',who:'logistics',due:D(11,6),d:'d04'},
+ {id:'t6',t:'Подтвердить бригаду 4 человека на презентацию авто',who:'alina',due:D(11,5),d:'d05'},
+ {id:'t7',t:'Закрывающие документы HR-день, остаток 30 %',who:'daria',due:D(11,3),d:'d15'},
+ {id:'t8',t:'Подарок «Зерно» ко дню компании 1 дек: собрать набор',who:'marketing',due:D(11,24),d:'d01'},
+];
+const WHO={alina:'Алина',maxim:'Максим',kirill:'Кирилл',daria:'Дарья',stock:'Склад',logistics:'Логистика',marketing:'Маркетинг',production:'Производство'};
+const TRIPS=[
+ {when:D(11,4),win:'20:00–23:00',d:'d11',k:'Доставка и монтаж',veh:'Спринтер',drv:'Сергей',ld:2,st:'в пути'},
+ {when:D(11,6),win:'09:00–11:00',d:'d04',k:'Погрузка и доставка',veh:'Фура + Газель',drv:'Олег, Андрей',ld:4,st:'план'},
+ {when:D(11,6),win:'14:00–15:30',d:'d11',k:'Возврат на склад',veh:'Спринтер',drv:'Сергей',ld:2,st:'план'},
+ {when:D(11,8),win:'07:30–09:00',d:'d17',k:'Выдача на площадку',veh:'Газель',drv:'Андрей',ld:2,st:'план'},
+ {when:D(11,8),win:'23:30–01:30',d:'d04',k:'Возврат после демонтажа',veh:'Фура + Газель',drv:'Олег, Андрей',ld:4,st:'план'},
+ {when:D(11,11),win:'10:00–12:00',d:'d05',k:'Доставка и монтаж',veh:'Спринтер',drv:'Сергей',ld:2,st:'план'},
+ {when:D(11,13),win:'12:00–14:00',d:'d10',k:'Доставка',veh:'Газель',drv:'Андрей',ld:1,st:'план'},
+ {when:D(11,6),win:'11:00–12:00',d:'d19',k:'Плановая проверка подсветки',veh:'Легковая',drv:'техник Илья',ld:0,st:'план'},
+];
+const GIFTS=[['Подарочные коробки руководителю',6,'2 зарезервированы: «Столичный», «Импульс»'],['Мерч-наборы Partyfon',12,'футболка, шоппер, стикеры'],['Открытки с ручной подписью',20,''],['Шампанское и сладкое',4,'заказать к декабрю ещё 6']];
 DEALS.forEach(d=>{d.hist=[];const l=LAST[d.id];d.last={d:l[0],h:l[1],ch:l[2]};d.expect=EXPECT[d.id]||null;d.tech=TECH[d.id]||null;});
 
 /* ============ helpers ============ */
@@ -520,9 +618,10 @@ function rDeal(id){const d=DEALS.find(x=>x.id===id);if(!d){location.hash='#/boar
   const hist=[...d.hist].reverse();
   const auto=autoFor(d);
   view.innerHTML=`<div class="dh"><a class="back" href="#/board">${icon('back')}</a><div><h1>${esc(d.t)}</h1><div class="meta"><span>${icon('user')}${esc(d.cl)}</span><span>${icon('cal')}${fdy(d.ev)}</span><span>${icon('pin')}${esc(d.venue)}</span><span>${icon('money')}${money(d.amt)}</span><span class="chip sm ${st.k==='bad'?'bad':st.k==='today'?'warn':st.k==='wait'?'brand':st.k==='warn'?'warn':'ok'}">${st.l}</span></div></div>
-    <div class="acts">${ms.n<21?`<button class="btn sec sm" id="adv">Перевести дальше ${icon('arrow')}</button>`:''}<a class="btn ghost sm" href="../#${{start:'s01',brief:'s04',what:'s05',rider:'s06',stock:'w04',kp:'s07',tg:'s08',answer:'s12',contract:'f03',pack:'p05',plan:'r06',kit:'w07',deliv:'l05',mount:'e02',event:'e05',dism:'e09',back:'w11',close:'f08',stays:'s13',dates:'m03',again:'m02'}[ms.id]}" target="_blank">Шаг на карте ${icon('ext')}</a></div></div>
+    <div class="acts"><a class="btn ghost sm" href="#/client/${clientOf(d).id}">${icon('user')} Карточка клиента</a>${ms.n<21?`<button class="btn sec sm" id="adv">Перевести дальше ${icon('arrow')}</button>`:''}<a class="btn ghost sm" href="../#${{start:'s01',brief:'s04',what:'s05',rider:'s06',stock:'w04',kp:'s07',tg:'s08',answer:'s12',contract:'f03',pack:'p05',plan:'r06',kit:'w07',deliv:'l05',mount:'e02',event:'e05',dism:'e09',back:'w11',close:'f08',stays:'s13',dates:'m03',again:'m02'}[ms.id]}" target="_blank">Шаг на карте ${icon('ext')}</a></div></div>
   <div class="dealwrap"><div class="grid" style="gap:16px">
     <div class="card"><div class="hd"><h2>Путь клиента</h2><span class="sub">этап «${stg.n}» · шаг ${ms.n} из 21</span></div><div class="stepper">${steps}</div></div>
+    <div class="card chat mini-chat"><div class="hd"><h2>Чат с клиентом</h2><span class="sub">${esc(d.last.ch)} · ${esc(clientOf(d).who.split(',')[0])}</span><span class="sp"></span><a class="btn ghost sm" href="#/client/${clientOf(d).id}">Вся история ${icon('arrow')}</a></div>${chatHTML(d)}</div>
     <div class="card"><div class="hd"><h2>История</h2><span class="sub">${hist.length?hist.length+' '+pl(hist.length,'событие','события','событий'):'что происходило со сделкой'}</span></div><div class="bd tl">${hist.length?hist.map(h=>`<div class="e"><span class="d">${h.d}</span><span class="w"><b>${esc(h.t)}</b> <span>· ${esc(h.w)}</span></span></div>`).join(''):`<div class="e"><span class="d">${fd(d.since)}</span><span class="w"><b>${esc(stepLabel(d))}</b> <span>· ${esc(MGR[d.m].n)}</span></span></div><div class="e"><span class="d">${fd(new Date(d.since-864e5*2))}</span><span class="w"><b>Запрос получен</b> <span>· сайт partyfon.by</span></span></div>`}</div></div>
   </div>
   <div class="grid" style="gap:16px">
@@ -533,6 +632,7 @@ function rDeal(id){const d=DEALS.find(x=>x.id===id);if(!d){location.hash='#/boar
     <div class="card"><div class="hd"><h2>Mary следит</h2><span class="sub">автоматизации шага</span></div><div class="bd">${auto.map(a=>`<div class="aut"><div class="t"><b>${a[0]}</b><span>${a[1]}</span></div><button class="sw ${a[2]?'on':''}" aria-label="переключить"></button></div>`).join('')}</div></div>
   </div></div>`;
   view.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{b.classList.toggle('on');toast(b.classList.contains('on')?'Автоматизация включена':'Автоматизация выключена')});
+  bindChat(view,d);
   const adv=document.getElementById('adv');if(adv)adv.onclick=()=>{const nxt=STEPS[ms.n];d.hist.push({d:fd(TODAY),t:`→ ${nxt.n}. ${nxt.t}`,w:'Руководитель'});d.step=nxt.id;d.since=TODAY;d.due=new Date(TODAY.getTime()+864e5*2);d.next=`Выполнить: ${nxt.t.toLowerCase()}`;toast(`Сделка на шаге ${nxt.n}. ${nxt.t}`);rDeal(id);updateNav()};
 }
 function docsFor(d){const ms=mainStep(d);const r=[];if(ms.n>=4)r.push(['Бриф.pdf','заполнен '+fd(new Date(d.since-864e5*3))]);if(ms.n>=7||d.step==='fix')r.push(['КП v1.xlsx',d.step==='fix'?'на пересчёте':'отправлено в Telegram']);if(d.step==='fix'||(ms.n>=8&&d.id==='d02'))r.push(['КП v2.xlsx','правки клиента']);if(ms.n>=9)r.push(['Договор №'+(100+parseInt(d.id.slice(1)))+'.pdf','подписан, аванс 50 %']);if(ms.n>=10)r.push(['Пакет в производство','бриф, площадка, райдер, контакты']);if(ms.n>=18)r.push(['Акт выполненных работ','ожидает подписи']);return r}
@@ -616,6 +716,116 @@ function rStock(){const WEEKS=9,start=D(11,2),span=WEEKS*7;const defs=stockDefic
   view.onclick=e=>{const c=e.target.closest('[data-id]');if(c)location.hash='#/deal/'+c.dataset.id};
   view.querySelectorAll('.sw').forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
 }
+function chatHTML(d,full){const ms=chatOf(d);return `<div class="msgs">${ms.map(m=>`<div class="msg ${m[0]}"><span class="w">${m[0]==='me'?esc(MGR[d.m].n.split(' ')[0])+' · ':''}${m[1]}</span>${esc(m[2])}</div>`).join('')}</div><div class="cin"><button title="Голосовое" class="mic">${icon('mic')}</button><input placeholder="Написать клиенту в ${esc(d.last.ch)}…"><button class="go" title="Отправить">${icon('send')}</button></div>`}
+function bindChat(root,d){root.querySelectorAll('.chat').forEach(c=>{const inp=c.querySelector('.cin input'),go=c.querySelector('.cin .go'),msgs=c.querySelector('.msgs');const send=()=>{const v=inp.value.trim();if(!v)return;const el=document.createElement('div');el.className='msg me';el.innerHTML=`<span class="w">${esc(MGR[d.m].n.split(' ')[0])} · сегодня ${new Date().toTimeString().slice(0,5)}</span>${esc(v)}`;msgs.appendChild(el);inp.value='';msgs.scrollTop=msgs.scrollHeight;toast('Отправлено в '+d.last.ch+' (демо)');};go.onclick=send;inp.onkeydown=e=>{if(e.key==='Enter')send()};c.querySelector('.mic').onclick=()=>toast('Голосовые в демо не записываем');msgs.scrollTop=msgs.scrollHeight;});}
+function rClients(){setTop('Клиенты',Object.keys(CLIENTS).length+' компаний и людей');view.className='view';
+  const list=Object.values(CLIENTS).map(c=>{const ds=DEALS.filter(d=>d.cl===c.n);const sum=ds.reduce((a,d)=>a+d.amt,0);const last=ds.map(d=>d.last.d).sort((a,b)=>b-a)[0];return {c,ds,sum,last}}).sort((a,b)=>b.sum-a.sum);
+  view.innerHTML=`<div class="card"><div class="bd" style="padding-top:4px"><table class="tbl"><thead><tr><th>Клиент</th><th>Контакт</th><th>Сделок</th><th class="num">Сумма в работе</th><th class="w">Последний контакт</th><th class="w">Повод</th></tr></thead><tbody>${list.map(({c,ds,sum,last})=>{const gap=last?days(TODAY,last):99;const ev=[c.bday&&['ДР '+c.who.split(',')[0].split(' ')[0],c.bday],c.cday&&['День компании',c.cday]].filter(Boolean).filter(x=>days(x[1],TODAY)>=0&&days(x[1],TODAY)<=45).map(x=>x[0]+' '+fd(x[1]));return `<tr data-c="${c.id}"><td><b>${esc(c.n)}${c.vip?' <span class="chip sm">VIP</span>':''}</b><span class="mu">${c.ty} · с ${c.since}</span></td><td>${esc(c.who)}<span class="mu">${esc(c.tg||c.ph||'')}</span></td><td>${ds.length}</td><td class="num">${money(sum)}</td><td class="w">${last?rel(last):'—'}${gap>14?' <span class="chip sm warn">'+gap+' дн без контакта</span>':''}</td><td class="w">${ev.join(', ')||'<span style="color:var(--mutedfg)">—</span>'}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  view.onclick=e=>{const r=e.target.closest('[data-c]');if(r)location.hash='#/client/'+r.dataset.c};
+}
+function rClient(id){const c=Object.values(CLIENTS).find(x=>x.id===id);if(!c){location.hash='#/clients';return}
+  const ds=DEALS.filter(d=>d.cl===c.n).sort((a,b)=>b.ev-a.ev);const main=ds[0];
+  setTop('Клиент',c.ty);view.className='view';
+  view.innerHTML=`<div class="cl-h"><a class="back" href="#/clients" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--input);display:grid;place-items:center">${icon('back')}</a><span class="av xl" style="--c:#ECECEF">${esc(c.n.replace(/[«»]/g,'').split(' ').slice(0,2).map(w=>w[0]).join(''))}</span><div><h1>${esc(c.n)}</h1><div class="meta"><span class="chip sm">${c.ty}</span>${c.vip?'<span class="chip sm">VIP</span>':''}<span class="chip sm">с ${c.since}</span>${ds.length?`<span class="chip sm">${ds.length} ${pl(ds.length,'сделка','сделки','сделок')} · ${money(ds.reduce((a,d)=>a+d.amt,0))}</span>`:''}</div></div>
+    <div class="acts"><button class="btn sec sm" id="ctask">Задача по клиенту</button></div></div>
+  <div class="cl-grid"><div class="grid" style="gap:16px">
+    ${main?`<div class="card chat" style="height:460px"><div class="hd"><h2>Чат</h2><span class="sub">${esc(main.last.ch)} · ${esc(c.who.split(',')[0])} · менеджер ${esc(MGR[main.m].n.split(' ')[0])}</span></div>${chatHTML(main)}</div>`:''}
+    <div class="card"><div class="hd"><h2>Сделки и история</h2></div><div class="bd rows">${ds.map(d=>`<div class="row" data-id="${d.id}"><div class="t"><b>${esc(d.t)}</b><span>${stageOf(d).n} · ${esc(stepLabel(d))}</span></div>${avatar(d.m,'sm')}<div class="r"><b>${fdy(d.ev)}</b>${money(d.amt)}</div></div>`).join('')||'<div class="empty">Сделок пока нет</div>'}${c.since<2026?`<div class="row" style="cursor:default"><div class="t"><b style="color:var(--mutedfg)">Проекты ${c.since}–2025</b><span>история из CRM подтянется при подключении</span></div></div>`:''}</div></div>
+  </div><div class="grid" style="gap:16px">
+    <div class="card"><div class="hd"><h2>Контакты</h2></div><div class="bd kv"><span>Контакт</span><b>${esc(c.who)}</b>${c.tg?`<span>Telegram</span><b>${esc(c.tg)}</b>`:''}${c.ph?`<span>Телефон</span><b>${esc(c.ph)}</b>`:''}${c.em?`<span>Почта</span><b>${esc(c.em)}</b>`:''}<span>Менеджер</span><b>${main?avatar(main.m,'sm')+' '+esc(MGR[main.m].n):'—'}</b></div></div>
+    <div class="card"><div class="hd"><h2>Важные даты и подарки</h2><span class="sub">маркетинг готовит заранее</span></div><div class="bd rows">${[c.bday&&['День рождения · '+c.who.split(',')[0],c.bday],c.cday&&['День компании',c.cday]].filter(Boolean).map(x=>`<div class="row" style="cursor:default"><div class="t"><b>${x[0]}</b><span>${c.gift||'подарок не назначен'}</span></div><div class="r"><b>${fd(x[1])}</b>${days(x[1],TODAY)>=0?'через '+days(x[1],TODAY)+' дн':'прошло'}</div></div>`).join('')||'<div class="empty">Дат пока нет</div>'}</div></div>
+    <div class="card"><div class="hd"><h2>Заметки</h2></div><div class="bd" style="font-size:13px;color:var(--text);line-height:1.5">${esc(c.notes||'Пока пусто. Сюда попадает всё, что важно помнить: предпочтения, ограничения площадки, кто принимает решения.')}</div></div>
+  </div></div>`;
+  view.onclick=e=>{const r=e.target.closest('[data-id]');if(r)location.hash='#/deal/'+r.dataset.id};
+  if(main)bindChat(view,main);
+  document.getElementById('ctask').onclick=()=>{TASKS.unshift({id:'t'+Date.now(),t:'Связаться с клиентом «'+c.n.replace(/[«»]/g,'')+'»',who:main?main.m:'alina',due:new Date(TODAY.getTime()+864e5),nw:true});updateNav();toast('Задача поставлена, видна в «Чат и задачи»')};
+}
+function parseTask(text){const low=text.toLowerCase();let who=null;Object.entries(WHO).forEach(([k,n])=>{if(low.includes(n.toLowerCase().slice(0,4)))who=k});if(!who){if(/склад|комплект|провер/.test(low))who='stock';else if(/достав|погруз|машин|водител/.test(low))who='logistics';else if(/подар|рассылк|поздрав/.test(low))who='marketing';}
+  let due=null;const m=low.match(/(\d{1,2})\s*(ноя|дек|янв)/);if(m)due=D({ноя:11,дек:12,янв:1}[m[2]],+m[1],m[2]==='янв'?2027:2026);else if(/завтра/.test(low))due=new Date(TODAY.getTime()+864e5);else if(/сегодня/.test(low))due=TODAY;else if(/послезавтра/.test(low))due=new Date(TODAY.getTime()+2*864e5);else if(/пятниц/.test(low))due=D(11,6);else if(/понедельник/.test(low))due=D(11,9);
+  let deal=null;DEALS.forEach(d=>{const key=d.t.split(/[,:]/)[0].toLowerCase().replace(/[«»]/g,'');if(key.length>5&&low.includes(key.split(' ').slice(0,2).join(' ')))deal=d;if(low.includes(d.cl.toLowerCase().replace(/[«»]/g,'').split(' ').pop()))deal=d});
+  return {who,due,deal};}
+const MCHAT=[['mary','Доброе утро. Сегодня 4 ноября: 3 просроченных действия, 2 выдачи, дефицит голов на 2 декабря. Напишите задачу словами, я назначу и поставлю срок.']];
+function rChat(){setTop('Чат и задачи','поставить задачу голосом или текстом, Mary назначит и напомнит');view.className='view';
+  const open=TASKS.filter(t=>!t.done);
+  view.innerHTML=`<div class="chatw" style="height:calc(100vh - 110px);min-height:520px"><div class="card chat" id="mchat"><div class="msgs">${MCHAT.map(m=>`<div class="msg ${m[0]}">${m[0]==='mary'?'<span class="w">Mary</span>':''}${esc(m[1])}${m[2]||''}</div>`).join('')}</div>
+    <div class="opts2" id="qopts"><button class="opt2" data-q="Что сегодня горит?">${icon('arrow')}Что сегодня горит?</button><button class="opt2" data-q="Склад, проверь радиомикрофоны к 12 ноя">${icon('arrow')}Склад: проверить микрофоны к 12 ноя</button><button class="opt2" data-q="Кирилл, позвони школе Код+ завтра">${icon('arrow')}Кирилл: позвонить «Код+» завтра</button><button class="opt2" data-q="Маркетинг, собрать подарок банку Столичный к 20 ноя">${icon('arrow')}Маркетинг: подарок банку к 20 ноя</button></div>
+    <div class="cin"><button class="mic" title="Голосовое">${icon('mic')}</button><input id="mq" placeholder="Например: «Алина, уточни у Зерно бюджет к пятнице»"><button class="go" id="mgo">${icon('send')}</button></div></div>
+  <div class="card" style="display:flex;flex-direction:column;min-height:0;max-height:100%"><div class="hd"><h2>Задачи</h2><span class="sub">${open.length} открытых</span><span class="sp"></span><span class="chip sm">из чата, сделок и автоматизаций</span></div><div class="bd" id="tlist" style="overflow:auto">${tasksHTML()}</div></div></div>`;
+  const msgs=view.querySelector('#mchat .msgs'),inp=document.getElementById('mq');
+  const say=(cls,html)=>{const el=document.createElement('div');el.className='msg '+cls;el.innerHTML=(cls==='mary'?'<span class="w">Mary</span>':'')+html;msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;};
+  const handle=text=>{if(!text)return;say('me',esc(text));inp.value='';
+    setTimeout(()=>{const low=text.toLowerCase();
+      if(/горит|срочн|просроч|что сегодня/.test(low)){const L=attention().slice(0,4);say('mary','Сейчас требуют внимания:'+`<div class="tsk">${L.map(({d,st})=>`<b>${esc(d.t)}</b><span>${st.l} · ${esc(MGR[d.m].n.split(' ')[0])}</span><br>`).join('')}</div>`+'Открыть список целиком: «Требуют внимания».');return}
+      const p=parseTask(text);if(!p.who&&!p.due){say('mary','Не поняла, кому и к какому сроку. Напишите, например: «Максим, перезвони ТрансБел завтра».');return}
+      const who=p.who||(p.deal?p.deal.m:'alina');const due=p.due||new Date(TODAY.getTime()+864e5);const t={id:'t'+Date.now(),t:text.replace(/^[^,]+,\s*/,'').replace(/^./,c=>c.toUpperCase()),who,due,d:p.deal?p.deal.id:null,nw:true};TASKS.unshift(t);document.getElementById('tlist').innerHTML=tasksHTML();updateNav();
+      say('mary',`Поставила задачу: ${WHO[who]}, срок ${fd(due)}${p.deal?', привязала к сделке «'+esc(p.deal.t.split(',')[0])+'»':''}. Напомню утром в день срока.`+`<div class="tsk"><b>${esc(t.t)}</b><span>${WHO[who]} · ${fd(due)}${p.deal?' · '+esc(p.deal.t.split(',')[0]):''}</span></div>`);
+    },350)};
+  document.getElementById('mgo').onclick=()=>handle(inp.value.trim());inp.onkeydown=e=>{if(e.key==='Enter')handle(inp.value.trim())};
+  document.getElementById('qopts').onclick=e=>{const b=e.target.closest('[data-q]');if(b)handle(b.dataset.q)};
+  view.querySelector('.mic').onclick=()=>toast('Голосовые в демо не записываем, напишите текстом');
+  view.querySelector('#tlist').onclick=e=>{const cb=e.target.closest('.cb');if(cb){const t=TASKS.find(x=>x.id===cb.dataset.t);t.done=!t.done;document.getElementById('tlist').innerHTML=tasksHTML();updateNav();return}const go=e.target.closest('[data-go]');if(go)location.hash='#/deal/'+go.dataset.go};
+}
+function tasksHTML(){return TASKS.slice().sort((a,b)=>(a.done-b.done)||(a.due-b.due)).map(t=>{const dd=days(t.due,TODAY);return `<div class="task ${t.done?'done':''}"><span class="cb" data-t="${t.id}"></span><div class="t"><b>${esc(t.t)}${t.nw?'<span class="nw">новая</span>':''}</b><span class="${dd<0&&!t.done?'bad':''}">${WHO[t.who]||t.who} · ${dd===0?'сегодня':dd===1?'завтра':dd<0?'просрочено, '+fd(t.due):fd(t.due)}</span>${t.d?` <a data-go="${t.d}" style="font-size:11px;color:var(--brand);cursor:pointer">· сделка</a>`:''}</div></div>`}).join('')}
+function rLogistics(){setTop('Логистика','рейсы, окна и экипажи',`<a class="btn ghost sm" href="../#l05" target="_blank">Шаг «Погрузка и доставка» ${icon('ext')}</a>`);view.className='view';
+  const trips=TRIPS.slice().sort((a,b)=>a.when-b.when);const today=trips.filter(t=>days(t.when,TODAY)===0);
+  const byDay={};trips.forEach(t=>{const k=fd(t.when);(byDay[k]=byDay[k]||[]).push(t)});
+  view.innerHTML=`<div class="grid g4" style="margin-bottom:16px">
+    <div class="card kpi"><div class="l">Рейсов сегодня</div><div class="v">${today.length}</div><div class="s">${today.map(t=>t.win).join(' · ')||'нет'}</div></div>
+    <div class="card kpi"><div class="l">На неделе</div><div class="v">${trips.filter(t=>days(t.when,TODAY)<=7).length}</div><div class="s">до ${fd(new Date(TODAY.getTime()+7*864e5))}</div></div>
+    <div class="card kpi"><div class="l">Транспорт</div><div class="v">4</div><div class="s">фура, спринтер, 2 газели</div></div>
+    <div class="card kpi"><div class="l">Грузчики заняты</div><div class="v">${trips.filter(t=>days(t.when,TODAY)<=2).reduce((a,t)=>a+t.ld,0)}</div><div class="s">человеко-выездов за 3 дня</div></div></div>
+  <div class="grid" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
+    <div class="card"><div class="hd"><h2>Рейсы</h2><span class="sub">ближайшие 10 дней</span></div><div class="bd">${Object.entries(byDay).map(([k,ts])=>`<div style="font-size:11px;color:var(--mutedfg);padding:10px 0 2px">${k===fd(TODAY)?'Сегодня, ':''}${k}</div>${ts.map(t=>{const d=DEALS.find(x=>x.id===t.d);return `<div class="trip" data-id="${t.d}"><div class="d">${t.win.split('–')[0]}<span>${t.win.split('–')[1]}</span></div><div class="t"><b>${t.k}: ${esc(d.t.split(',')[0])}</b><span>${esc(d.venue)} · ${t.veh} · ${esc(t.drv)}${t.ld?' · грузчиков '+t.ld:''}</span></div><span class="chip sm ${t.st==='в пути'?'brand':''}">${t.st}</span></div>`}).join('')}`).join('')}</div></div>
+    <div class="grid" style="gap:16px">
+      <div class="card"><div class="hd"><h2>Экипажи и транспорт</h2></div><div class="bd rows">${[['Фура MAN','Олег','6 ноя концерт, 8 ноя возврат'],['Спринтер','Сергей','сегодня 20:00 ТЦ «Галерея»'],['Газель 1','Андрей','6, 8, 13 ноя'],['Газель 2','свободна','резерв'],['Грузчики, бригада','4 человека','6 ноя двойной выезд']].map(r=>`<div class="row" style="cursor:default"><div class="t"><b>${r[0]}</b><span>${r[2]}</span></div><div class="r"><b>${r[1]}</b></div></div>`).join('')}</div></div>
+      <div class="card"><div class="hd"><h2>Mary следит</h2><span class="sub">логистика</span></div><div class="bd">${[['Окно приезда согласовано','Площадке уходит сообщение с окном и контактом водителя, ответ попадает в сделку',true],['Два выезда в одну дату','Если бригада нужна на двух площадках, предупредить производство заранее',true],['Возврат = приёмка','Как только машина выехала с площадки, склад получает чек-лист приёмки',false]].map(a=>`<div class="aut"><div class="t"><b>${a[0]}</b><span>${a[1]}</span></div><button class="sw ${a[2]?'on':''}"></button></div>`).join('')}</div></div>
+    </div></div>`;
+  view.onclick=e=>{const c=e.target.closest('[data-id]');if(c)location.hash='#/deal/'+c.dataset.id};
+  view.querySelectorAll('.sw').forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
+}
+function rMarketing(){setTop('Маркетинг','поводы, подарки, рассылки',`<a class="btn ghost sm" href="../#m03" target="_blank">Шаг «Важные даты» ${icon('ext')}</a>`);view.className='view';
+  const dates=[];Object.values(CLIENTS).forEach(c=>{if(c.bday)dates.push({c,k:'День рождения · '+c.who.split(',')[0],d:c.bday});if(c.cday)dates.push({c,k:'День компании',d:c.cday})});dates.sort((a,b)=>a.d-b.d);
+  const silent=Object.values(CLIENTS).map(c=>{const ds=DEALS.filter(d=>d.cl===c.n);const last=ds.map(d=>d.last.d).sort((a,b)=>b-a)[0];return {c,last,gap:last?days(TODAY,last):null}}).filter(x=>x.gap!==null&&x.gap>=5).sort((a,b)=>b.gap-a.gap);
+  view.innerHTML=`<div class="grid g4" style="margin-bottom:16px">
+    <div class="card kpi"><div class="l">Поводов за 60 дней</div><div class="v">${dates.filter(x=>days(x.d,TODAY)>=0&&days(x.d,TODAY)<=60).length}</div><div class="s">дни рождения и дни компаний</div></div>
+    <div class="card kpi"><div class="l">Подарков на складе</div><div class="v">${GIFTS.reduce((a,g)=>a+g[1],0)}</div><div class="s">склад подарков и мерча</div></div>
+    <div class="card kpi"><div class="l">Молчат 2+ недели</div><div class="v">${silent.filter(x=>x.gap>=14).length}</div><div class="s">повод вернуться</div></div>
+    <div class="card kpi"><div class="l">Сезонная рассылка</div><div class="v">3 дек</div><div class="s">«Новогодний сезон: бронируйте даты»</div></div></div>
+  <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
+    <div class="grid" style="gap:16px">
+      <div class="card"><div class="hd"><h2>Важные даты</h2><span class="sub">подарок готовим за 2 недели, менеджеру напоминаем за день</span></div><div class="bd rows">${dates.filter(x=>days(x.d,TODAY)>=-3).map(x=>{const dd=days(x.d,TODAY);return `<div class="row" data-c="${x.c.id}"><div class="t"><b>${esc(x.c.n)}${x.c.vip?' <span class="chip sm">VIP</span>':''}</b><span>${x.k} · ${x.c.gift||'подарок не назначен'}</span></div><span class="chip sm ${dd<=14?'warn':''}">${dd<0?'прошло':dd===0?'сегодня':'через '+dd+' дн'}</span><div class="r"><b>${fd(x.d)}</b></div></div>`}).join('')}</div></div>
+      <div class="card"><div class="hd"><h2>Повод вернуться</h2><span class="sub">клиенты без контакта</span></div><div class="bd rows">${silent.map(x=>`<div class="row" data-c="${x.c.id}"><div class="t"><b>${esc(x.c.n)}</b><span>последний контакт ${fd(x.last)} · ${esc(x.c.who.split(',')[0])}</span></div><span class="chip sm ${x.gap>=14?'warn':''}">${x.gap} дн</span></div>`).join('')||'<div class="empty">Все клиенты на связи</div>'}</div></div>
+    </div>
+    <div class="grid" style="gap:16px">
+      <div class="card"><div class="hd"><h2>Склад подарков</h2><span class="sub">отдельно от техники</span></div><div class="bd rows">${GIFTS.map(g=>`<div class="row" style="cursor:default"><div class="t"><b>${g[0]}</b><span>${g[2]||'&nbsp;'}</span></div><div class="r"><b>${g[1]} шт</b></div></div>`).join('')}</div></div>
+      <div class="card"><div class="hd"><h2>Рассылки</h2></div><div class="bd rows">${[['Новогодний сезон: бронируйте даты','3 дек · Telegram · 2 000+ клиентов','черновик'],['Итоги Viva Braslav 2025 и новые кейсы','отправлено 14 окт · открываемость 41 %','готово'],['Поздравление с Днём маркетолога','отправлено 25 окт · 86 клиентов','готово']].map(r=>`<div class="row" style="cursor:default"><div class="t"><b>${r[0]}</b><span>${r[1]}</span></div><span class="chip sm ${r[2]==='черновик'?'brand':'ok'}">${r[2]}</span></div>`).join('')}</div></div>
+      <div class="card"><div class="hd"><h2>Mary следит</h2><span class="sub">маркетинг</span></div><div class="bd">${[['Подарок за 2 недели','По датам VIP-клиентов задача маркетингу: собрать подарок, списать со склада подарков',true],['Напоминание менеджеру за день','Кто поздравляет и чем, уже решено заранее',true],['2+ недели тишины','Сезон или долгое молчание — повод вернуться, задача менеджеру',true]].map(a=>`<div class="aut"><div class="t"><b>${a[0]}</b><span>${a[1]}</span></div><button class="sw ${a[2]?'on':''}"></button></div>`).join('')}</div></div>
+    </div></div>`;
+  view.onclick=e=>{const r=e.target.closest('[data-c]');if(r)location.hash='#/client/'+r.dataset.c};
+  view.querySelectorAll('.sw').forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
+}
+function rReports(){setTop('Отчёты','воронка, выручка, источники, менеджеры',`<button class="btn sec sm" id="xls">Excel</button><button class="btn sec sm" id="pdf">PDF</button>`);view.className='view';
+  const funnel=[['Запросы',46],['Бриф собран',38],['КП отправлено',29],['Подтверждено',17],['Проведено',14]];
+  const months=[['авг',118],['сен',164],['окт',203],['ноя',96]];const mx=Math.max(...months.map(m=>m[1]));
+  const src=[['Сайт',38,'rgba(38,38,51,.85)'],['Telegram',31,'rgba(38,38,51,.6)'],['Телефон',22,'rgba(38,38,51,.38)'],['Рекомендации',9,'rgba(38,38,51,.18)']];let acc=0;const C=2*Math.PI*42;
+  const types={};DEALS.forEach(d=>{types[d.ty]=(types[d.ty]||0)+d.amt});const tl=Object.entries(types).sort((a,b)=>b[1]-a[1]);const tmx=tl[0][1];
+  view.innerHTML=`<div class="grid g4" style="margin-bottom:16px">
+    <div class="card kpi"><div class="l">Выручка, октябрь</div><div class="v">203 400</div><div class="s ok">+24 % к сентябрю</div></div>
+    <div class="card kpi"><div class="l">Конверсия КП → договор</div><div class="v">59 %</div><div class="s">17 из 29 за 90 дней</div></div>
+    <div class="card kpi"><div class="l">Первый ответ клиенту</div><div class="v">2,1 ч</div><div class="s">72 % быстрее часа</div></div>
+    <div class="card kpi"><div class="l">Средний чек</div><div class="v">${money(Math.round(DEALS.reduce((a,d)=>a+d.amt,0)/DEALS.length)).replace(' BYN','')}</div><div class="s">по сделкам в работе</div></div></div>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card"><div class="hd"><h2>Воронка за 90 дней</h2><span class="sub">по шагам пути клиента</span></div><div class="bd">${funnel.map((f,i)=>`<div class="hbar" style="grid-template-columns:130px 1fr 60px"><span class="n">${f[0]}</span><div class="bar"><i style="--c:rgba(38,38,51,${(0.85-i*0.14).toFixed(2)});width:${f[1]/funnel[0][1]*100}%"></i></div><span class="v">${f[1]}${i?' · '+Math.round(f[1]/funnel[i-1][1]*100)+' %':''}</span></div>`).join('')}</div></div>
+    <div class="card"><div class="hd"><h2>Выручка по месяцам</h2><span class="sub">тыс. BYN, ноябрь идёт</span></div><div class="bd"><div class="vbar">${months.map(m=>`<div><b>${m[1]}</b><i style="height:${m[1]/mx*100}px"></i>${m[0]}</div>`).join('')}</div></div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card"><div class="hd"><h2>Источники запросов</h2><span class="sub">90 дней</span></div><div class="bd donut"><svg viewBox="0 0 100 100">${src.map(x=>{const o=acc;acc+=x[1];return `<circle cx="50" cy="50" r="42" fill="none" stroke="${x[2]}" stroke-width="14" stroke-dasharray="${x[1]/100*C} ${C}" stroke-dashoffset="${-o/100*C}" transform="rotate(-90 50 50)"/>`}).join('')}</svg><div class="lg3">${src.map(x=>`<span><i style="background:${x[2]}"></i>${x[0]} · ${x[1]} %</span>`).join('')}</div></div></div>
+    <div class="card"><div class="hd"><h2>По формату мероприятий</h2><span class="sub">сумма в работе</span></div><div class="bd">${tl.map(([k,v],i)=>`<div class="hbar" style="grid-template-columns:150px 1fr 80px"><span class="n">${k}</span><div class="bar"><i style="--c:rgba(38,38,51,${(0.85-i*0.1).toFixed(2)});width:${v/tmx*100}%"></i></div><span class="v">${money(v).replace(' BYN','')}</span></div>`).join('')}</div></div>
+  </div>
+  <div class="card"><div class="hd"><h2>Менеджеры</h2><span class="sub">90 дней</span></div><div class="bd" style="padding-top:4px"><table class="tbl"><thead><tr><th>Менеджер</th><th class="num">В работе</th><th class="num">Выиграно</th><th class="num">Потеряно</th><th class="num">Конверсия</th><th class="num">Ответ клиенту</th><th class="num">Просрочено</th></tr></thead><tbody>${Object.entries(MGR).map(([k,m])=>{const ds=DEALS.filter(d=>d.m===k);const bad=ds.filter(d=>status(d).k==='bad').length;return `<tr data-m="${k}"><td>${avatar(k,'sm')} <b>${m.n}</b></td><td class="num">${ds.length} · ${money(ds.reduce((a,d)=>a+d.amt,0)).replace(' BYN','')}</td><td class="num">${m.won}</td><td class="num">${m.lost}</td><td class="num">${Math.round(m.won/(m.won+m.lost)*100)} %</td><td class="num">${m.resp} ч</td><td class="num" style="color:${bad?'var(--danger)':'inherit'}">${bad}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  view.onclick=e=>{const r=e.target.closest('[data-m]');if(r){S.mgr=r.dataset.m;save();location.hash='#/board'}};
+  document.getElementById('xls').onclick=()=>toast('Выгрузка в Excel появится при подключении данных');document.getElementById('pdf').onclick=()=>toast('PDF-отчёт появится при подключении данных');
+}
 function rMap(){setTop('Карта бизнеса','14 отделов · 122 шага · путь клиента',`<a class="btn sec sm" href="../" target="_blank">Открыть отдельно ${icon('ext')}</a>`);view.className='view noscroll';
   view.innerHTML=`<iframe class="mapf" src="../" title="Карта бизнеса Partyfon"></iframe>`}
 
@@ -637,11 +847,11 @@ function rAuto(){setTop('Автоматизации','что Mary берёт н�
   view.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
 }
 
-function updateNav(){document.getElementById('n-deals').textContent=DEALS.length;const ds=stockDeficits().length;const ns=document.getElementById('n-stock');ns.textContent=ds||'';ns.className='n'+(ds?' red':'');ns.hidden=!ds;const a=attention().filter(x=>x.st.k==='bad').length;const el=document.getElementById('n-att');el.textContent=a||'';el.hidden=!a}
+function updateNav(){document.getElementById('n-deals').textContent=DEALS.length;document.getElementById('n-tasks').textContent=TASKS.filter(t=>!t.done).length;const ds=stockDeficits().length;const ns=document.getElementById('n-stock');ns.textContent=ds||'';ns.className='n'+(ds?' red':'');ns.hidden=!ds;const a=attention().filter(x=>x.st.k==='bad').length;const el=document.getElementById('n-att');el.textContent=a||'';el.hidden=!a}
 function route(){if(!authed())return;const h=location.hash||'#/overview';const [,v,arg]=h.split('/');
-  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v||(v==='deal'&&a.dataset.v==='board')));
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v||(v==='deal'&&a.dataset.v==='board')||(v==='client'&&a.dataset.v==='clients')));
   updateNav();
-  ({overview:rOverview,board:rBoard,deal:()=>rDeal(arg),managers:rManagers,attention:rAttention,stock:rStock,map:rMap,auto:rAuto}[v]||rOverview)();
+  ({overview:rOverview,board:rBoard,deal:()=>rDeal(arg),clients:rClients,client:()=>rClient(arg),managers:rManagers,attention:rAttention,stock:rStock,logistics:rLogistics,marketing:rMarketing,reports:rReports,chat:rChat,map:rMap,auto:rAuto}[v]||rOverview)();
   if(!view.classList.contains('noscroll'))view.scrollTop=0;
 }
 window.addEventListener('hashchange',route);
