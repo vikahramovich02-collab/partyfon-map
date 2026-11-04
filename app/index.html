@@ -458,7 +458,7 @@ function rBoard(){
   view.className='view noscroll';
   const vs=visible();
   if(S.mode==='board'){
-    view.innerHTML=`<div class="boardwrap"><div class="bar-f">${mgrFilter()}<span class="sp"></span><span class="sub" style="color:var(--mutedfg);font-size:12px">Колонка — этап пути клиента, точка — отдел шага</span></div>
+    view.innerHTML=`<div class="boardwrap"><div class="bar-f">${mgrFilter()}<span class="sp"></span><span class="sub" style="color:var(--mutedfg);font-size:12px">Колонка — этап пути клиента</span></div>
     <div class="kan">${STAGES.map(st=>{const ds=vs.filter(d=>stageOf(d).id===st.id);const sum=ds.reduce((a,d)=>a+d.amt,0);
       return `<div class="col"><div class="ch"><i style="--c:${hue(st.c)}"></i><b>${st.n}</b><span class="n">${ds.length}</span></div><div class="cs">${ds.map(dealCard).join('')}</div>${ds.length?`<div class="ch" style="position:static;padding-top:0"><span class="sum">${money(sum)}</span></div>`:''}</div>`}).join('')}</div></div>`;
   }else{
