@@ -66,6 +66,14 @@ kbd.k{font:11px var(--font);color:var(--faint);border:1px solid var(--border);bo
 .chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface);cursor:pointer;font-size:12.5px;color:var(--muted)}
 .chip[aria-pressed="true"]{border-color:var(--fg);color:var(--fg);background:var(--sunk)}
 .chip .n{font-variant-numeric:tabular-nums;color:var(--faint)}
+.stbtn{display:none;align-items:center;gap:7px;height:32px;padding:0 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font:inherit;font-size:13px;color:var(--fg);cursor:pointer;white-space:nowrap}
+.stbtn .sv{width:16px;height:10px}
+#stLbl{display:inline-flex;align-items:center;gap:7px}
+.dbg{display:none}
+.viewport{touch-action:pan-x pan-y}
+.drawer .hdl{display:none}
+.stbtn::after{content:'';width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg) translate(-1px,-1px);flex:none}
+.stbtn[aria-expanded="true"]::after{transform:rotate(-135deg) translate(-2px,-2px)}
 .bar .clr{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:12.5px;padding:0 4px}
 .main{display:grid;grid-template-columns:236px minmax(0,1fr);gap:12px;flex:1;min-height:0;transition:grid-template-columns .2s}
 .main.norail{grid-template-columns:52px minmax(0,1fr)}
@@ -307,6 +315,24 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
   .sheet .sheet-head input,#gate .gate-f input,body input[type=text],body input[type=search],body input[type=password]{font-size:16px}
   .mini{display:none}
   .vhint,.sheet-foot{display:none}
+  /* статусы — одна плашка с выпадающим списком */
+  .bar{position:relative;flex-wrap:nowrap}
+  .bar .lbl{display:none}
+  .stbtn{display:inline-flex}
+  .bar:not(.open) .filters{display:none!important}
+  .bar.open .filters{display:flex!important;flex-direction:column;gap:2px;position:absolute;left:0;top:40px;z-index:40;min-width:260px;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--pop);padding:6px}
+  .bar.open .filters .chip{justify-content:flex-start;height:40px;border-color:transparent;border-radius:10px;font-size:14px}
+  .bar.open .filters .chip .n{margin-left:auto}
+  /* панель шага — нижняя шторка: фикс. у низа экрана, затемнение, ручка, свайп вниз закрывает */
+  .dbg:not([hidden]){display:block;position:fixed;inset:0;z-index:48;background:rgba(38,38,51,.32)}
+  .drawer{position:fixed;left:0;right:0;bottom:0;top:auto;width:auto;max-height:78dvh;z-index:49;border:0;border-radius:20px 20px 0 0;box-shadow:0 -10px 32px rgba(38,38,51,.22);padding-bottom:env(safe-area-inset-bottom,0px);transition:transform .22s}
+  .drawer.swiping{transition:none}
+  .drawer .hdl{display:block;width:36px;height:4px;border-radius:2px;background:rgba(73,79,92,.25);margin:8px auto 0;flex:none}
+  .drawer .dh{border-top:0;padding-top:10px;touch-action:none}
+  .drawer .dh .ddept::before{content:'';display:none}
+  .drawer h2{font-size:20px}
+  .drawer .db{padding-bottom:28px}
+  .scroll{touch-action:pan-x pan-y}
 }
 
 /* ---- вход (общий с кабинетом: ключ pf.auth в localStorage того же домена) ---- */
@@ -384,7 +410,7 @@ window.addEventListener('storage',ev=>{if(ev.key==='pf.auth'&&ev.newValue==='1')
     </div>
   </header>
 
-  <div class="bar" id="bar"><span class="lbl">Статус:</span><div class="filters" id="filters" style="display:contents"></div><button type="button" class="clr" id="clrF" hidden>сбросить</button></div>
+  <div class="bar" id="bar"><span class="lbl">Статус:</span><button type="button" class="stbtn" id="stBtn" aria-expanded="false"><span id="stLbl">Статус: все</span></button><div class="filters" id="filters" style="display:contents"></div><button type="button" class="clr" id="clrF" hidden>сбросить</button></div>
 
   <div class="main">
     <nav class="rail" id="rail" aria-label="Навигация"></nav>
@@ -398,6 +424,7 @@ window.addEventListener('storage',ev=>{if(ev.key==='pf.auth'&&ev.newValue==='1')
         <div class="zoom"><button type="button" id="zout" aria-label="Уменьшить">−</button><button type="button" class="zv" id="zval" tabindex="-1">100%</button><button type="button" id="zin" aria-label="Увеличить">+</button><button type="button" id="zfit">Целиком</button></div>
         <div class="mini" id="mini"><div class="mini-h"><span>Обзор · 122 шага</span><button type="button" id="miniBtn" aria-label="Свернуть обзор">−</button></div><canvas id="miniC" width="392" height="300"></canvas><div class="mini-f">Нажми на нужное место</div></div>
       </div>
+      <div class="dbg" id="dbg" hidden></div>
       <aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
     </section>
   </div>
@@ -699,6 +726,12 @@ window.addEventListener('storage',ev=>{if(ev.key==='pf.auth'&&ev.newValue==='1')
     window.addEventListener('pointermove', ev => { if(!drag) return; const dx=ev.clientX-drag.x, dy=ev.clientY-drag.y; if(!moved && Math.hypot(dx,dy)>4){moved=true;vp.classList.add('dragging');} if(moved){vp.scrollLeft=drag.sl-dx;vp.scrollTop=drag.st-dy;} });
     window.addEventListener('pointerup', () => { drag=null; vp.classList.remove('dragging'); });
     vp.addEventListener('scroll', () => requestAnimationFrame(drawMini));
+    // щипок на холсте (телефон/планшет): зум вокруг точки между пальцами
+    { let p = null; const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+      vp.addEventListener('touchstart', ev => { if (ev.touches.length===2) p = {d: dist(ev.touches), z}; }, {passive:true});
+      vp.addEventListener('touchmove', ev => { if (!p || ev.touches.length!==2) return; ev.preventDefault(); const r = vp.getBoundingClientRect(); setZoom(p.z * dist(ev.touches) / p.d, (ev.touches[0].clientX+ev.touches[1].clientX)/2 - r.left, (ev.touches[0].clientY+ev.touches[1].clientY)/2 - r.top); }, {passive:false});
+      vp.addEventListener('touchend', ev => { if (ev.touches.length < 2) p = null; }, {passive:true}); }
+    window.__mapZoom = () => z;
     // --- minimap
     const mini = document.getElementById('mini'), miniC = document.getElementById('miniC'), mctx = miniC.getContext('2d');
     function drawMini(){ if (wrap.hidden || mini.classList.contains('min')) return;
@@ -775,6 +808,7 @@ window.addEventListener('storage',ev=>{if(ev.key==='pf.auth'&&ev.newValue==='1')
     const onPath = pathCardOf(n.id);
     const swap = view==='path' ? `<button type="button" class="abtn" data-swap="full">Показать на карте</button>` : (onPath ? `<button type="button" class="abtn" data-swap="path">Показать на пути клиента</button>` : '');
     drawer.innerHTML = `
+      <div class="hdl"></div>
       <div class="dh">
         <div class="row"><span class="ddept"><i></i>${esc(LANE[n.lane].label)} · ${esc(n.owner)}</span><button type="button" class="x" id="dx" aria-label="Закрыть">×</button></div>
         <h2>${esc(pn ? pn.t : n.title)}</h2>
@@ -804,11 +838,37 @@ window.addEventListener('storage',ev=>{if(ev.key==='pf.auth'&&ev.newValue==='1')
 
   function select(id, {silent}={}){
     sel = id;
+    document.getElementById('dbg').hidden = !id; drawer.style.transform = '';
     if (id){ laneSel = null; markRail(); openDrawer(id); if (!silent) history.replaceState(null, '', '#' + nodeOf(id).id); }
     else { drawer.hidden = true; if (!silent && location.hash) history.replaceState(null, '', location.pathname + location.search); }
     applyHighlight();
     if (view==='path') requestAnimationFrame(drawOver); else requestAnimationFrame(F.refresh); // drawer changes width
   }
+
+  // ================= телефон: шторка и щипок =================
+  document.getElementById('dbg').onclick = () => select(null);
+  { // свайп вниз по шапке шторки закрывает её
+    let sw = null;
+    drawer.addEventListener('touchstart', ev => { const hd = ev.target.closest('.dh,.hdl'); if (!hd || ev.touches.length!==1) return; sw = {y: ev.touches[0].clientY, dy: 0}; drawer.classList.add('swiping'); }, {passive:true});
+    drawer.addEventListener('touchmove', ev => { if (!sw) return; sw.dy = Math.max(0, ev.touches[0].clientY - sw.y); drawer.style.transform = `translateY(${sw.dy}px)`; }, {passive:true});
+    drawer.addEventListener('touchend', () => { if (!sw) return; const dy = sw.dy; sw = null; drawer.classList.remove('swiping'); if (dy > 90) select(null); else drawer.style.transform = ''; });
+  }
+  // щипок двумя пальцами: на «Всей карте» — зум холста, на «Пути клиента» — масштаб карточек
+  function pinchable(el, getScale, setScale){
+    let p = null;
+    const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    el.addEventListener('touchstart', ev => { if (ev.touches.length===2){ p = {d: dist(ev.touches), s: getScale()}; } }, {passive:true});
+    el.addEventListener('touchmove', ev => { if (!p || ev.touches.length!==2) return; ev.preventDefault(); const r = el.getBoundingClientRect(); setScale(p.s * dist(ev.touches) / p.d, (ev.touches[0].clientX+ev.touches[1].clientX)/2 - r.left, (ev.touches[0].clientY+ev.touches[1].clientY)/2 - r.top); }, {passive:false});
+    el.addEventListener('touchend', ev => { if (ev.touches.length < 2) p = null; }, {passive:true});
+  }
+  let pathZoom = 1;
+  pinchable(scroll, () => pathZoom, (nz, cx, cy) => {
+    nz = Math.max(.6, Math.min(1.6, nz)); const prev = pathZoom; pathZoom = nz;
+    const wy = (scroll.scrollTop + cy) / prev;
+    document.getElementById('pathv').style.zoom = nz;
+    scroll.scrollTop = wy * nz - cy;
+  });
+  window.__pathZoom = () => pathZoom;
 
   // ================= navigation =================
   function scrollTo(el, offset=120){
@@ -894,13 +954,20 @@ window.addEventListener('storage',ev=>{if(ev.key==='pf.auth'&&ev.newValue==='1')
   const filters = document.getElementById('filters');
   const counts = {}; D.nodes.forEach(n => counts[n.kind]=(counts[n.kind]||0)+1);
   filters.innerHTML = ['said','site','wish','hyp'].map(k => `<button type="button" class="chip" data-k="${k}" aria-pressed="false"><i class="sv ${k}" style="width:16px;height:10px"></i>${STATUS[k].n}<span class="n">${counts[k]||0}</span></button>`).join('');
+  // одна плашка на телефоне: показывает выбранный статус, раскрывает список
+  const bar = document.getElementById('bar'), stBtn = document.getElementById('stBtn'), stLbl = document.getElementById('stLbl');
+  const stOpen = o => { bar.classList.toggle('open', o); stBtn.setAttribute('aria-expanded', String(o)); };
+  const stLabel = () => { stLbl.innerHTML = statusSel ? `<i class="sv ${statusSel}"></i>${STATUS[statusSel].n} <span class="n">${counts[statusSel]||0}</span>` : 'Статус: все'; };
+  stBtn.onclick = () => stOpen(!bar.classList.contains('open'));
+  document.addEventListener('click', ev => { if (bar.classList.contains('open') && !bar.contains(ev.target)) stOpen(false); });
   filters.addEventListener('click', ev => {
     const b = ev.target.closest('[data-k]'); if (!b) return;
     statusSel = statusSel===b.dataset.k ? null : b.dataset.k;
     filters.querySelectorAll('[data-k]').forEach(x => x.setAttribute('aria-pressed', x.dataset.k===statusSel));
+    stLabel(); stOpen(false);
     if (sel) select(null); else applyHighlight();
   });
-  document.getElementById('clrF').onclick = () => { statusSel=null; laneSel=null; filters.querySelectorAll('[data-k]').forEach(x => x.setAttribute('aria-pressed','false')); markRail(); applyHighlight(); };
+  document.getElementById('clrF').onclick = () => { statusSel=null; laneSel=null; filters.querySelectorAll('[data-k]').forEach(x => x.setAttribute('aria-pressed','false')); stLabel(); markRail(); applyHighlight(); };
 
   // ================= legend =================
   const legBtn = document.getElementById('legBtn'), legPop = document.getElementById('legPop');
