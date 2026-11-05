@@ -303,6 +303,10 @@ mark{background:rgba(89,97,255,.14);color:inherit;border-radius:2px}
   .conn{min-height:36px}
   header.top h1{font-size:17px}
   .sheet-bg{padding-top:12px}.sheet{max-height:80vh}.st-w{display:none}
+  /* iOS Safari зумит страницу при фокусе в поле со шрифтом < 16px — на телефоне все поля 16px */
+  .sheet .sheet-head input,#gate .gate-f input,body input[type=text],body input[type=search],body input[type=password]{font-size:16px}
+  .mini{display:none}
+  .vhint,.sheet-foot{display:none}
 }
 
 /* ---- вход (общий с кабинетом: ключ pf.auth в localStorage того же домена) ---- */
