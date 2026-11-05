@@ -208,6 +208,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl td b{font-weight:500;color:var(--fg)} .tbl td .mu{color:var(--mutedfg);font-size:12px;display:block}
 .tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tbl .w{white-space:nowrap}
+.tbl td .av{display:inline-grid;vertical-align:middle}
 
 /* ---------- deal ---------- */
 .dealwrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
@@ -280,16 +281,72 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 
 /* responsive */
 @media (max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(2,1fr)} .dealwrap{grid-template-columns:1fr}}
+.g2w{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+.gmg{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.mlogo,.tabbar,.msheet{display:none}
 @media (max-width:760px){
-  .shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .side{flex-direction:row;align-items:center;padding:8px 12px;border-right:0;border-bottom:1px solid var(--border);overflow:auto;gap:4px}
-  .side .logo{padding:0 8px 0 0} .side .logo b{display:none} .side .grp{display:none}
-  .nav{flex-direction:row} .nav a{height:30px;padding:0 10px} .nav a .n{display:none}
-  .side .me{margin-left:auto;padding:4px} .side .me .t{display:none}
-  .top{padding:0 16px;height:50px} .top h1{font-size:17px} .srch{width:150px} .demo{display:none}
-  .view{padding:14px 16px 28px} .g4,.g3,.g2{grid-template-columns:1fr}
-  .bar-f{padding:10px 16px 8px} .kan{padding:0 16px 16px} .col{width:248px}
-  .dh .acts{width:100%;margin-left:0} .dh{flex-wrap:wrap}
+  /* --- мобильный каркас: без сайдбара, нижний таб-бар + шторка «Меню» --- */
+  .shell{grid-template-columns:1fr;height:100dvh}
+  .side{display:none}
+  .mainc{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
+  .top{height:auto;min-height:52px;flex-wrap:wrap;padding:10px 16px;gap:8px 10px}
+  .top h1{font-size:18px;margin-right:auto;line-height:32px}
+  .top .sub,.top .sp,.demo{display:none}
+  .mlogo{display:flex;align-items:center;height:32px;padding-right:10px;margin-right:2px;border-right:1px solid var(--border)} .mlogo img{height:14px;display:block}
+  .srch{flex:1 1 100%;order:9;width:auto;height:36px}
+  input,select{font-size:16px} .srch input{font-size:16px}
+  .view{padding:14px 16px 24px}
+  .g4,.g3,.g2,.g2w,.gmg{grid-template-columns:1fr}
+  .hbar{grid-template-columns:116px 1fr 68px!important} .hbar .v{white-space:nowrap}
+  .bar-f .chips .fchip{flex:none;white-space:nowrap}
+  .dh>div:not(.acts){flex:1 1 0;min-width:0} .cl-h>div:not(.acts){flex:1 1 0;min-width:0}
+  .kpi .v{font-size:22px}
+  /* доска: одна колонка на экран, листается вбок */
+  .bar-f{padding:10px 16px 8px;flex-wrap:nowrap} .bar-f .sub,.bar-f .sp{display:none}
+  .bar-f .chips{flex-wrap:nowrap;overflow:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;flex:1} .bar-f .chips::-webkit-scrollbar{display:none}
+  .kan{padding:0 16px 16px;scroll-snap-type:x proximity;gap:10px;scroll-padding:0 16px}
+  .col{width:min(300px,calc(100vw - 56px));scroll-snap-align:start;max-height:none} .col .cs{overflow:visible}
+  /* таблицы — карточками: первая ячейка во всю ширину, остальные парами с подписью из шапки */
+  table.tbl,.tbl tbody{display:block} .tbl thead{display:none}
+  .tbl tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;padding:11px 0;border-bottom:1px solid var(--border)}
+  .tbl td{display:block;padding:0;border:0;text-align:left!important;white-space:normal!important;min-width:0}
+  .tbl td:first-child{grid-column:1/-1}
+  .tbl td::before{content:attr(data-l);display:block;font-size:11px;color:var(--mutedfg);margin-bottom:1px}
+  .tbl td:first-child::before{display:none}
+  .tbl tbody tr:hover td{background:none}
+  .boardwrap>div[style*="overflow"]{padding:0 16px 16px!important}
+  /* сделка, клиент */
+  .dh{flex-wrap:wrap;gap:10px 12px} .dh .acts{width:100%;margin-left:0;flex-wrap:wrap}
+  .dh h1{font-size:18px}
+  .cl-h{flex-wrap:wrap} .cl-h .acts{width:100%;margin-left:0}
+  .mg .foot{flex-wrap:wrap;gap:6px 14px}
+  .msg{max-width:88%}
+  .chatw .chat{height:calc(100dvh - 210px);min-height:400px}
+  .mini-chat .msgs{max-height:260px}
+  /* склад: имя позиции липнет слева, лента листается */
+  .cal .ct{min-width:760px}
+  .cal .cr{grid-template-columns:132px 36px minmax(0,1fr)}
+  .cal .nm{position:sticky;left:0;z-index:2;background:var(--card);padding-right:8px} .cal .nm b{white-space:normal;line-height:1.25}
+  .cal .cr.hd2 .nm{background:var(--card)}
+  /* таб-бар */
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(58px + env(safe-area-inset-bottom,0px));padding:0 4px env(safe-area-inset-bottom,0px);background:rgba(252,252,252,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--border)}
+  .tabbar a,.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:500;color:var(--mutedfg);position:relative;border-radius:10px;min-width:0}
+  .tabbar svg.i{width:22px;height:22px;stroke-width:1.4}
+  .tabbar .on{color:var(--fg)}
+  .tabbar .b{position:absolute;top:7px;left:calc(50% + 6px);min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--danger);color:#fff;font-size:10px;line-height:16px;text-align:center;font-weight:500}
+  .tabbar .b:empty,.tabbar .b[hidden]{display:none}
+  .tabbar .dot{position:absolute;top:8px;left:calc(50% + 8px);width:7px;height:7px;border-radius:50%;background:var(--danger)}
+  /* шторка меню */
+  .msheet{display:block;position:fixed;inset:0;z-index:45;background:rgba(38,38,51,.32);opacity:0;pointer-events:none;transition:opacity .18s}
+  .msheet.on{opacity:1;pointer-events:auto}
+  .msheet .pn{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:8px 12px calc(16px + env(safe-area-inset-bottom,0px));transform:translateY(16px);transition:transform .2s;max-height:88dvh;overflow:auto}
+  .msheet.on .pn{transform:none}
+  .msheet .hdl{width:36px;height:4px;border-radius:2px;background:var(--input);margin:4px auto 12px}
+  .msheet .grp{font-size:11px;color:var(--mutedfg);padding:12px 12px 6px}
+  .msheet .nav a{height:44px;font-size:15px;border-radius:12px;gap:12px} .msheet .nav a svg.i{width:18px;height:18px} .msheet .nav a .n{display:inline-block}
+  .msheet .me{display:flex;align-items:center;gap:12px;padding:12px;margin-top:8px;border-top:1px solid var(--border)}
+  .msheet .me .t{flex:1;min-width:0} .msheet .me .t b{display:block;font-weight:500;color:var(--fg)} .msheet .me .t span{font-size:12px;color:var(--mutedfg)}
+  .msheet .me .av{background:var(--fg)!important;color:#fff!important}
 }
 
 /* ---------- спокойная палитра (04.11): один графитовый цвет на графиках, нейтральные аватары,
@@ -309,7 +366,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 /* прокрутка: колонка контента не растёт выше окна */
 .shell{grid-template-rows:minmax(0,1fr)}
 .mainc{min-height:0;overflow:hidden}
-@media (max-width:760px){ .shell{grid-template-rows:auto minmax(0,1fr)} }
+@media (max-width:760px){ .shell{grid-template-rows:minmax(0,1fr)} }
 </style>
 </head>
 <body>
@@ -356,10 +413,40 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
     <div class="top" id="top"></div>
     <div class="view" id="view"></div>
   </div>
+  <nav class="tabbar" id="tabbar" aria-label="Разделы">
+    <a href="#/overview" data-v="overview"><svg class="i"><use href="#i-grid"/></svg>Обзор</a>
+    <a href="#/board" data-v="board"><svg class="i"><use href="#i-cols"/></svg>Сделки</a>
+    <a href="#/clients" data-v="clients"><svg class="i"><use href="#i-user"/></svg>Клиенты</a>
+    <a href="#/attention" data-v="attention"><svg class="i"><use href="#i-alert"/></svg>Внимание<span class="b" id="tb-att"></span></a>
+    <button type="button" id="tb-menu" data-v="menu"><svg class="i"><use href="#i-menu"/></svg>Меню<span class="dot" id="tb-dot" hidden></span></button>
+  </nav>
+  <div class="msheet" id="msheet" aria-hidden="true">
+    <div class="pn" role="dialog" aria-label="Меню">
+      <div class="hdl"></div>
+      <nav class="nav">
+        <a href="#/managers" data-v="managers"><svg class="i"><use href="#i-users"/></svg>Менеджеры</a>
+      </nav>
+      <div class="grp">Отделы</div>
+      <nav class="nav">
+        <a href="#/stock" data-v="stock"><svg class="i"><use href="#i-box"/></svg>Склад<span class="n" id="m-stock"></span></a>
+        <a href="#/logistics" data-v="logistics"><svg class="i"><use href="#i-truck"/></svg>Логистика</a>
+        <a href="#/marketing" data-v="marketing"><svg class="i"><use href="#i-gift"/></svg>Маркетинг</a>
+        <a href="#/reports" data-v="reports"><svg class="i"><use href="#i-chart"/></svg>Отчёты</a>
+      </nav>
+      <div class="grp">Mary</div>
+      <nav class="nav">
+        <a href="#/chat" data-v="chat"><svg class="i"><use href="#i-msg"/></svg>Чат и задачи<span class="n" id="m-tasks"></span></a>
+        <a href="#/map" data-v="map"><svg class="i"><use href="#i-route"/></svg>Карта бизнеса</a>
+        <a href="#/auto" data-v="auto"><svg class="i"><use href="#i-zap"/></svg>Автоматизации</a>
+      </nav>
+      <div class="me"><div class="av">ПБ</div><div class="t"><b>Руководитель</b><span>Partyfon · все сделки</span></div><button class="btn sec sm" id="logout2">Выйти</button></div>
+    </div>
+  </div>
 </div>
 <div id="toast"></div>
 
 <svg width="0" height="0" style="position:absolute">
+  <symbol id="i-menu" viewBox="0 0 16 16"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/></symbol>
   <symbol id="i-grid" viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></symbol>
   <symbol id="i-cols" viewBox="0 0 16 16"><rect x="2" y="2" width="3.4" height="12" rx="1"/><rect x="6.3" y="2" width="3.4" height="8" rx="1"/><rect x="10.6" y="2" width="3.4" height="10" rx="1"/></symbol>
   <symbol id="i-users" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.5"/><path d="M1.8 13.5c.4-2.5 2.2-3.8 4.2-3.8s3.8 1.3 4.2 3.8"/><path d="M10.5 3.3a2.4 2.4 0 0 1 0 4.4M12 9.9c1.2.4 2 1.4 2.3 3.1"/></symbol>
@@ -400,7 +487,15 @@ document.getElementById('lform').onsubmit=async e=>{e.preventDefault();const u=d
   let ok=false;try{ok=u==='partyfon'&&(await sha(p))===HASH}catch(_){err.textContent='Откройте кабинет по https';return}
   if(!ok){err.textContent='Неверный логин или пароль';document.getElementById('lp').value='';document.getElementById('lp').focus();return}
   err.textContent='';try{localStorage.setItem('pf.auth','1')}catch(_){};showApp()};
-document.getElementById('logout').onclick=()=>{try{localStorage.removeItem('pf.auth')}catch(_){};location.hash='';location.reload()};
+const doLogout=()=>{try{localStorage.removeItem('pf.auth')}catch(_){};location.hash='';location.reload()};
+document.getElementById('logout').onclick=doLogout;document.getElementById('logout2').onclick=doLogout;
+/* мобильная шторка «Меню» */
+const msheet=document.getElementById('msheet');
+function menuOpen(o){msheet.classList.toggle('on',o);msheet.setAttribute('aria-hidden',String(!o));document.getElementById('tb-menu').classList.toggle('on',o||MENU_V.includes(curV))}
+document.getElementById('tb-menu').onclick=()=>menuOpen(!msheet.classList.contains('on'));
+msheet.onclick=e=>{if(e.target===msheet||e.target.closest('a'))menuOpen(false)};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&msheet.classList.contains('on'))menuOpen(false)});
+const MENU_V=['managers','stock','logistics','marketing','reports','chat','map','auto'];let curV='overview';
 
 /* ============ data ============ */
 const TODAY=new Date(2026,10,4); // 4 ноября 2026 — демо «сегодня»
@@ -574,7 +669,7 @@ const visible=()=>DEALS.filter(d=>(S.mgr==='all'||d.m===S.mgr)&&(!S.q||(d.t+' '+
 
 /* ============ render ============ */
 const topEl=document.getElementById('top'),view=document.getElementById('view');
-function setTop(title,sub,right=''){topEl.innerHTML=`<h1>${title}</h1><span class="sub">${sub||''}</span><span class="sp"></span>${right}<span class="demo">демо-данные · 4 ноя 2026</span>`}
+function setTop(title,sub,right=''){topEl.innerHTML=`<a class="mlogo" href="#/overview"><img src="../assets/logo-dark.svg" alt="Partyfon"></a><h1>${title}</h1><span class="sub">${sub||''}</span><span class="sp"></span>${right}<span class="demo">демо-данные · 4 ноя 2026</span>`}
 function mgrFilter(){return `<div class="chips" id="mf"><button class="fchip ${S.mgr==='all'?'on':''}" data-m="all">Все менеджеры</button>${Object.entries(MGR).map(([k,m])=>`<button class="fchip ${S.mgr===k?'on':''}" data-m="${k}">${avatar(k,'sm')}${m.n.split(' ')[0]}</button>`).join('')}</div>`}
 function bindMgr(){const mf=document.getElementById('mf');mf&&(mf.onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;S.mgr=b.dataset.m;save();route()})}
 function nextHTML(d,cls='nx'){const st=status(d);const dd=days(d.due,TODAY);const dl=dd===0?'сегодня':dd===1?'завтра':dd<0?fd(d.due):fd(d.due);return `<div class="${cls} ${st.k==='bad'?'bad':dd===0?'today':''}">${icon(st.k==='bad'?'alert':'clock')}<span>${esc(d.next)}</span><em class="d">${dl}</em></div>`}
@@ -601,7 +696,7 @@ function rBoard(){
     ${vs.sort((a,b)=>a.due-b.due).map(d=>{const st=status(d);const ms=mainStep(d);return `<tr data-id="${d.id}"><td><b>${esc(d.t)}</b><span class="mu">${esc(d.cl)}</span></td><td class="w">${stageOf(d).n}</td><td><span class="chip sm"><i class="dot" style="--c:${hue(ms.lane)}"></i>${esc(stepLabel(d))}</span></td><td>${esc(d.next)}</td><td class="w"><span class="chip sm ${st.k==='bad'?'bad':st.k==='today'?'warn':st.k==='wait'?'brand':''}">${fd(d.due)}</span></td><td class="w">${avatar(d.m,'sm')} ${MGR[d.m].n.split(' ')[0]}</td><td class="num">${money(d.amt)}</td><td class="w">${fdy(d.ev)}</td></tr>`}).join('')}
     </tbody></table></div></div>`;
   }
-  bindMgr();
+  bindMgr();labelTables(view);
   view.onclick=e=>{const c=e.target.closest('[data-id]');if(c)location.hash='#/deal/'+c.dataset.id};
   topEl.querySelector('.seg').onclick=e=>{const b=e.target.closest('[data-mode]');if(!b)return;S.mode=b.dataset.mode;save();rBoard()};
   const q=document.getElementById('q');q.oninput=()=>{S.q=q.value.trim().toLowerCase();const pos=q.selectionStart;rBoard();const q2=document.getElementById('q');q2.focus();q2.setSelectionRange(pos,pos)};
@@ -649,7 +744,7 @@ function autoFor(d){const s=d.step;const L=[];
   return L}
 
 function rManagers(){setTop('Менеджеры','нагрузка и прозрачность по каждому');view.className='view';
-  view.innerHTML=`<div class="grid g2" style="grid-template-columns:repeat(auto-fill,minmax(360px,1fr))">${Object.entries(MGR).map(([k,m])=>{const ds=DEALS.filter(d=>d.m===k);const sum=ds.reduce((a,d)=>a+d.amt,0);const bad=ds.filter(d=>status(d).k==='bad').length;const wait=ds.filter(d=>status(d).k==='wait').length;const conv=Math.round(m.won/(m.won+m.lost)*100);
+  view.innerHTML=`<div class="grid gmg">${Object.entries(MGR).map(([k,m])=>{const ds=DEALS.filter(d=>d.m===k);const sum=ds.reduce((a,d)=>a+d.amt,0);const bad=ds.filter(d=>status(d).k==='bad').length;const wait=ds.filter(d=>status(d).k==='wait').length;const conv=Math.round(m.won/(m.won+m.lost)*100);
     const byStage=STAGES.map(st=>({st,n:ds.filter(d=>stageOf(d).id===st.id).length})).filter(x=>x.n);
     return `<div class="card mg" data-m="${k}"><div class="h">${avatar(k,'xl')}<div><b>${m.n}</b><span>${m.s} · ${ds.length} ${pl(ds.length,'сделка','сделки','сделок')} в работе</span></div></div>
     <div class="nums"><div><b>${money(sum).replace(' BYN','')}</b><span>BYN в работе</span></div><div><b class="${bad?'bad':''}">${bad}</b><span>просрочено</span></div><div><b>${wait}</b><span>ждут клиента</span></div></div>
@@ -677,7 +772,7 @@ function rOverview(){setTop('Обзор','Partyfon · все сделки');view
     <div class="card kpi"><div class="l">Просрочено действий</div><div class="v" style="color:${bad.length?'var(--danger)':'inherit'}">${bad.length}</div><div class="s ${bad.length?'bad':'ok'}">${bad.length?'у '+[...new Set(bad.map(d=>d.m))].length+' '+pl([...new Set(bad.map(d=>d.m))].length,'менеджера','менеджеров','менеджеров'):'всё в срок'}</div></div>
     <div class="card kpi"><div class="l">Мероприятий за 10 дней</div><div class="v">${week.length}</div><div class="s">${week.length?'ближайшее '+fd(week[0].ev)+' · '+esc(week[0].t.split(',')[0]):'нет'}</div></div>
   </div>
-  <div class="grid" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
+  <div class="grid g2w">
     <div class="grid" style="gap:16px">
       <div class="card att"><div class="hd"><h2>Требуют внимания</h2><span class="sub">${attention().length}</span><span class="sp"></span><a class="btn ghost sm" href="#/attention">Все ${icon('arrow')}</a></div><div class="bd rows">${attRows(attention().slice(0,6))}</div></div>
       <div class="card"><div class="hd"><h2>Ближайшие мероприятия</h2><span class="sub">10 дней</span></div><div class="bd rows">${week.map(d=>`<div class="row" data-id="${d.id}"><div class="t"><b>${esc(d.t)}</b><span>${esc(d.venue)} · ${esc(stepLabel(d))}</span></div>${avatar(d.m,'sm')}<div class="r"><b>${fd(d.ev)}</b>${money(d.amt)}</div></div>`).join('')||'<div class="empty">Пусто</div>'}</div></div>
@@ -774,7 +869,7 @@ function rLogistics(){setTop('Логистика','рейсы, окна и эк�
     <div class="card kpi"><div class="l">На неделе</div><div class="v">${trips.filter(t=>days(t.when,TODAY)<=7).length}</div><div class="s">до ${fd(new Date(TODAY.getTime()+7*864e5))}</div></div>
     <div class="card kpi"><div class="l">Транспорт</div><div class="v">4</div><div class="s">фура, спринтер, 2 газели</div></div>
     <div class="card kpi"><div class="l">Грузчики заняты</div><div class="v">${trips.filter(t=>days(t.when,TODAY)<=2).reduce((a,t)=>a+t.ld,0)}</div><div class="s">человеко-выездов за 3 дня</div></div></div>
-  <div class="grid" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
+  <div class="grid g2w">
     <div class="card"><div class="hd"><h2>Рейсы</h2><span class="sub">ближайшие 10 дней</span></div><div class="bd">${Object.entries(byDay).map(([k,ts])=>`<div style="font-size:11px;color:var(--mutedfg);padding:10px 0 2px">${k===fd(TODAY)?'Сегодня, ':''}${k}</div>${ts.map(t=>{const d=DEALS.find(x=>x.id===t.d);return `<div class="trip" data-id="${t.d}"><div class="d">${t.win.split('–')[0]}<span>${t.win.split('–')[1]}</span></div><div class="t"><b>${t.k}: ${esc(d.t.split(',')[0])}</b><span>${esc(d.venue)} · ${t.veh} · ${esc(t.drv)}${t.ld?' · грузчиков '+t.ld:''}</span></div><span class="chip sm ${t.st==='в пути'?'brand':''}">${t.st}</span></div>`}).join('')}`).join('')}</div></div>
     <div class="grid" style="gap:16px">
       <div class="card"><div class="hd"><h2>Экипажи и транспорт</h2></div><div class="bd rows">${[['Фура MAN','Олег','6 ноя концерт, 8 ноя возврат'],['Спринтер','Сергей','сегодня 20:00 ТЦ «Галерея»'],['Газель 1','Андрей','6, 8, 13 ноя'],['Газель 2','свободна','резерв'],['Грузчики, бригада','4 человека','6 ноя двойной выезд']].map(r=>`<div class="row" style="cursor:default"><div class="t"><b>${r[0]}</b><span>${r[2]}</span></div><div class="r"><b>${r[1]}</b></div></div>`).join('')}</div></div>
@@ -791,7 +886,7 @@ function rMarketing(){setTop('Маркетинг','поводы, подарки,
     <div class="card kpi"><div class="l">Подарков на складе</div><div class="v">${GIFTS.reduce((a,g)=>a+g[1],0)}</div><div class="s">склад подарков и мерча</div></div>
     <div class="card kpi"><div class="l">Молчат 2+ недели</div><div class="v">${silent.filter(x=>x.gap>=14).length}</div><div class="s">повод вернуться</div></div>
     <div class="card kpi"><div class="l">Сезонная рассылка</div><div class="v">3 дек</div><div class="s">«Новогодний сезон: бронируйте даты»</div></div></div>
-  <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
+  <div class="grid g2w">
     <div class="grid" style="gap:16px">
       <div class="card"><div class="hd"><h2>Важные даты</h2><span class="sub">подарок готовим за 2 недели, менеджеру напоминаем за день</span></div><div class="bd rows">${dates.filter(x=>days(x.d,TODAY)>=-3).map(x=>{const dd=days(x.d,TODAY);return `<div class="row" data-c="${x.c.id}"><div class="t"><b>${esc(x.c.n)}${x.c.vip?' <span class="chip sm">VIP</span>':''}</b><span>${x.k} · ${x.c.gift||'подарок не назначен'}</span></div><span class="chip sm ${dd<=14?'warn':''}">${dd<0?'прошло':dd===0?'сегодня':'через '+dd+' дн'}</span><div class="r"><b>${fd(x.d)}</b></div></div>`}).join('')}</div></div>
       <div class="card"><div class="hd"><h2>Повод вернуться</h2><span class="sub">клиенты без контакта</span></div><div class="bd rows">${silent.map(x=>`<div class="row" data-c="${x.c.id}"><div class="t"><b>${esc(x.c.n)}</b><span>последний контакт ${fd(x.last)} · ${esc(x.c.who.split(',')[0])}</span></div><span class="chip sm ${x.gap>=14?'warn':''}">${x.gap} дн</span></div>`).join('')||'<div class="empty">Все клиенты на связи</div>'}</div></div>
@@ -847,11 +942,16 @@ function rAuto(){setTop('Автоматизации','что Mary берёт н�
   view.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{b.classList.toggle('on');toast(b.classList.contains('on')?'Включено':'Выключено')});
 }
 
-function updateNav(){document.getElementById('n-deals').textContent=DEALS.length;document.getElementById('n-tasks').textContent=TASKS.filter(t=>!t.done).length;const ds=stockDeficits().length;const ns=document.getElementById('n-stock');ns.textContent=ds||'';ns.className='n'+(ds?' red':'');ns.hidden=!ds;const a=attention().filter(x=>x.st.k==='bad').length;const el=document.getElementById('n-att');el.textContent=a||'';el.hidden=!a}
-function route(){if(!authed())return;const h=location.hash||'#/overview';const [,v,arg]=h.split('/');
-  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v||(v==='deal'&&a.dataset.v==='board')||(v==='client'&&a.dataset.v==='clients')));
+function updateNav(){document.getElementById('n-deals').textContent=DEALS.length;const open=TASKS.filter(t=>!t.done).length;document.getElementById('n-tasks').textContent=open;document.getElementById('m-tasks').textContent=open;const ds=stockDeficits().length;[document.getElementById('n-stock'),document.getElementById('m-stock')].forEach(ns=>{ns.textContent=ds||'';ns.className='n'+(ds?' red':'');ns.hidden=!ds});const a=attention().filter(x=>x.st.k==='bad').length;const el=document.getElementById('n-att');el.textContent=a||'';el.hidden=!a;document.getElementById('tb-att').textContent=a||'';document.getElementById('tb-dot').hidden=!ds}
+/* подписи колонок для мобильного вида таблиц */
+function labelTables(root){root.querySelectorAll('table.tbl').forEach(t=>{const hs=[...t.querySelectorAll('thead th')].map(h=>h.textContent.trim());t.querySelectorAll('tbody tr').forEach(tr=>[...tr.children].forEach((td,i)=>{if(hs[i])td.dataset.l=hs[i]}))})}
+function route(){if(!authed())return;const h=location.hash||'#/overview';const [,v,arg]=h.split('/');curV=v;
+  const isOn=dv=>dv===v||(v==='deal'&&dv==='board')||(v==='client'&&dv==='clients');
+  document.querySelectorAll('.nav a,.tabbar a').forEach(a=>a.classList.toggle('on',isOn(a.dataset.v)));
+  menuOpen(false);
   updateNav();
   ({overview:rOverview,board:rBoard,deal:()=>rDeal(arg),clients:rClients,client:()=>rClient(arg),managers:rManagers,attention:rAttention,stock:rStock,logistics:rLogistics,marketing:rMarketing,reports:rReports,chat:rChat,map:rMap,auto:rAuto}[v]||rOverview)();
+  labelTables(view);
   if(!view.classList.contains('noscroll'))view.scrollTop=0;
 }
 window.addEventListener('hashchange',route);
