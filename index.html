@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Partyfon: карта бизнеса</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="build" content="20261105100204">
+<script>
+/* свежесть: браузеры Telegram/Safari кэшируют html без Cache-Control; раз за сессию сверяем штамп сборки с сервером и перезагружаем с новым ?v= */
+(function(){try{if(!/^https?:$/.test(location.protocol))return;var me=document.querySelector('meta[name=build]').content;if(sessionStorage.getItem('pf.fresh')===me)return;
+fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){var m=t.match(/name="build" content="([^"]+)"/);
+if(m&&m[1]!==me){sessionStorage.setItem('pf.fresh',m[1]);location.replace(location.pathname+'?v='+m[1]+location.hash)}else sessionStorage.setItem('pf.fresh',me)}).catch(function(){})}catch(e){}})();
+</script>
 <style>
 /* Layout: one-row header → status filters → [rail (outline / departments) | scroll area + detail panel in flow]. Light only. */
 :root{
